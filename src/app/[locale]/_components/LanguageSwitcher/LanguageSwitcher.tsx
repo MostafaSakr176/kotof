@@ -18,7 +18,12 @@ const options = [
 const LanguageSwitcher = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { direction, setDirection } = useDirection();
+  const { direction, setDirection ,toggleDirection} = useDirection();
+
+  
+// Ensure consistent rendering between server and client
+const isClient = typeof window !== 'undefined';
+const initialDirection = isClient ? localStorage.getItem('direction') : 'ltr';
 
   useEffect(() => {
     if (pathname.startsWith("/ar")) {
@@ -31,10 +36,12 @@ const LanguageSwitcher = () => {
   const handleSelect = (selected: { option: string }) => {
     if (selected.option === "Arabic") {
       router.push("/ar");
-      setDirection("rtl");
+      toggleDirection();
+
     } else {
       router.push("/en");
-      setDirection("ltr");
+      toggleDirection();
+
     }
   };
 
@@ -43,7 +50,7 @@ const LanguageSwitcher = () => {
       options={options}
       onSelect={handleSelect}
       placeholder={direction === "rtl" ? options[0] : options[1]}
-      selected={direction === "rtl" ? options[0] : options[1]}
+      selected={initialDirection === "rtl" ? options[0] : options[1]}
     />
   );
 };

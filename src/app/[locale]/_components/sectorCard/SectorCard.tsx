@@ -1,10 +1,9 @@
 "use client"
 import React, { useState } from 'react'
-import Link from 'next/link';
+import { Link, useRouter } from "@/i18n/routing";
 import Button from '../button/Button';
 import Modal from '../modal/Modal';
 import PriceInput from '../amountInput/AmountInput';
-import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 

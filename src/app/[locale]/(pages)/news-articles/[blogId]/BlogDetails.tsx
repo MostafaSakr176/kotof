@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Breadcrumb from '../../../_components/breadcrumb/breadcrumb'
 import panner from '@/media/plog-details-img.png'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from "@/i18n/routing";
 import BlogCard from '../../../_components/articleCard/BlogCard'
 
 

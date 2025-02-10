@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import logo from '@/media/logo.png'
 import Button from '../../_components/button/Button'
-import Link from 'next/link'
+import { Link } from "@/i18n/routing";
 import OTPInput from './OTP'
 import SendOTP from './SendOTP'
 import toast from 'react-hot-toast'

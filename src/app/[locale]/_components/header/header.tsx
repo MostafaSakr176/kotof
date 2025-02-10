@@ -8,11 +8,15 @@ import img3 from "@/media/tele-icon.png";
 import img4 from "@/media/facebook-icon.png";
 import img5 from "@/media/linkedIn-icon.png";
 import logo from "@/media/logo.png";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import menuIcon from "@/media/menuIcon.png";
 import { useUser } from "../../_contexts/userContext";
 import { useTranslations } from "next-intl";
-import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
+// import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
+import dynamic from "next/dynamic";
+const LanguageSwitcher = dynamic(() => import("../LanguageSwitcher/LanguageSwitcher"), {
+  ssr: false, // Disable SSR for this component
+});
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +27,7 @@ const Header = () => {
   // Ensure consistent rendering between server and client
   const isClient = typeof window !== "undefined";
   const initialUser = isClient ? user : null;
+
 
   useEffect(() => {
     console.log("Component mounted on the client");

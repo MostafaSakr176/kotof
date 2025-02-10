@@ -5,7 +5,7 @@ import userImg from "@/media/user img.png";
 import Image from 'next/image';
 import Modal from '../modal/Modal';
 import PriceInput from '../amountInput/AmountInput';
-import { useRouter } from 'next/navigation';
+import { useRouter } from "@/i18n/routing";
 import toast from 'react-hot-toast';
 
 interface AppProps {

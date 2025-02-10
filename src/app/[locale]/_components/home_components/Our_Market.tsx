@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+import { useRouter } from "@/i18n/routing";
 import React, { useEffect, useState } from 'react'
 import Button from '../button/Button';
 import ProductCard from '../productCard/ProductCard';

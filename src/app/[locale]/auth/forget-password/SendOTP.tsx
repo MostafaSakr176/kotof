@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Button from "../../_components/button/Button";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import toast from "react-hot-toast";
 
 interface ISendOTPprops {

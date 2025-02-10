@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import React from 'react'
 import blogImg from "@/media/our blog img 2.png";
-import Link from 'next/link';
+import { Link } from "@/i18n/routing";;
 
 
 interface IBlogCardProps {

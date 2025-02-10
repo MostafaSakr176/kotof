@@ -32,7 +32,7 @@ export default async function LocaleLayout({
 
 
   return (
-    <html lang={locale}>
+    <html lang={locale} >
       <head />
       <body>
         <NextIntlClientProvider messages={messages}>
