@@ -12,69 +12,69 @@ interface ISector {
   company_evaluation: number,
   status_id: number,
   status: string,
-  type:string,
+  type: string,
   type_flag: string,
   participants: number,
   total_price: number,
   sector: {
-      id: 1,
-      title: string,
-      description: string,
-      number_of_acres: number,
-      available_shares: number,
-      land_area: number,
-      offered_by_company: number,
-      pdf: string,
-      company_rate: number,
-      launch_start: string,
-      construction_start: string,
-      construction_end: string,
-      production_start: string,
-      media: string[],
-      created_at: string
+    id: 1,
+    title: string,
+    description: string,
+    number_of_acres: number,
+    available_shares: number,
+    land_area: number,
+    offered_by_company: number,
+    pdf: string,
+    company_rate: number,
+    launch_start: string,
+    construction_start: string,
+    construction_end: string,
+    production_start: string,
+    media: string[],
+    created_at: string
   },
   user: {
-      id: number,
-      image: string,
-      username: string,
-      whatsapp_number: string,
-      country_code: string,
-      phone: string
+    id: number,
+    image: string,
+    username: string,
+    whatsapp_number: string,
+    country_code: string,
+    phone: string
   },
   created_at: string,
 }
 
-const ShowSectors = ({projectId}:{projectId:number}) => {
-    
-      const [data, setData] = useState<ISector[]>();
-      const [totalPages, setTotalPages] = useState<number>();
-      const [CurrentPage, setCurrentPage] = useState<number>(1)
-    
+const ShowSectors = ({ projectId }: { projectId: number }) => {
 
-      useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await fetch(`https://test.jiovanilibya.org/api/user/market?filter[project_id]=${projectId}`);
-            const result = await response.json();
-            setData(result.data);
-            setTotalPages(result?.pages)
-            setCurrentPage(result?.current_page)
-    
-          } catch (error) {
-            console.error('Error fetching data:', error);
-          }
-        };
-    
-        fetchData();
-      }, [projectId]); // Empty dependency array ensures this runs only once after the component mounts
-    
+  const [data, setData] = useState<ISector[]>();
+  const [totalPages, setTotalPages] = useState<number>();
+  const [CurrentPage, setCurrentPage] = useState<number>(1)
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://test.jiovanilibya.org/api/user/market?filter[project_id]=${projectId}`);
+        const result = await response.json();
+        setData(result.data);
+        setTotalPages(result?.pages)
+        setCurrentPage(result?.current_page)
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [projectId]); // Empty dependency array ensures this runs only once after the component mounts
+
 
 
   return (
     <>
-          <Breadcrumb
+      <Breadcrumb
         items={[
-          { label: 'Sectors', href: '/sectors' },
+          { label: 'Our Projects', href: '/our-projects' },
         ]}
       />
 
