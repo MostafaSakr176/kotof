@@ -148,13 +148,13 @@ const Header = () => {
                 href="/auth/signup"
                 className="block lg:hidden px-4 py-2 text-[14px] text-center font-[500] rounded-[8px] bg-white"
               >
-                Sign Up
+                {t("signUp")}
               </Link>
               <Link
                 href="/auth/signin"
                 className="block lg:hidden px-4 py-2 text-sm text-center md:text-base rounded-[8px] bg-[#009444] text-white hover:bg-[#00431F] duration-200"
               >
-                Login
+                {t("login")}
               </Link>
             </li>
           </ul>
