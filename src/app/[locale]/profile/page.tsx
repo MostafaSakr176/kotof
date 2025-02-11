@@ -7,7 +7,7 @@ import RenderProfileInfo from './ProfileInfo/ProfileInfo'
 import RenderWalletAndInvestments from './WalletAndInvestments/WalletAndInvestments'
 import RenderTransactionManagement from './TransactionManagement/TransactionManagement'
 import { useUser } from '../_contexts/userContext'
-import { useRouter } from 'next/navigation'
+import { useRouter } from "@/i18n/routing";
 
 // ================= Profile page ===================
 

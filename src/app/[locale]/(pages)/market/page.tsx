@@ -4,7 +4,7 @@ import Breadcrumb from '../../_components/breadcrumb/breadcrumb'
 import Tabs from '../../_components/tabs/Tabs'
 import ProductCard from '../../_components/productCard/ProductCard'
 import Pagination from '../../_components/pagination/Pagination'
-import { useRouter } from 'next/navigation'
+import { useRouter } from "@/i18n/routing";
 // import withAuth from '@/app/withAuth'
 
 

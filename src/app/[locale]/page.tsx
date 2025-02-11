@@ -7,7 +7,7 @@ import 'aos/dist/aos.css';
 import { useEffect } from 'react';
 import Out_team from './_components/home_components/Out_team'
 import Our_client from './_components/home_components/Our_client'
-// import { useRouter } from 'next/navigation'
+// import { useRouter } from "@/i18n/routing";
 import Banner from './_components/home_components/Banner'
 import About from './_components/home_components/About'
 import Blogs from './_components/home_components/Blogs'

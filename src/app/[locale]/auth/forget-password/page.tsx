@@ -3,12 +3,11 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import logo from '@/media/logo.png'
 import Button from '../../_components/button/Button'
-import { Link } from "@/i18n/routing";
+import { Link, useRouter } from "@/i18n/routing";
 import OTPInput from './OTP'
 import SendOTP from './SendOTP'
 import toast from 'react-hot-toast'
 import { useUser } from '../../_contexts/userContext'
-import { useRouter } from 'next/navigation'
 
 
 const ForgetPass = () => {
