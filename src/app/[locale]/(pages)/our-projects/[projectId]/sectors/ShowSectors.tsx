@@ -88,8 +88,7 @@ const ShowSectors = ({ projectId }: { projectId: number }) => {
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8'>
           {data && data.map(SectorInfo => <SectorCard key={SectorInfo.id} SectorInfo={SectorInfo} />)}
         </div>
-        <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />
-
+        {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />:''}
 
       </div>
 

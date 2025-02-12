@@ -1,10 +1,14 @@
 import React from 'react'
-
+import styles from './Spinner.module.css'
 const Spinner = () => {
     return (
-        <div className="loader">
-            <span className="loader-text">loading</span>
-            <span className="load"></span>
+        <div className={styles.pinwheel}>
+            <div className={styles.pinwheel__line}></div>
+            <div className={styles.pinwheel__line}></div>
+            <div className={styles.pinwheel__line}></div>
+            <div className={styles.pinwheel__line}></div>
+            <div className={styles.pinwheel__line}></div>
+            <div className={styles.pinwheel__line}></div>
         </div>
     )
 }

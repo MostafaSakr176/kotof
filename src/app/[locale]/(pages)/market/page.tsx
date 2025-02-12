@@ -5,6 +5,7 @@ import Tabs from '../../_components/tabs/Tabs'
 import ProductCard from '../../_components/productCard/ProductCard'
 import Pagination from '../../_components/pagination/Pagination'
 import { useRouter } from "@/i18n/routing";
+import Spinner from '../../_components/spinner/Spinner'
 // import withAuth from '@/app/withAuth'
 
 
@@ -52,6 +53,8 @@ const RenderAllProducts = () => {
   const [data, setData] = useState<IProject[]>();
   const [totalPages, setTotalPages] = useState<number>();
   const [CurrentPage, setCurrentPage] = useState<number>(1)
+  const [isLoading, setisLoading] = useState<boolean>(false)
+
 
   const router = useRouter();
 
@@ -59,21 +62,26 @@ const RenderAllProducts = () => {
 
 
     const fetchData = async () => {
+      setisLoading(true)
       try {
         const response = await fetch('https://test.jiovanilibya.org/api/user/market');
         const result = await response.json();
         setData(result.data);
         setTotalPages(result?.pages)
         setCurrentPage(result?.current_page)
-
+      setisLoading(false);
+        
       } catch (error) {
         console.error('Error fetching data:', error);
+      setisLoading(false);
+
       }
     };
 
     fetchData();
   }, [router]); // Empty dependency array ensures this runs only once after the component mounts
 
+  if(isLoading) return <Spinner />
 
   return (
     <>
@@ -82,7 +90,7 @@ const RenderAllProducts = () => {
         {data ? data.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />):<h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
 
       </div>
-      {data && <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />}
+      {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />:''}
 
     </>
   )
@@ -120,10 +128,10 @@ const RenderFromCustomers = () => {
     <>
       <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-8'>
 
-        {data && data.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />)}
+      {data ? data.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />):<h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
 
       </div>
-      <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />
+      {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />:''}
 
     </>
   )
@@ -161,10 +169,10 @@ const RenderFromCompany = () => {
     <>
       <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-8'>
 
-        {data && data.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />)}
+      {data ? data.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />):<h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
 
       </div>
-      <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />
+      {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />:''}
 
     </>
   )

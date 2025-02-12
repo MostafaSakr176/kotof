@@ -63,7 +63,7 @@ const OurProjectsPage = () => {
 
         </div>
 
-        {data && <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />}
+        {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />:''}
 
       </div>
 

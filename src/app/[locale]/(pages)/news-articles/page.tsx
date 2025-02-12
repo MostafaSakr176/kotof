@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Breadcrumb from '../../_components/breadcrumb/breadcrumb'
 import Pagination from '../../_components/pagination/Pagination'
 import BlogCard from '../../_components/articleCard/BlogCard'
+import Spinner from '../../_components/spinner/Spinner'
 
 
 
@@ -20,19 +21,26 @@ const Blogs = () => {
 
   const [data, setData] = useState<IBlog[] | undefined>();
   const [totalPages, setTotalPages] = useState<number>();
-  const [CurrentPage, setCurrentPage] = useState<number>(1)
+  const [CurrentPage, setCurrentPage] = useState<number>(1);
+  const [isLoading, setisLoading] = useState<boolean>(false)
+
 
   useEffect(() => {
     const fetchData = async () => {
+      setisLoading(true);
+
       try {
         const response = await fetch('https://test.jiovanilibya.org/api/user/blogs');
         const result = await response.json();
         setData(result.data);
         setTotalPages(result?.pages)
         setCurrentPage(result?.current_page)
+        setisLoading(false);
+
 
       } catch (error) {
         console.error('Error fetching data:', error);
+        setisLoading(false);
       }
     };
 
@@ -54,13 +62,14 @@ const Blogs = () => {
           <h6 data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px]'>Our Blog</h6>
           <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[26px] md:text-[40px] text-[#252525] font-[500]'>Check our latest blog</h2>
         </div>
-
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8'>
+        
+        {isLoading ? <Spinner /> : <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8'>
 
           {data ? data.map((blogInfo: IBlog) => <BlogCard key={blogInfo.id} blogInfo={blogInfo} />):<h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
 
-        </div>
-        {data && <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />}
+        </div>}
+
+        {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />:''}
 
 
       </div>

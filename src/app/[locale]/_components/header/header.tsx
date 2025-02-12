@@ -80,7 +80,7 @@ const Header = () => {
           </ul>
         </div>
       </div>
-      <nav className={styles.navbar + " relative"}>
+      <nav className="relative z-[999999]">
         <div className="flex justify-between items-center py-2 max-w-[90%] mx-auto sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
           <Link href={"/"}>
             <Image src={logo} alt="logo" className="w-20 md:w-32" priority />

@@ -55,7 +55,7 @@ const BlogDetails = ({blogId}:IProps) => {
     
         fetchData();
         fetchBlogs();
-      }); // Empty dependency array ensures this runs only once after the component mounts
+      },[blogId]); // Empty dependency array ensures this runs only once after the component mounts
     
 
       let day, month, year;
@@ -80,8 +80,8 @@ const BlogDetails = ({blogId}:IProps) => {
       />
 
       <div className="mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl my-20 md:my-32 space-y-20 lg:space-y-32">
-        <div className='flex items-start gap-8 lg:gap-16'>
-          <div className='w-full lg:w-2/3'>
+        <div className='grid grid-cols-3 gap-8 lg:gap-16'>
+          <div className='col-span-3 lg:col-span-2'>
             <div className='w-full relative'>
             <Image src={data?.image ? data?.image : panner} alt='user' width={100} height={100} className='w-full' />
             <span className='absolute bottom-6 left-6 px-6 py-3 rounded-[10px] text-white bg-[#009444] text-[14px] font-[600]'>{day} {month} {year}</span>
@@ -103,7 +103,7 @@ const BlogDetails = ({blogId}:IProps) => {
             <h2 className='text-[30px] text-[#1F1E17] font-[700] mb-4'>{data?.title}</h2>
             <p className='text-[16px] font-[500] leading-[30px] text-[#656565] mb-6'>{data?.content}</p>
           </div>
-          <div className='w-full lg:w-1/3 space-y-8'>
+          <div className='col-span-3 lg:col-span-1 space-y-8'>
             <div className='bg-[#EAF8F0] rounded-[10px] p-8'>
               <h6 className='text-[22px] text-[#1F1E17] font-[700] mb-4 leading-[30px]'>Categories</h6>
               <ul className='space-y-6'>
