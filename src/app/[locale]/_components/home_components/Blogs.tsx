@@ -1,7 +1,9 @@
 import { Link } from "@/i18n/routing";
 import React, { useEffect, useState } from 'react'
 import BlogCard from '../articleCard/BlogCard'
-// import Image from 'next/image'
+import Image from 'next/image'
+import ProjectImg from '@/media/our values img1.png'
+
 
 
 interface IBlog {
@@ -47,8 +49,7 @@ const Blogs = () => {
 
             <div className='flex flex-col lg:flex-row items-stretch gap-8'>
                 <div data-aos="fade-right" data-aos-duration="500" data-aos-delay="0" className="relative w-full lg:w-1/2 h-auto">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={data ? data[0]?.image : "https://test.jiovanilibya.org/dashboard/blank.jpg"} alt='blog img' className='rounded-[8px] h-full w-full object-cover' />
+                    <Image src={data ? data[0]?.image : ProjectImg} width={100} height={100} alt='blog img' className='rounded-[8px] h-full w-full object-cover' />
                     <div className='flex flex-col justify-end gap-4 md:gap-6 text-white absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/0 to-black/90 rounded-[8px] p-6 md:p-16'>
                         <h5 className='text-[22px] leading-[22px] md:text-[28px] md:leading-[33px] font-bold'>{data? data[0]?.title : "" }</h5>
                         <p className='text-[14px] md:text-[17px]'>{data? data[0]?.content : "" }</p>

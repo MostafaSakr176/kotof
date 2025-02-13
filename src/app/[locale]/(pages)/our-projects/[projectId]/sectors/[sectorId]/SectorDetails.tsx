@@ -10,6 +10,10 @@ import img3 from '@/media/our team img1.png'
 import img4 from '@/media/sector img 1.png'
 import Tabs from '../../../../../_components/tabs/Tabs';
 import SectorCard from '../../../../../_components/sectorCard/SectorCard';
+import toast from 'react-hot-toast';
+import { useRouter } from '@/i18n/routing';
+import Modal from '@/app/[locale]/_components/modal/Modal';
+import PriceInput from '@/app/[locale]/_components/amountInput/AmountInput';
 
 const images = [
     {
@@ -43,7 +47,7 @@ interface IMarket {
     company_evaluation: number,
     status_id: number,
     status: string,
-    type:string,
+    type: string,
     type_flag: string,
     participants: number,
     total_price: number,
@@ -79,6 +83,85 @@ const SectorDetails = ({ sectorId }: Iprops) => {
 
     const [data, setData] = useState<IMarket>();
     const [RelatedSectors, setRelatedSectors] = useState<IMarket[]>();
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [OfferValue, setOfferValue] = useState<number | null>(null)
+    const [NumberOfShares, setNumberOfShares] = useState<number | null>(null)
+    const [IsLoading, setIsLoading] = useState<boolean>(false)
+
+
+    const router = useRouter()
+
+
+    const handleOpenModal = () => {
+
+        const token = typeof window !== 'undefined' && localStorage.getItem('token');
+
+        // If the user is not authenticated, redirect to the login page
+        if (!token) {
+            router.push('/auth/signin');
+        } else {
+            setIsOpen(true)
+        }
+
+    }
+
+
+    const handleAskingPrice = (value: number): void => {
+        console.log('Price value:', value);
+        setOfferValue(value)
+    };
+
+    const handleNumberOfShares = (value: number): void => {
+        console.log('Price value:', value);
+        setNumberOfShares(value)
+    };
+
+    const handleSendOffer = async () => {
+
+        setIsLoading(true);
+
+        const token = typeof window !== 'undefined' && localStorage.getItem('token');
+
+        const myHeaders = new Headers();
+        myHeaders.append("accept", "application/json");
+        myHeaders.append("Authorization", `Bearer ${token ? JSON.parse(token) : ''}`);
+
+        const formData = new FormData();
+        if (data?.id) formData.append("market_of_sector_id", data.id.toString());
+        if (OfferValue !== null) formData.append("asking_price", OfferValue.toString());
+        if (NumberOfShares !== null) formData.append("number_of_shares", NumberOfShares.toString());
+
+        try {
+            const response = await fetch("https://test.jiovanilibya.org/api/user/sectors/buy-shares", {
+                method: "POST",
+                headers: myHeaders,
+                body: formData,
+            });
+
+
+            const result = await response.json();
+
+            console.log(result);
+
+            if (response.ok) {
+                toast.success(result.message);
+                setIsOpen(false)
+                setIsLoading(false);
+
+            } else {
+                toast.error(result.message);
+                setIsLoading(false);
+                setIsOpen(false)
+
+            }
+        } catch (error) {
+            console.error(error);
+            setIsOpen(false)
+            setIsLoading(false);
+
+
+        }
+    }
 
 
     useEffect(() => {
@@ -232,7 +315,8 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                                 </svg>
 
                             </button>
-                            <Button className='h-14 w-full'>Buy Now</Button>
+                            <Button className='px-4' onClick={handleOpenModal}>Buy Now</Button>
+
                         </div>
                     </div>
                 </div>
@@ -253,94 +337,6 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                                 )
                             }
 
-                        },
-                        {
-                            id: 'tab2',
-                            label: 'Stage owners',
-                            content: () => {
-                                return (
-                                    <ul className='list-disc w-full lg:w-2/3'>
-                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>
-                                            <div className="flex items-center gap-2">
-                                                <span className='w-14 h-14 rounded-[50%] bg-[#E6F4EC] flex items-center justify-center'>
-                                                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M14.875 18.5733H15.6333C16.3917 18.5733 17.0217 17.8966 17.0217 17.08C17.0217 16.065 16.66 15.8666 16.065 15.6566L14.8867 15.2483V18.5733H14.875Z" fill="#009444" />
-                                                        <path d="M13.9657 2.21657C7.52573 2.23991 2.31073 7.47824 2.33406 13.9182C2.3574 20.3582 7.59573 25.5732 14.0357 25.5499C20.4757 25.5266 25.6907 20.2882 25.6674 13.8482C25.6441 7.40824 20.4057 2.20491 13.9657 2.21657ZM16.6374 13.9999C17.5474 14.3149 18.7724 14.9916 18.7724 17.0799C18.7724 18.8766 17.3607 20.3232 15.6341 20.3232H14.8757V20.9999C14.8757 21.4782 14.4791 21.8749 14.0007 21.8749C13.5224 21.8749 13.1257 21.4782 13.1257 20.9999V20.3232H12.7057C10.7924 20.3232 9.24073 18.7132 9.24073 16.7299C9.24073 16.2516 9.6374 15.8549 10.1157 15.8549C10.5941 15.8549 10.9907 16.2516 10.9907 16.7299C10.9907 17.7449 11.7607 18.5732 12.7057 18.5732H13.1257V14.6299L11.3641 13.9999C10.4541 13.6849 9.22906 13.0082 9.22906 10.9199C9.22906 9.12324 10.6407 7.67657 12.3674 7.67657H13.1257V6.99991C13.1257 6.52157 13.5224 6.12491 14.0007 6.12491C14.4791 6.12491 14.8757 6.52157 14.8757 6.99991V7.67657H15.2957C17.2091 7.67657 18.7607 9.28657 18.7607 11.2699C18.7607 11.7482 18.3641 12.1449 17.8857 12.1449C17.4074 12.1449 17.0107 11.7482 17.0107 11.2699C17.0107 10.2549 16.2407 9.42657 15.2957 9.42657H14.8757V13.3699L16.6374 13.9999Z" fill="#009444" />
-                                                        <path d="M10.9902 10.9318C10.9902 11.9468 11.3519 12.1451 11.9469 12.3551L13.1252 12.7634V9.42676H12.3669C11.6086 9.42676 10.9902 10.1034 10.9902 10.9318Z" fill="#009444" />
-                                                    </svg>
-                                                </span>
-                                                <div className='flex flex-col'>
-                                                    <span className='text-[#656565] text-[14px] font-[400]'>Total price</span>
-                                                    <p className='text-[#000] text-[18px] font-[500]'>230,000 EGP</p>
-                                                </div>
-                                            </div>
-                                            <span className='text-[#121212] text-[16px] font-[400]'>60%</span>
-                                        </li>
-                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>
-                                            <div className="flex items-center gap-2">
-                                                <span className='w-14 h-14 rounded-[50%] bg-[#E6F4EC] flex items-center justify-center'>
-                                                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M14.875 18.5733H15.6333C16.3917 18.5733 17.0217 17.8966 17.0217 17.08C17.0217 16.065 16.66 15.8666 16.065 15.6566L14.8867 15.2483V18.5733H14.875Z" fill="#009444" />
-                                                        <path d="M13.9657 2.21657C7.52573 2.23991 2.31073 7.47824 2.33406 13.9182C2.3574 20.3582 7.59573 25.5732 14.0357 25.5499C20.4757 25.5266 25.6907 20.2882 25.6674 13.8482C25.6441 7.40824 20.4057 2.20491 13.9657 2.21657ZM16.6374 13.9999C17.5474 14.3149 18.7724 14.9916 18.7724 17.0799C18.7724 18.8766 17.3607 20.3232 15.6341 20.3232H14.8757V20.9999C14.8757 21.4782 14.4791 21.8749 14.0007 21.8749C13.5224 21.8749 13.1257 21.4782 13.1257 20.9999V20.3232H12.7057C10.7924 20.3232 9.24073 18.7132 9.24073 16.7299C9.24073 16.2516 9.6374 15.8549 10.1157 15.8549C10.5941 15.8549 10.9907 16.2516 10.9907 16.7299C10.9907 17.7449 11.7607 18.5732 12.7057 18.5732H13.1257V14.6299L11.3641 13.9999C10.4541 13.6849 9.22906 13.0082 9.22906 10.9199C9.22906 9.12324 10.6407 7.67657 12.3674 7.67657H13.1257V6.99991C13.1257 6.52157 13.5224 6.12491 14.0007 6.12491C14.4791 6.12491 14.8757 6.52157 14.8757 6.99991V7.67657H15.2957C17.2091 7.67657 18.7607 9.28657 18.7607 11.2699C18.7607 11.7482 18.3641 12.1449 17.8857 12.1449C17.4074 12.1449 17.0107 11.7482 17.0107 11.2699C17.0107 10.2549 16.2407 9.42657 15.2957 9.42657H14.8757V13.3699L16.6374 13.9999Z" fill="#009444" />
-                                                        <path d="M10.9902 10.9318C10.9902 11.9468 11.3519 12.1451 11.9469 12.3551L13.1252 12.7634V9.42676H12.3669C11.6086 9.42676 10.9902 10.1034 10.9902 10.9318Z" fill="#009444" />
-                                                    </svg>
-                                                </span>
-                                                <div className='flex flex-col'>
-                                                    <span className='text-[#656565] text-[14px] font-[400]'>Total price</span>
-                                                    <p className='text-[#000] text-[18px] font-[500]'>230,000 EGP</p>
-                                                </div>
-                                            </div>
-                                            <span className='text-[#121212] text-[16px] font-[400]'>60%</span>
-                                        </li>
-                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>
-                                            <div className="flex items-center gap-2">
-                                                <span className='w-14 h-14 rounded-[50%] bg-[#E6F4EC] flex items-center justify-center'>
-                                                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M14.875 18.5733H15.6333C16.3917 18.5733 17.0217 17.8966 17.0217 17.08C17.0217 16.065 16.66 15.8666 16.065 15.6566L14.8867 15.2483V18.5733H14.875Z" fill="#009444" />
-                                                        <path d="M13.9657 2.21657C7.52573 2.23991 2.31073 7.47824 2.33406 13.9182C2.3574 20.3582 7.59573 25.5732 14.0357 25.5499C20.4757 25.5266 25.6907 20.2882 25.6674 13.8482C25.6441 7.40824 20.4057 2.20491 13.9657 2.21657ZM16.6374 13.9999C17.5474 14.3149 18.7724 14.9916 18.7724 17.0799C18.7724 18.8766 17.3607 20.3232 15.6341 20.3232H14.8757V20.9999C14.8757 21.4782 14.4791 21.8749 14.0007 21.8749C13.5224 21.8749 13.1257 21.4782 13.1257 20.9999V20.3232H12.7057C10.7924 20.3232 9.24073 18.7132 9.24073 16.7299C9.24073 16.2516 9.6374 15.8549 10.1157 15.8549C10.5941 15.8549 10.9907 16.2516 10.9907 16.7299C10.9907 17.7449 11.7607 18.5732 12.7057 18.5732H13.1257V14.6299L11.3641 13.9999C10.4541 13.6849 9.22906 13.0082 9.22906 10.9199C9.22906 9.12324 10.6407 7.67657 12.3674 7.67657H13.1257V6.99991C13.1257 6.52157 13.5224 6.12491 14.0007 6.12491C14.4791 6.12491 14.8757 6.52157 14.8757 6.99991V7.67657H15.2957C17.2091 7.67657 18.7607 9.28657 18.7607 11.2699C18.7607 11.7482 18.3641 12.1449 17.8857 12.1449C17.4074 12.1449 17.0107 11.7482 17.0107 11.2699C17.0107 10.2549 16.2407 9.42657 15.2957 9.42657H14.8757V13.3699L16.6374 13.9999Z" fill="#009444" />
-                                                        <path d="M10.9902 10.9318C10.9902 11.9468 11.3519 12.1451 11.9469 12.3551L13.1252 12.7634V9.42676H12.3669C11.6086 9.42676 10.9902 10.1034 10.9902 10.9318Z" fill="#009444" />
-                                                    </svg>
-                                                </span>
-                                                <div className='flex flex-col'>
-                                                    <span className='text-[#656565] text-[14px] font-[400]'>Total price</span>
-                                                    <p className='text-[#000] text-[18px] font-[500]'>230,000 EGP</p>
-                                                </div>
-                                            </div>
-                                            <span className='text-[#121212] text-[16px] font-[400]'>60%</span>
-                                        </li>
-                                        <li className='flex items-center justify-between'>
-                                            <div className="flex items-center gap-2">
-                                                <span className='w-14 h-14 rounded-[50%] bg-[#E6F4EC] flex items-center justify-center'>
-                                                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M14.875 18.5733H15.6333C16.3917 18.5733 17.0217 17.8966 17.0217 17.08C17.0217 16.065 16.66 15.8666 16.065 15.6566L14.8867 15.2483V18.5733H14.875Z" fill="#009444" />
-                                                        <path d="M13.9657 2.21657C7.52573 2.23991 2.31073 7.47824 2.33406 13.9182C2.3574 20.3582 7.59573 25.5732 14.0357 25.5499C20.4757 25.5266 25.6907 20.2882 25.6674 13.8482C25.6441 7.40824 20.4057 2.20491 13.9657 2.21657ZM16.6374 13.9999C17.5474 14.3149 18.7724 14.9916 18.7724 17.0799C18.7724 18.8766 17.3607 20.3232 15.6341 20.3232H14.8757V20.9999C14.8757 21.4782 14.4791 21.8749 14.0007 21.8749C13.5224 21.8749 13.1257 21.4782 13.1257 20.9999V20.3232H12.7057C10.7924 20.3232 9.24073 18.7132 9.24073 16.7299C9.24073 16.2516 9.6374 15.8549 10.1157 15.8549C10.5941 15.8549 10.9907 16.2516 10.9907 16.7299C10.9907 17.7449 11.7607 18.5732 12.7057 18.5732H13.1257V14.6299L11.3641 13.9999C10.4541 13.6849 9.22906 13.0082 9.22906 10.9199C9.22906 9.12324 10.6407 7.67657 12.3674 7.67657H13.1257V6.99991C13.1257 6.52157 13.5224 6.12491 14.0007 6.12491C14.4791 6.12491 14.8757 6.52157 14.8757 6.99991V7.67657H15.2957C17.2091 7.67657 18.7607 9.28657 18.7607 11.2699C18.7607 11.7482 18.3641 12.1449 17.8857 12.1449C17.4074 12.1449 17.0107 11.7482 17.0107 11.2699C17.0107 10.2549 16.2407 9.42657 15.2957 9.42657H14.8757V13.3699L16.6374 13.9999Z" fill="#009444" />
-                                                        <path d="M10.9902 10.9318C10.9902 11.9468 11.3519 12.1451 11.9469 12.3551L13.1252 12.7634V9.42676H12.3669C11.6086 9.42676 10.9902 10.1034 10.9902 10.9318Z" fill="#009444" />
-                                                    </svg>
-                                                </span>
-                                                <div className='flex flex-col'>
-                                                    <span className='text-[#656565] text-[14px] font-[400]'>Total price</span>
-                                                    <p className='text-[#000] text-[18px] font-[500]'>230,000 EGP</p>
-                                                </div>
-                                            </div>
-                                            <span className='text-[#121212] text-[16px] font-[400]'>60%</span>
-                                        </li>
-                                    </ul>
-                                )
-                            }
-                        },
-                        {
-                            id: 'tab3',
-                            label: 'Company review',
-                            content: () => {
-                                return (
-                                    <ul className='list-disc w-full lg:w-2/3'>
-                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>Launch Start :  <span className='text-[#121212] text-[16px] font-[400]'>1 / 8 / 2025</span></li>
-                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>Launch Start :  <span className='text-[#121212] text-[16px] font-[400]'>1 / 8 / 2025</span></li>
-                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>Launch Start :  <span className='text-[#121212] text-[16px] font-[400]'>1 / 8 / 2025</span></li>
-                                        <li className='flex items-center justify-between text-[#656565]'>Launch Start :  <span className='text-[#121212] text-[16px] font-[400]'>1 / 8 / 2025</span></li>
-                                    </ul>
-                                )
-                            }
                         }
                     ]}
                     defaultTab="tab1"
@@ -357,6 +353,48 @@ const SectorDetails = ({ sectorId }: Iprops) => {
 
                 </div>
             </div>
+
+            <Modal isOpen={isOpen} onClose={() => { setIsOpen(false) }} title='Submitting an offer'>
+
+                <ul className='space-y-2 list-disc mx-5 lg:mx-8 mb-8'>
+                    <li className='text-[14px] lg:text-[18px] text-[#525252] font-[400]'>You must be a member of the Qutoof community.  </li>
+                    <li className='text-[14px] lg:text-[18px] text-[#525252] font-[400]'>A 1% fee is deducted from the total amount as a purchase fee.  </li>
+                    <li className='text-[14px] lg:text-[18px] text-[#525252] font-[400]'>Approval from the seller and then the company is required, the company&apos;s approval process takes two business days. </li>
+                </ul>
+
+                <div className='mx-auto w-full lg:w-1/2 p-4 bg-gradient-to-b from-[#F4F8ED00] to-[#F4F8ED] rounded-[8px] border border-[#E5EDD3] mb-8 space-y-4'>
+                    <PriceInput
+                        maxValue={100000000}
+                        minValue={0}
+                        onChange={handleAskingPrice}
+                        initialValue={""}
+                        placeholder="Enter amount"
+                        label='I present an offer'
+                        currency='EGP'
+                    />
+                    <PriceInput
+                        maxValue={100000000}
+                        minValue={0}
+                        onChange={handleNumberOfShares}
+                        initialValue={""}
+                        placeholder="Enter amount"
+                        label='Number of shares'
+                    />
+
+                </div>
+                <ul className='space-y-2 list-disc mx-5 lg:mx-8 mb-6'>
+                    <li className='text-[14px] lg:text-[18px] text-[#525252] font-[400]'>You must have 20% of the required amount in your wallet, or deposit the amount into your wallet.</li>
+                    <li className='text-[14px] lg:text-[18px] text-[#525252] font-[400]'>You have a grace period of 5 days to deposit the remaining 80%, either into your wallet or by transferring it to the offer owner, along with a copy of the transfer receipt.</li>
+                    <li className='text-[14px] lg:text-[18px] text-[#525252] font-[400]'>If there is a delay, we reserve the right to deduct 10% as compensation for the landowner, from which 2% will be deducted as fees.  </li>
+                    <li className='text-[14px] lg:text-[18px] text-[#525252] font-[400]'>You must contact the company as soon as possible or request to send the contracts by mail.</li>
+                    <li className='text-[14px] lg:text-[18px] text-[#525252] font-[400]'>Contracts will be issued in the name shown on the ID, and for heirs in the event of death, they have the right to request the contracts and transfer ownership via official legal documentation.</li>
+                </ul>
+
+                <div className='w-full flex justify-end items-center gap-2 lg:gap-4 lg:px-2 pt-6 border-t border-[#F1F1F1]'>
+                    <Button variant='secondary' onClick={() => { setIsOpen(false) }}>Cancel</Button>
+                    <Button onClick={handleSendOffer} disabled={IsLoading}>{IsLoading ? "Sendding Offer..." : "Send Offer"}</Button>
+                </div>
+            </Modal>
 
         </>
     )

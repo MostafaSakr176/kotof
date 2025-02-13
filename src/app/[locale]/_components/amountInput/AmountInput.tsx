@@ -10,7 +10,7 @@ interface PriceInputProps {
     disabled?: boolean;
     className?: string;
     label?: string
-    currency?:string
+    currency?: string
 }
 
 const PriceInput: React.FC<PriceInputProps> = ({
@@ -100,13 +100,14 @@ const PriceInput: React.FC<PriceInputProps> = ({
             {label && <label className='text-[#656C77] text-[16px] leading-[24px] font-[500] mb-2'>{label}</label>}
             <div className="relative">
                 {currency && <span className={`
-          absolute 
-          right-3
-          top-1/2 
-          -translate-y-1/2 
-          text-[16px]
-          font-[400]
-          ${disabled ? 'text-gray-400' : 'text-[#363636]'}
+                absolute 
+                ltr:right-3
+                rtl:left-3
+                top-1/2 
+                -translate-y-1/2 
+                text-[16px]
+                font-[400]
+                ${disabled ? 'text-gray-400' : 'text-[#363636]'}
         `}>
                     {currency}
                 </span>}

@@ -1,4 +1,5 @@
 "use client"
+import Image from 'next/image';
 // import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react'
 import Slider from 'react-slick';
@@ -79,13 +80,7 @@ const Our_client = () => {
       <div className=''>
         <Slider ref={sliderRef1} {...settings1}>
           {data && data.map(data => <div className='relative rounded-[8px] overflow-hidden' key={data.id}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={data ? data.image : "https://test.jiovanilibya.org/dashboard/blank.jpg"} alt='our clients' className='w-full' />
-            <span className='absolute z-10 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex items-center justify-center w-20 h-20 border-[5px] border-[#fff] rounded-[50%]'>
-              <svg width="26" height="30" viewBox="0 0 26 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M26 15L0.499999 29.7224L0.5 0.277567L26 15Z" fill="white" />
-              </svg>
-            </span>
+            <Image src={data.image ? data.image : "https://test.jiovanilibya.org/dashboard/blank.jpg"} width={100} height={100} alt='our clients' className='w-full h-auto' />
             <div className='absolute z-8 top-0 left-0 w-full h-full bg-gradient-to-t from-[#000000] to-[#D9D9D900] p-8 flex flex-col justify-end items-start'>
               <h5 className='text-[22px] text-[#fff] font-[800]'>{data ? data.title : ""}</h5>
               <span className='text-[18px] text-[#CFCFCF] font-[600]'>Client</span>

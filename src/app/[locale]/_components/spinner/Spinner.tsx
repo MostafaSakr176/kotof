@@ -1,14 +1,15 @@
 import React from 'react'
-import styles from './Spinner.module.css'
 const Spinner = () => {
     return (
-        <div className={styles.pinwheel}>
-            <div className={styles.pinwheel__line}></div>
-            <div className={styles.pinwheel__line}></div>
-            <div className={styles.pinwheel__line}></div>
-            <div className={styles.pinwheel__line}></div>
-            <div className={styles.pinwheel__line}></div>
-            <div className={styles.pinwheel__line}></div>
+        <div className='w-full h-full flex justify-center items-center'>
+            <div className="pinwheel">
+                <div className="pinwheel__line"></div>
+                <div className="pinwheel__line"></div>
+                <div className="pinwheel__line"></div>
+                <div className="pinwheel__line"></div>
+                <div className="pinwheel__line"></div>
+                <div className="pinwheel__line"></div>
+            </div>
         </div>
     )
 }

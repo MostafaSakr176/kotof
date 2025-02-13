@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import coverImg from '@/media/profile cover.png'
-// import UserImg from '@/media/our clients img1.png'
+import UserImg from '@/media/our clients img1.png'
 import Image from 'next/image'
 import RenderProfileInfo from './ProfileInfo/ProfileInfo'
 import RenderWalletAndInvestments from './WalletAndInvestments/WalletAndInvestments'
@@ -58,7 +58,7 @@ const ProfilePage = () => {
             <div className='relative mb-[100px] lg:mb-[250px] bg-white'>
                 <Image src={coverImg} alt='profile cover' className='h-[120px] lg:h-[360px] w-full object-cover' />
                 <div className="absolute z-10 bottom-0 left-[50%] translate-x-[-50%] translate-y-[60%] w-full flex items-end  gap-6 lg:gap-12 mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
-                    <Image src={currentUser.image} alt='profile cover' width={100} height={100} className='h-[120px] w-[120px] lg:h-[280px] lg:w-[280px] object-cover rounded-[50%] border-[4px] border-white' />
+                    <Image src={currentUser? currentUser.image : UserImg} alt='profile cover' width={100} height={100} className='h-[120px] w-[120px] lg:h-[280px] lg:w-[280px] object-cover rounded-[50%] border-[4px] border-white' />
                     <div className='flex flex-col justify-center gap-0 lg:gap-2 h-[70px] lg:h-[140px]'>
                         <span className='text-[#656565] text-[14px] lg:text-[20px] font-[400]'>Welcome,</span>
                         <h4 className='text-[#17181B] text-[20px] lg:text-[32px] font-[600]'>{user?.username}</h4>

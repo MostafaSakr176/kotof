@@ -5,6 +5,8 @@ import Button from '../button/Button';
 import Modal from '../modal/Modal';
 import PriceInput from '../amountInput/AmountInput';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
+import SectorImg from  "@/media/sector img 1.png" 
 
 
 interface ISectorCardProps {
@@ -134,8 +136,7 @@ const SectorCard = ({ SectorInfo }: ISectorCardProps) => {
   return (
     <>
       <div className="w-full overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="w-full rounded-lg object-cover mb-2 lg:mb-4" src={SectorInfo?.sector.media[0] ? SectorInfo?.sector.media[0] : "https://test.jiovanilibya.org/dashboard/blank.jpg"} alt="Card image" />
+        <Image src={SectorInfo?.sector.media[0] ? SectorInfo?.sector.media[0] : SectorImg} width={100} height={100} alt="Card image" className="w-full h-auto rounded-lg object-cover mb-2 lg:mb-4"  />
         <div className="py-3">
           <h2 className="text-[24px] lg:text-[28px] font-[500] mb-3 text-[#121212]">{SectorInfo.sector.title}</h2>
           <p className="text-[#525252] text-[16px] lg:text-[20px] mb-4 line-clamp-3">{SectorInfo.sector.description}</p>

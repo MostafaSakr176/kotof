@@ -16,8 +16,8 @@ interface ITeam {
 
 const Out_team = () => {
 
-  // const { direction } = useDirection();
-
+  const [currentSlide, setCurrentSlide] = useState<number>(1); // Starts at 1 (first slide)
+  const [totalSlides, setTotalSlides] = useState<number>(0); // Total slides count
 
   const sliderRef2 = useRef<Slider | null>(null);
   const next2 = () => {
@@ -36,7 +36,7 @@ const Out_team = () => {
               const result = await response.json();
               setData(result.data);
               console.log(result.data[0]);
-
+              setTotalSlides(result.data.length); // Set total slides count
           } catch (error) {
               console.error('Error fetching data:', error);
           }
@@ -46,7 +46,6 @@ const Out_team = () => {
   }, []); // Empty dependency array ensures this runs only once after the component mounts
 
 
-
   const settings2 = {
     dots: false,
     fade: true,
@@ -54,7 +53,10 @@ const Out_team = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    waitForAnimate: false
+    waitForAnimate: false,
+    afterChange: (index: number) => {
+      setCurrentSlide(index + 1)
+    }, // Update current slide number
   };
 
   return (
@@ -68,16 +70,17 @@ const Out_team = () => {
         <Slider ref={sliderRef2} {...settings2} className='ourteam-slider'>
           {data && data.map(data => <div key={data.id}>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-              <Image src={ourTeamImg} alt='our team' className='rounded-[8px]' />
+              <Image src={data.image ? data.image : ourTeamImg} alt='our team' width={100} height={100}  className='w-full h-auto rounded-[8px]' />
               <div className='flex flex-col justify-between'>
                 <div>
-                  <p className='text-[20px] md:text-[24px] font-[400] text-[#363636] mb-8 line-clamp-[9]'>{data? data?.content : "" }</p>
-                  <h6 className='text-[32px] font-[500] text-[#252525] mb-4'>{data? data?.name : "" }</h6>
-                  <span className='text-[#656565] text-[20px] font-[400]'>{data? data?.title : "" }</span>
+                  <p className='text-[20px] md:text-[24px] font-[400] text-[#363636] mb-8 line-clamp-[9]'>{data?.content}</p>
+                  <h6 className='text-[32px] font-[500] text-[#252525] mb-4'>{data?.name  }</h6>
+                  <span className='text-[#656565] text-[20px] font-[400]'>{data?.title }</span>
                 </div>
 
                 <div className='flex items-center justify-between'>
-                  <span>{data ? (new Date(data.created_at as string).getMonth() + 1).toString().padStart(2, '0') : ""} / {data ? new Date(data.created_at as string).getFullYear():""}</span>
+                  <span>{currentSlide} /  {totalSlides}</span>
+                  {/* <span>{data ? (new Date(data.created_at as string).getMonth() + 1).toString().padStart(2, '0') : ""} / {data ? new Date(data.created_at as string).getFullYear():""}</span> */}
                 </div>
               </div>
             </div>

@@ -10,9 +10,9 @@ const SectorDetailsPage = async ({ params }: { params: PageParams }) => {
 
 
     return (
-<>
-<SectorDetails sectorId={sectorId} />
-</>
+        <>
+            <SectorDetails sectorId={sectorId} />
+        </>
 
     );
 };

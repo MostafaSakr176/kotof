@@ -6,7 +6,7 @@ import ProductCard from '../../_components/productCard/ProductCard'
 import Pagination from '../../_components/pagination/Pagination'
 import { useRouter } from "@/i18n/routing";
 import Spinner from '../../_components/spinner/Spinner'
-// import withAuth from '@/app/withAuth'
+import toast from 'react-hot-toast'
 
 
 interface IProject {
@@ -16,44 +16,44 @@ interface IProject {
   company_evaluation: number,
   status_id: number,
   status: string,
-  type:string,
+  type: string,
   type_flag: string,
   participants: number,
   total_price: number,
   sector: {
-      id: 1,
-      title: string,
-      description: string,
-      number_of_acres: number,
-      available_shares: number,
-      land_area: number,
-      offered_by_company: number,
-      pdf: string,
-      company_rate: number,
-      launch_start: string,
-      construction_start: string,
-      construction_end: string,
-      production_start: string,
-      media: string[],
-      created_at: string
+    id: 1,
+    title: string,
+    description: string,
+    number_of_acres: number,
+    available_shares: number,
+    land_area: number,
+    offered_by_company: number,
+    pdf: string,
+    company_rate: number,
+    launch_start: string,
+    construction_start: string,
+    construction_end: string,
+    production_start: string,
+    media: string[],
+    created_at: string
   },
   user: {
-      id: number,
-      image: string,
-      username: string,
-      whatsapp_number: string,
-      country_code: string,
-      phone: string
+    id: number,
+    image: string,
+    username: string,
+    whatsapp_number: string,
+    country_code: string,
+    phone: string
   },
   created_at: string,
 }
 
 const RenderAllProducts = () => {
 
-  const [data, setData] = useState<IProject[]>();
+  const [data, setData] = useState<IProject[]>([]);
   const [totalPages, setTotalPages] = useState<number>();
   const [CurrentPage, setCurrentPage] = useState<number>(1)
-  const [isLoading, setisLoading] = useState<boolean>(false)
+  const [isLoading, setisLoading] = useState<boolean>(true)
 
 
   const router = useRouter();
@@ -62,18 +62,18 @@ const RenderAllProducts = () => {
 
 
     const fetchData = async () => {
-      setisLoading(true)
       try {
         const response = await fetch('https://test.jiovanilibya.org/api/user/market');
         const result = await response.json();
         setData(result.data);
         setTotalPages(result?.pages)
         setCurrentPage(result?.current_page)
-      setisLoading(false);
-        
+        setisLoading(false);
+
       } catch (error) {
         console.error('Error fetching data:', error);
-      setisLoading(false);
+        setisLoading(false);
+        toast.error(error)
 
       }
     };
@@ -81,16 +81,16 @@ const RenderAllProducts = () => {
     fetchData();
   }, [router]); // Empty dependency array ensures this runs only once after the component mounts
 
-  if(isLoading) return <Spinner />
+  if (isLoading) return <Spinner />
 
   return (
     <>
       <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-8'>
 
-        {data ? data.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />):<h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
+        {data?.length !== 0 ? data?.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />) : <h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
 
       </div>
-      {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />:''}
+      {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} /> : ''}
 
     </>
   )
@@ -98,9 +98,11 @@ const RenderAllProducts = () => {
 
 const RenderFromCustomers = () => {
 
-  const [data, setData] = useState<IProject[]>();
+  const [data, setData] = useState<IProject[]>([]);
   const [totalPages, setTotalPages] = useState<number>();
   const [CurrentPage, setCurrentPage] = useState<number>(1)
+  const [isLoading, setisLoading] = useState<boolean>(true)
+
 
   const router = useRouter();
 
@@ -114,24 +116,30 @@ const RenderFromCustomers = () => {
         setData(result.data);
         setTotalPages(result?.pages)
         setCurrentPage(result?.current_page)
+        setisLoading(false);
+
 
       } catch (error) {
         console.error('Error fetching data:', error);
+        setisLoading(false);
+        toast.error(error)
+
       }
     };
 
     fetchData();
   }, [router]); // Empty dependency array ensures this runs only once after the component mounts
 
+  if (isLoading) return <Spinner />
 
   return (
     <>
       <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-8'>
 
-      {data ? data.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />):<h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
+        {data?.length !== 0 ? data?.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />) : <h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
 
       </div>
-      {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />:''}
+      {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} /> : ''}
 
     </>
   )
@@ -139,9 +147,11 @@ const RenderFromCustomers = () => {
 
 const RenderFromCompany = () => {
 
-  const [data, setData] = useState<IProject[]>();
+  const [data, setData] = useState<IProject[]>([]);
   const [totalPages, setTotalPages] = useState<number>();
   const [CurrentPage, setCurrentPage] = useState<number>(1)
+  const [isLoading, setisLoading] = useState<boolean>(true)
+
 
   const router = useRouter();
 
@@ -155,24 +165,29 @@ const RenderFromCompany = () => {
         setData(result.data);
         setTotalPages(result?.pages)
         setCurrentPage(result?.current_page)
+        setisLoading(false);
+
 
       } catch (error) {
         console.error('Error fetching data:', error);
+        toast.error(error)
+        setisLoading(false);
       }
     };
 
     fetchData();
   }, [router]); // Empty dependency array ensures this runs only once after the component mounts
 
+  if (isLoading) return <Spinner />
 
   return (
     <>
       <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-8'>
 
-      {data ? data.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />):<h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
+        {data?.length !== 0 ? data?.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />) : <h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
 
       </div>
-      {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />:''}
+      {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} /> : ''}
 
     </>
   )

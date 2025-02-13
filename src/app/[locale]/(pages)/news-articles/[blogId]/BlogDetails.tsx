@@ -83,7 +83,7 @@ const BlogDetails = ({blogId}:IProps) => {
         <div className='grid grid-cols-3 gap-8 lg:gap-16'>
           <div className='col-span-3 lg:col-span-2'>
             <div className='w-full relative'>
-            <Image src={data?.image ? data?.image : panner} alt='user' width={100} height={100} className='w-full' />
+            <Image src={data?.image ? data?.image : panner} alt='user' width={100} height={100} className='w-full h-auto' />
             <span className='absolute bottom-6 left-6 px-6 py-3 rounded-[10px] text-white bg-[#009444] text-[14px] font-[600]'>{day} {month} {year}</span>
             </div>
             <div className='flex items-center gap-6 my-3'>

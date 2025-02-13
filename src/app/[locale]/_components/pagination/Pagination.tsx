@@ -75,8 +75,8 @@ const Pagination: React.FC<PaginationProps> = ({
                 onClick={() => onPageChange(pageNumber)}
                 className={
                     isActive
-                        ? 'h-[40px] w-[40px] lg:h-[60px] lg:w-[60px] rounded-[50%] border-2 border-[#009444] p-2 flex items-center justify-center bg-[#009444] text-white text-[14px] lg:text-[16px]'
-                        : 'h-[40px] w-[40px] lg:h-[60px] lg:w-[60px] rounded-[50%] border-2 border-[#F1F1F1] p-2 flex items-center justify-center text-[#009444] text-[14px] lg:text-[16px]'
+                        ? 'h-[30px] w-[30px] lg:h-[50px] lg:w-[50px] rounded-[50%] border-2 border-[#009444] p-2 flex items-center justify-center bg-[#009444] text-white text-[14px] lg:text-[16px]'
+                        : 'h-[30px] w-[30px] lg:h-[50px] lg:w-[50px] rounded-[50%] border-2 border-[#F1F1F1] p-2 flex items-center justify-center text-[#009444] text-[14px] lg:text-[16px]'
                 }
             >
                 {pageNumber}
@@ -85,13 +85,13 @@ const Pagination: React.FC<PaginationProps> = ({
     };
 
     return (
-        <div className="flex items-center justify-center space-x-2">
+        <div className="flex items-center justify-center gap-2">
             <button
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="rtl:rotate-180 h-[40px] w-[40px] lg:h-[60px] lg:w-[60px] rounded-[50%] border-2 border-[#F1F1F1] p-2 flex items-center justify-center text-[#009444] "
+                className="rtl:rotate-180 h-[30px] w-[30px] lg:h-[50px] lg:w-[50px] rounded-[50%] border-2 border-[#F1F1F1] p-2 flex items-center justify-center text-[#009444] "
             >
-                <BiChevronLeft className="w-6 h-6" />
+                <BiChevronLeft className="w-4 h-4" />
             </button>
 
             <div className="flex items-center gap-3">
@@ -101,9 +101,9 @@ const Pagination: React.FC<PaginationProps> = ({
             <button
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className="rtl:rotate-180 h-[40px] w-[40px] lg:h-[60px] lg:w-[60px] rounded-[50%] border-2 border-[#F1F1F1] p-2 flex items-center justify-center text-[#009444]"
+                className="rtl:rotate-180 h-[30px] w-[30px] lg:h-[50px] lg:w-[50px] rounded-[50%] border-2 border-[#F1F1F1] p-2 flex items-center justify-center text-[#009444]"
             >
-                <BiChevronRight className="w-6 h-6" />
+                <BiChevronRight className="w-4 h-4" />
             </button>
         </div>
     );

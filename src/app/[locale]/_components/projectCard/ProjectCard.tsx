@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from "@/i18n/routing";;
 import Button from '../button/Button';
+import Image from 'next/image';
+import ProjecIimg from '@/media/our values img1.png'
 
 interface IProjectCardProps {
    ProjectInfo : {
@@ -28,8 +30,7 @@ const ProjectCard = ({ProjectInfo}:IProjectCardProps) => {
   return (
     <>
       <div className="w-full overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="w-full rounded-lg object-cover mb-2 lg:mb-4" src={ProjectInfo.image} alt="Card image" />
+        <Image src={ProjectInfo? ProjectInfo.image : ProjecIimg} width={100} height={100} alt="Card image" className="w-full h-auto rounded-lg object-cover mb-2 lg:mb-4" />
         <div className="py-2">
           <h2 className="text-[24px] lg:text-[28px] font-[500] mb-2 lg:mb-3 text-[#121212]">{ProjectInfo.title}</h2>
           <p className="text-[#525252] text-[16px] lg:text-[20px] mb-4 line-clamp-3">{ProjectInfo.description}</p>

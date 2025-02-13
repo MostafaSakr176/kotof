@@ -2,6 +2,9 @@
 import React, { useEffect, useState } from 'react'
 import Button from '../button/Button'
 import { useRouter } from '@/i18n/routing'
+import Image from 'next/image'
+
+import BlogImg from '@/media/our blog img 1.png'
 
 interface BannerResponse {
     title: string,
@@ -33,8 +36,7 @@ const Banner = () => {
 
   return (
     <div className="relative">
-    {/* eslint-disable-next-line @next/next/no-img-element */}
-    <img src={data?.image} alt='hero img' className='h-[80vh] md:h-[100vh] w-full object-cover' />
+    <Image src={data ? data.image : BlogImg} alt='hero img' width={100} height={100} className='h-[80vh] md:h-[100vh] w-full object-cover' />
     
     <div className='absolute top-0 left-0 w-full h-full z-10 bg-black/30'>
       <div className={' h-full flex flex-col gap-4 justify-center items-start mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'}>
