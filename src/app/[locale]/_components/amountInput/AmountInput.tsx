@@ -80,7 +80,8 @@ const PriceInput: React.FC<PriceInputProps> = ({
 
     const baseInputClasses = `
     w-full 
-    text-left 
+    ltr:text-left 
+    rtl:text-left 
     px-4 
     py-2 
     border
