@@ -199,7 +199,7 @@ const Header = () => {
 
                 <p
                   onClick={() => setDropdownIsOpen(!dropdownIsOpen)}
-                  className="text-[14px] font-[500] rounded-[4px] bg-white"
+                  className="text-[14px] font-[500] rounded-[4px] bg-white cursor-pointer"
                 >
                   {t("welcome")}, {initialUser.username}
                 </p>

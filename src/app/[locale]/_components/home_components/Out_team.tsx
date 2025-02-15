@@ -27,7 +27,7 @@ const Out_team = () => {
     sliderRef2.current?.slickPrev();
   };
 
-  const [data, setData] = useState<ITeam[] | undefined>();
+  const [data, setData] = useState<ITeam[] | undefined>([]);
 
   useEffect(() => {
       const fetchData = async () => {
@@ -58,6 +58,8 @@ const Out_team = () => {
       setCurrentSlide(index + 1)
     }, // Update current slide number
   };
+
+  if (data?.length == 0) return null
 
   return (
     <div className='py-16 mb-20 md:mb-32 bg-[#F7FAF1]'>

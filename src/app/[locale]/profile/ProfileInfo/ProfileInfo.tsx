@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import Button from '../../_components/button/Button';
 import { useUser } from '../../_contexts/userContext';
 import ImageUpload from '../imageUploud';
+import toast from 'react-hot-toast';
 
 
 interface ICountry {
@@ -71,7 +72,7 @@ const RenderProfileInfo = () => {
     const validationSchema = Yup.object({
         image: Yup.mixed(),
         email: Yup.string().email('Invalid email address'),
-        current_password: Yup.string().required('Current password is required'),
+        current_password: Yup.string().min(8).required('Current password is required'),
         username: Yup.string(),
         full_name: Yup.string(),
         country_code: Yup.string(),
@@ -93,7 +94,7 @@ const RenderProfileInfo = () => {
 
 
     const formik = useFormik({
-        
+
         initialValues: currentUser,
         validationSchema,
         onSubmit: async (values: ProfileInfo) => {
@@ -122,13 +123,16 @@ const RenderProfileInfo = () => {
                 
                 if (response.ok) {
                     localStorage.setItem('userInfo', JSON.stringify(result));
-                    updateUser(result)
-                    console.log('Profile updated successfully');
+                    updateUser(result);
+                    toast.success('Profile updated successfully');
                 } else {
                     console.error('Failed to update profile');
+                    toast.error(result.message);
                 }
             } catch (error) {
                 console.error('Error submitting form:', error);
+                toast.error(error);
+
             }
         },
     });
@@ -178,7 +182,6 @@ const RenderProfileInfo = () => {
         }
     };
 
-
     return (
         <form onSubmit={formik.handleSubmit} className="lg:grid lg:grid-cols-2 gap-5 p-8 bg-white rounded-[16px]">
             <div className="space-y-1 lg:col-span-2">
@@ -215,7 +218,7 @@ const RenderProfileInfo = () => {
                     {...formik.getFieldProps('current_password')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
                 />
-                {formik.touched.current_password && formik.errors.current_password && (
+                { formik.errors.current_password && (
                     <p className="text-red-500 text-sm">{formik.errors.current_password}</p>
                 )}
             </div>
@@ -487,7 +490,7 @@ const RenderProfileInfo = () => {
                 </div>
             </div>
 
-            <Button type="submit" className="col-span-2 w-36 ml-auto" disabled={formik.isSubmitting}>{formik.isSubmitting ? 'Loading...' : 'Confirm'}</Button>
+            <Button type="submit" className="col-span-2 w-36 ml-auto">{formik.isSubmitting ? 'Loading...' : 'Confirm'}</Button>
         </form>
     );
 };

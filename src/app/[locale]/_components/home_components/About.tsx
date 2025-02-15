@@ -27,6 +27,9 @@ const About = () => {
         fetchData();
       }, []); // Empty dependency array ensures this runs only once after the component mounts
 
+      if (data?.title == '' && data?.content == '' ) return null
+
+
   return (
     <div className={'py-20 md:py-32 grid grid-cols-1 md:grid-cols-2 gap-8 mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'}>
     <div className=''>

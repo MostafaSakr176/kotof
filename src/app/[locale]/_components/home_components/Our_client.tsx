@@ -49,7 +49,7 @@ const Our_client = () => {
   };
 
 
-  const [data, setData] = useState<IClient[] | undefined>();
+  const [data, setData] = useState<IClient[] | undefined>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,6 +66,9 @@ const Our_client = () => {
 
     fetchData();
   }, []); // Empty dependency array ensures this runs only once after the component mounts
+
+
+  if (data?.length == 0) return null
 
 
 

@@ -125,6 +125,7 @@ const SignUpPage = () => {
         // Add your redirect or success handling here
       } catch (error) {
         console.error('Signup error:', error)
+        toast.success(error)
         // Handle error appropriately
       }
     },

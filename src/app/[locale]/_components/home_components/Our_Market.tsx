@@ -45,7 +45,7 @@ interface IProject {
 
 const OurMarket = () => {
 
-      const [data, setData] = useState<IProject[]>();
+      const [data, setData] = useState<IProject[]>([]);
 
     
       const router = useRouter();
@@ -67,6 +67,7 @@ const OurMarket = () => {
         fetchData();
       }, [router]); // Empty dependency array ensures this runs only once after the component mounts
   
+      if (data?.length == 0) return null
 
   return (
     <div className="mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mb-20 md:mb-32 flex flex-col items-center">

@@ -29,19 +29,19 @@ const ProjectCard = ({ProjectInfo}:IProjectCardProps) => {
 
   return (
     <>
-      <div className="w-full overflow-hidden">
+      <div className="w-full  overflow-hidden">
         <Image src={ProjectInfo? ProjectInfo.image : ProjecIimg} width={100} height={100} alt="Card image" className="w-full h-auto rounded-lg object-cover mb-2 lg:mb-4" />
         <div className="py-2">
           <h2 className="text-[24px] lg:text-[28px] font-[500] mb-2 lg:mb-3 text-[#121212]">{ProjectInfo.title}</h2>
-          <p className="text-[#525252] text-[16px] lg:text-[20px] mb-4 line-clamp-3">{ProjectInfo.description}</p>
+          <p className="text-[#525252] text-[16px] lg:text-[20px] mb-4 line-clamp-2 h-[65px]" >{ProjectInfo.description}</p>
           <ul className='grid grid-cols-2 mb-8'>
             <li className='flex flex-col lg:flex-row items-center gap-2'>
-              <span className='text-[#656565] text-[14px] lg:text-[18px]'>number of acres:</span>
-              <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>{ProjectInfo.total_area} Acre</span>
+              <span className='text-[#656565] text-[12px] lg:text-[16px]'>number of acres:</span>
+              <span className='text-[#121212] text-[12px] lg:text-[16px] font-[500]'>{ProjectInfo.total_area} Acre</span>
             </li>
             <li className='flex flex-col lg:flex-row items-center gap-2'>
-              <span className='text-[#656565] text-[14px] lg:text-[18px]'>number of Sectors:</span>
-              <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>{ProjectInfo.sectors_count}</span>
+              <span className='text-[#656565] text-[12px] lg:text-[16px]'>number of Sectors:</span>
+              <span className='text-[#121212] text-[12px] lg:text-[16px] font-[500]'>{ProjectInfo.sectors_count}</span>
             </li>
           </ul>
           <div className='flex items-center justify-between'>
@@ -58,7 +58,6 @@ const ProjectCard = ({ProjectInfo}:IProjectCardProps) => {
               </svg>
             </Button>
           </div>
-
         </div>
       </div>
     </>

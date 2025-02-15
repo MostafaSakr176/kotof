@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Breadcrumb from '../../_components/breadcrumb/breadcrumb'
 import Pagination from '../../_components/pagination/Pagination'
 import ProjectCard from '../../_components/projectCard/ProjectCard'
+import Spinner from '../../_components/spinner/Spinner'
 
 
 interface IProject {
@@ -10,7 +11,7 @@ interface IProject {
   title: string,
   description: string,
   image: string,
-  pdf:string,
+  pdf: string,
   sectors_count: number,
   total_area: number,
   created_at: string
@@ -19,9 +20,11 @@ interface IProject {
 const OurProjectsPage = () => {
 
 
-  const [data, setData] = useState<IProject[]>();
+  const [data, setData] = useState<IProject[]>([]);
   const [totalPages, setTotalPages] = useState<number>();
-  const [CurrentPage, setCurrentPage] = useState<number>(1)
+  const [CurrentPage, setCurrentPage] = useState<number>(1);
+  const [isLoading, setisLoading] = useState<boolean>(true);
+
 
 
   useEffect(() => {
@@ -32,14 +35,20 @@ const OurProjectsPage = () => {
         setData(result.data);
         setTotalPages(result?.pages)
         setCurrentPage(result?.current_page)
+        setisLoading(false);
+
 
       } catch (error) {
         console.error('Error fetching data:', error);
+        setisLoading(false);
+
       }
     };
 
     fetchData();
   }, []); // Empty dependency array ensures this runs only once after the component mounts
+
+
 
 
   return (
@@ -57,13 +66,17 @@ const OurProjectsPage = () => {
           <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[26px] md:text-[40px] text-[#252525] font-[500]'>Check our latest Projects</h2>
         </div>
 
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8'>
+        {isLoading ? <Spinner /> : <>
+          <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8'>
 
-          {data ? data.map(ProjectInfo => <ProjectCard key={ProjectInfo.id} ProjectInfo={ProjectInfo} />) : <h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
+            {data?.length !== 0 ? data.map(ProjectInfo => <ProjectCard key={ProjectInfo.id} ProjectInfo={ProjectInfo} />) : <h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
 
-        </div>
+          </div>
 
-        {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />:''}
+          {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} /> : ''}
+        </>}
+
+
 
       </div>
 

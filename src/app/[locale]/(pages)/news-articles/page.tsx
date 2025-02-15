@@ -19,7 +19,7 @@ interface IBlog {
 
 const Blogs = () => {
 
-  const [data, setData] = useState<IBlog[] | undefined>();
+  const [data, setData] = useState<IBlog[]>([]);
   const [totalPages, setTotalPages] = useState<number>();
   const [CurrentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setisLoading] = useState<boolean>(false)
@@ -48,6 +48,7 @@ const Blogs = () => {
   }, []); // Empty dependency array ensures this runs only once after the component mounts
 
 
+  
   return (
     <>
       <Breadcrumb
@@ -62,15 +63,16 @@ const Blogs = () => {
           <h6 data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px]'>Our Blog</h6>
           <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[26px] md:text-[40px] text-[#252525] font-[500]'>Check our latest blog</h2>
         </div>
-        
-        {isLoading ? <Spinner /> : <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8'>
 
-          {data ? data.map((blogInfo: IBlog) => <BlogCard key={blogInfo.id} blogInfo={blogInfo} />):<h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
+        {isLoading ? <Spinner /> : <>
+          <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8'>
 
-        </div>}
+          {data?.length !== 0 ? data.map((blogInfo: IBlog) => <BlogCard key={blogInfo.id} blogInfo={blogInfo} />):<h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
 
-        {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />:''}
+          </div>
 
+          {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} /> : ''}
+        </>}
 
       </div>
 

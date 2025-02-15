@@ -18,7 +18,7 @@ interface IBlog {
 
 const Blogs = () => {
 
-    const [data, setData] = useState<IBlog[] | undefined>();
+    const [data, setData] = useState<IBlog[] >([]);
 
     useEffect(() => {
 
@@ -38,6 +38,7 @@ const Blogs = () => {
 
     }, []); // Empty dependency array ensures this runs only once after the component mounts
 
+    if (data.length == 0) return null
 
     return (
         <div className="mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mb-20 md:mb-32">

@@ -33,6 +33,8 @@ const Banner = () => {
         fetchData();
       }, []); // Empty dependency array ensures this runs only once after the component mounts
     
+      if (data?.title == '' && data?.content == '' && data?.image == '') return null
+
 
   return (
     <div className="relative">
