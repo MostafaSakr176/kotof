@@ -9,11 +9,11 @@ import img2 from '@/media/our clients img1.png'
 import img3 from '@/media/our team img1.png'
 import img4 from '@/media/sector img 1.png'
 import Tabs from '../../../../../_components/tabs/Tabs';
-import SectorCard from '../../../../../_components/sectorCard/SectorCard';
 import toast from 'react-hot-toast';
 import { useRouter } from '@/i18n/routing';
 import Modal from '@/app/[locale]/_components/modal/Modal';
 import PriceInput from '@/app/[locale]/_components/amountInput/AmountInput';
+import BlogCard from '@/app/[locale]/_components/articleCard/BlogCard';
 
 const images = [
     {
@@ -79,10 +79,20 @@ interface IMarket {
     created_at: string,
 }
 
+interface IBlog {
+    id: number,
+    name: string,
+    title: string,
+    content: string,
+    image: string,
+    video: string,
+    created_at: string
+  }
+
 const SectorDetails = ({ sectorId }: Iprops) => {
 
     const [data, setData] = useState<IMarket>();
-    const [RelatedSectors, setRelatedSectors] = useState<IMarket[]>();
+    const [RelatedBlogs, setRelatedBlogs] = useState<IBlog[]>([]);
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [OfferValue, setOfferValue] = useState<number | null>(null)
     const [NumberOfShares, setNumberOfShares] = useState<number | null>(null)
@@ -177,7 +187,7 @@ const SectorDetails = ({ sectorId }: Iprops) => {
             }
         };
 
-        const fetchRelatedSectors = async () => {
+        const fetchRelatedBlogs = async () => {
 
             const token = typeof window !== 'undefined' && localStorage.getItem('token');
 
@@ -186,11 +196,11 @@ const SectorDetails = ({ sectorId }: Iprops) => {
             myHeaders.append("Authorization", `Bearer ${token ? JSON.parse(token) : ''}`);
 
             try {
-                const response = await fetch(`https://test.jiovanilibya.org/api/user/related-sectors`, {
+                const response = await fetch(`https://test.jiovanilibya.org/api/user/blogs?sector_id=${sectorId}`, {
                     headers: myHeaders,
                 });
                 const result = await response.json();
-                setRelatedSectors(result.data);
+                setRelatedBlogs(result.data);
 
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -198,7 +208,7 @@ const SectorDetails = ({ sectorId }: Iprops) => {
         };
 
         fetchData();
-        fetchRelatedSectors()
+        fetchRelatedBlogs()
     }, [sectorId]); // Empty dependency array ensures this runs only once after the component mounts
 
 
@@ -344,12 +354,12 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                 />
 
                 <div className='text-center mb-10'>
-                    <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[26px] md:text-[40px] text-[#252525] font-[500]'>Related Sectors</h2>
+                    <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[26px] md:text-[40px] text-[#252525] font-[500]'>Related Blogs</h2>
                 </div>
 
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8'>
 
-                    {RelatedSectors?.map(SectorInfo => <SectorCard key={SectorInfo.id} SectorInfo={SectorInfo} />)}
+                    {RelatedBlogs?.map(BlogInfo => <BlogCard key={BlogInfo.id} blogInfo={BlogInfo} />)}
 
                 </div>
             </div>

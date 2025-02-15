@@ -118,7 +118,7 @@ const RenderDepositMoney = () => {
                     placeholder='Enter address'
                     className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
                 />
-                {formik.touched.address && formik.errors.address ? (
+                { formik.errors.address ? (
                     <div className="text-red-500">{formik.errors.address}</div>
                 ) : null}
             </div>
@@ -135,7 +135,7 @@ const RenderDepositMoney = () => {
                         placeholder='Enter InstaPay number'
                         className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
                     />
-                    {formik.touched.phone_number && formik.errors.phone_number ? (
+                    { formik.errors.phone_number ? (
                         <div className="text-red-500">{formik.errors.phone_number}</div>
                     ) : null}
                 </div>
@@ -151,7 +151,7 @@ const RenderDepositMoney = () => {
                         placeholder='Enter amount'
                         className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
                     />
-                    {formik.touched.amount && formik.errors.amount ? (
+                    { formik.errors.amount ? (
                         <div className="text-red-500">{formik.errors.amount}</div>
                     ) : null}
                 </div>
@@ -164,7 +164,7 @@ const RenderDepositMoney = () => {
                         height={400}
                         acceptedFileTypes={['image/jpeg', 'image/png']}
                     />
-                    {formik.touched.receipt_image && formik.errors.receipt_image && (
+                    { formik.errors.receipt_image && (
                         <p className="text-red-500 text-sm">{formik.errors.receipt_image}</p>
                     )}
                 </div>

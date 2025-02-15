@@ -113,7 +113,7 @@ const SignInPage: React.FC = () => {
                         ))}
 
           </select>
-          {formik.touched.country_code && formik.errors.country_code && (
+          { formik.errors.country_code && (
             <div className="text-red-500 text-sm">{formik.errors.country_code}</div>
           )}
         </div>
@@ -132,7 +132,7 @@ const SignInPage: React.FC = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
-          {formik.touched.phone && formik.errors.phone && (
+          { formik.errors.phone && (
             <div className="text-red-500 text-sm">{formik.errors.phone}</div>
           )}
         </div>
@@ -141,25 +141,26 @@ const SignInPage: React.FC = () => {
           <label htmlFor="password" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">
             Password
           </label>
-          <div className="relative">
-            <span
-              className="absolute rtl:left-3 ltr:right-3 top-1/2 -translate-y-1/2 text-[24px] cursor-pointer text-[#17181B]"
-              onClick={() => setPasswordVisible((prev) => !prev)}
-            >
-              {passwordVisible ? <FaEye /> : <RiEyeCloseFill />}
-            </span>
+          <div className="flex items-center gap-2 w-full px-4 py-2 mb-1 border border-[#ECECEE] bg-white rounded-[8px]">
+            
             <input
               type={passwordVisible ? 'text' : 'password'}
               id="password"
               name="password"
               placeholder="Enter your password"
-              className="w-full px-4 py-2 mb-1 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
+              className="w-full outline-none text-[16px]"
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
+            <span
+              className="text-[24px] cursor-pointer text-[#17181B]"
+              onClick={() => setPasswordVisible((prev) => !prev)}
+            >
+              {passwordVisible ? <FaEye /> : <RiEyeCloseFill />}
+            </span>
           </div>
-          {formik.touched.password && formik.errors.password && (
+          { formik.errors.password && (
             <div className="text-red-500 text-sm">{formik.errors.password}</div>
           )}
 

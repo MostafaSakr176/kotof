@@ -188,7 +188,7 @@ const SignUpPage = () => {
             {...formik.getFieldProps('username')}
             className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
           />
-          {formik.touched.username && formik.errors.username && (
+          { formik.errors.username && (
             <div className="text-red-500 text-sm">{formik.errors.username}</div>
           )}
         </div>
@@ -201,7 +201,7 @@ const SignUpPage = () => {
             {...formik.getFieldProps('email')}
             className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
           />
-          {formik.touched.email && formik.errors.email && (
+          { formik.errors.email && (
             <div className="text-red-500 text-sm">{formik.errors.email}</div>
           )}
         </div> */}
@@ -220,7 +220,7 @@ const SignUpPage = () => {
                         ))}
 
           </select>
-          {formik.touched.country_code && formik.errors.country_code && (
+          { formik.errors.country_code && (
             <div className="text-red-500 text-sm">{formik.errors.country_code}</div>
           )}
         </div>
@@ -233,7 +233,7 @@ const SignUpPage = () => {
             {...formik.getFieldProps('phone')}
             className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
           />
-          {formik.touched.phone && formik.errors.phone && (
+          { formik.errors.phone && (
             <div className="text-red-500 text-sm">{formik.errors.phone}</div>
           )}
         </div>
@@ -246,7 +246,7 @@ const SignUpPage = () => {
             {...formik.getFieldProps('nationality_id')}
             className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
           />
-          {formik.touched.nationality_id && formik.errors.nationality_id && (
+          { formik.errors.nationality_id && (
             <div className="text-red-500 text-sm">{formik.errors.nationality_id}</div>
           )}
         </div> */}
@@ -261,7 +261,7 @@ const SignUpPage = () => {
             {...formik.getFieldProps('password')}
             className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
           />
-          {formik.touched.password && formik.errors.password && (
+          { formik.errors.password && (
             <div className="text-red-500 text-sm">{formik.errors.password}</div>
           )}
         </div>
@@ -274,7 +274,7 @@ const SignUpPage = () => {
             {...formik.getFieldProps('password_confirmation')}
             className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
           />
-          {formik.touched.password_confirmation && formik.errors.password_confirmation && (
+          { formik.errors.password_confirmation && (
             <div className="text-red-500 text-sm">{formik.errors.password_confirmation}</div>
           )}
         </div>
@@ -287,7 +287,7 @@ const SignUpPage = () => {
             {...formik.getFieldProps('national_id')}
             className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
           />
-          {formik.touched.national_id && formik.errors.national_id && (
+          { formik.errors.national_id && (
             <div className="text-red-500 text-sm">{formik.errors.national_id}</div>
           )}
         </div> */}
@@ -324,7 +324,7 @@ const SignUpPage = () => {
                 </li>
               ))}
             </ul>
-            {formik.touched.files && formik.errors.files && (
+            { formik.errors.files && (
               <div className="text-red-500 text-sm">{formik.errors.files.toString()}</div>
             )}
           </div>

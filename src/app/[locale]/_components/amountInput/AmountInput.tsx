@@ -80,14 +80,6 @@ const PriceInput: React.FC<PriceInputProps> = ({
 
     const baseInputClasses = `
     w-full 
-    ltr:text-left 
-    rtl:text-left 
-    px-4 
-    py-2 
-    border
-    border-[#ECECEE] 
-    bg-white
-    rounded-[8px] 
     outline-none 
     transition-colors
     ${disabled ? 'bg-gray-100 cursor-not-allowed' : 'bg-white'}
@@ -100,18 +92,8 @@ const PriceInput: React.FC<PriceInputProps> = ({
     return (
         <div className="space-y-2">
             {label && <label className='text-[#656C77] text-[16px] leading-[24px] font-[500] mb-2'>{label}</label>}
-            <div className="relative">
-                {currency && <span className={`
-                absolute 
-                right-3
-                top-1/2 
-                -translate-y-1/2 
-                text-[16px]
-                font-[400]
-                ${disabled ? 'text-gray-400' : 'text-[#363636]'}
-        `}>
-                    {currency}
-                </span>}
+            <div className="flex justify-center items-center gap-2 border border-[#ECECEE] rounded-[8px] bg-white overflow-hidden px-4 py-2 ">
+
                 <input
                     type="text"
                     value={value}
@@ -121,6 +103,15 @@ const PriceInput: React.FC<PriceInputProps> = ({
                     className={`${baseInputClasses} ${className}`.trim()}
                     aria-invalid={!!error}
                 />
+
+                {currency && <span className={`
+                w-10
+                text-[16px]
+                font-[400]
+                ${disabled ? 'text-gray-400' : 'text-[#363636]'}
+        `}>
+                    {currency}
+                </span>}
             </div>
             {error && (
                 <p className="text-red-500 text-sm" role="alert">

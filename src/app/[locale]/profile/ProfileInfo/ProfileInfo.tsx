@@ -192,7 +192,7 @@ const RenderProfileInfo = () => {
                     height={400}
                     acceptedFileTypes={['image/jpeg', 'image/png']}
                 />
-                {formik.touched.image && formik.errors.image && (
+                { formik.errors.image && (
                     <p className="text-red-500 text-sm">{formik.errors.image}</p>
                 )}
             </div>
@@ -205,7 +205,7 @@ const RenderProfileInfo = () => {
                     {...formik.getFieldProps('email')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
                 />
-                {formik.touched.email && formik.errors.email && (
+                { formik.errors.email && (
                     <p className="text-red-500 text-sm">{formik.errors.email}</p>
                 )}
             </div>
@@ -231,7 +231,7 @@ const RenderProfileInfo = () => {
                     {...formik.getFieldProps('username')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
                 />
-                {formik.touched.username && formik.errors.username && (
+                { formik.errors.username && (
                     <p className="text-red-500 text-sm">{formik.errors.username}</p>
                 )}
             </div>
@@ -244,7 +244,7 @@ const RenderProfileInfo = () => {
                     {...formik.getFieldProps('full_name')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
                 />
-                {formik.touched.full_name && formik.errors.full_name && (
+                { formik.errors.full_name && (
                     <p className="text-red-500 text-sm">{formik.errors.full_name}</p>
                 )}
             </div>
@@ -268,7 +268,7 @@ const RenderProfileInfo = () => {
                         </option>
                     ))}
                 </select>
-                {formik.touched.country_code && formik.errors.country_code && (
+                { formik.errors.country_code && (
                     <p className="text-red-500 text-sm">{formik.errors.country_code}</p>
                 )}
             </div>
@@ -281,7 +281,7 @@ const RenderProfileInfo = () => {
                     {...formik.getFieldProps('phone')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
                 />
-                {formik.touched.phone && formik.errors.phone && (
+                { formik.errors.phone && (
                     <p className="text-red-500 text-sm">{formik.errors.phone}</p>
                 )}
             </div>
@@ -306,7 +306,7 @@ const RenderProfileInfo = () => {
                         </option>
                     ))}
                 </select>
-                {formik.touched.country_code_2 && formik.errors.country_code_2 && (
+                { formik.errors.country_code_2 && (
                     <p className="text-red-500 text-sm">{formik.errors.country_code_2}</p>
                 )}
             </div>
@@ -319,7 +319,7 @@ const RenderProfileInfo = () => {
                     {...formik.getFieldProps('phone_2')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
                 />
-                {formik.touched.phone_2 && formik.errors.phone_2 && (
+                { formik.errors.phone_2 && (
                     <p className="text-red-500 text-sm">{formik.errors.phone_2}</p>
                 )}
             </div>
@@ -344,7 +344,7 @@ const RenderProfileInfo = () => {
                         </option>
                     ))}
                 </select>
-                {formik.touched.country_code_whatsapp && formik.errors.country_code_whatsapp && (
+                { formik.errors.country_code_whatsapp && (
                     <p className="text-red-500 text-sm">{formik.errors.country_code_whatsapp}</p>
                 )}
             </div>
@@ -357,7 +357,7 @@ const RenderProfileInfo = () => {
                     {...formik.getFieldProps('whatsapp_number')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
                 />
-                {formik.touched.whatsapp_number && formik.errors.whatsapp_number && (
+                { formik.errors.whatsapp_number && (
                     <p className="text-red-500 text-sm">{formik.errors.whatsapp_number}</p>
                 )}
             </div>
@@ -371,7 +371,7 @@ const RenderProfileInfo = () => {
                     {...formik.getFieldProps('emergency_number')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
                 />
-                {formik.touched.emergency_number && formik.errors.emergency_number && (
+                { formik.errors.emergency_number && (
                     <p className="text-red-500 text-sm">{formik.errors.emergency_number}</p>
                 )}
             </div>
@@ -384,7 +384,7 @@ const RenderProfileInfo = () => {
                     {...formik.getFieldProps('bank_name')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
                 />
-                {formik.touched.bank_name && formik.errors.bank_name && (
+                { formik.errors.bank_name && (
                     <p className="text-red-500 text-sm">{formik.errors.bank_name}</p>
                 )}
             </div>
@@ -397,7 +397,7 @@ const RenderProfileInfo = () => {
                     {...formik.getFieldProps('bank_account_number')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
                 />
-                {formik.touched.bank_account_number && formik.errors.bank_account_number && (
+                { formik.errors.bank_account_number && (
                     <p className="text-red-500 text-sm">{formik.errors.bank_account_number}</p>
                 )}
             </div>
@@ -410,7 +410,7 @@ const RenderProfileInfo = () => {
                     {...formik.getFieldProps('isntapay_account')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
                 />
-                {formik.touched.isntapay_account && formik.errors.isntapay_account && (
+                { formik.errors.isntapay_account && (
                     <p className="text-red-500 text-sm">{formik.errors.isntapay_account}</p>
                 )}
             </div>
@@ -435,7 +435,7 @@ const RenderProfileInfo = () => {
                         </option>
                     ))}
                 </select>
-                {formik.touched.nationality_id && formik.errors.nationality_id && (
+                { formik.errors.nationality_id && (
                     <p className="text-red-500 text-sm">{formik.errors.nationality_id}</p>
                 )}
             </div>
@@ -448,7 +448,7 @@ const RenderProfileInfo = () => {
                     {...formik.getFieldProps('national_id')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
                 />
-                {formik.touched.national_id && formik.errors.national_id && (
+                { formik.errors.national_id && (
                     <p className="text-red-500 text-sm">{formik.errors.national_id}</p>
                 )}
             </div>
