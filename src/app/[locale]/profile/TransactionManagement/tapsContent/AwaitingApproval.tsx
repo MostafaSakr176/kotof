@@ -1,3 +1,4 @@
+import Spinner from '@/app/[locale]/_components/spinner/Spinner'
 import Pagination from '../../../_components/pagination/Pagination'
 import React, { useEffect, useState } from 'react'
 
@@ -43,9 +44,11 @@ interface IProject {
 
 const RenderAwaitingApproval = () => {
 
-  const [data, setData] = useState<IProject[]>();
+  const [data, setData] = useState<IProject[]>([]);
   const [totalPages, setTotalPages] = useState<number>();
   const [CurrentPage, setCurrentPage] = useState<number>(1)
+    const [isLoading, setisLoading] = useState<boolean>(true)
+  
 
 
   useEffect(() => {
@@ -64,14 +67,19 @@ const RenderAwaitingApproval = () => {
         console.log(result.data);
         setTotalPages(result?.pages)
         setCurrentPage(result?.current_page)
+        setisLoading(false)
 
       } catch (error) {
         console.error('Error fetching data:', error);
+        setisLoading(false)
       }
     };
 
     fetchData();
   }, []); // Empty dependency array ensures this runs only once after the component mounts
+
+  if (isLoading) return <Spinner />
+
 
   return (
     <>

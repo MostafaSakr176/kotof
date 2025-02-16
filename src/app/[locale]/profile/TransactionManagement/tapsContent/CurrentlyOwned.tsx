@@ -1,3 +1,4 @@
+import Spinner from '@/app/[locale]/_components/spinner/Spinner';
 import PriceInput from '../../../_components/amountInput/AmountInput';
 import Button from '../../../_components/button/Button';
 import Modal from '../../../_components/modal/Modal';
@@ -47,21 +48,21 @@ interface IProject {
 
 const RenderCurrentlyOwned = () => {
 
-    const [IsLoading, setIsLoading] = useState<boolean>(false)
-
-    const [data, setData] = useState<IProject[]>();
+    const [isLoading, setisLoading] = useState<boolean>(true)
+    const [IsSelling, setIsSelling] = useState<boolean>(false)
+    const [data, setData] = useState<IProject[]>([]);
     const [totalPages, setTotalPages] = useState<number>();
     const [CurrentPage, setCurrentPage] = useState<number>(1)
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [OfferValue, setOfferValue] = useState<number | null>(null)
     const [NumberOfShares, setNumberOfShares] = useState<number | null>(null)
     const [CurrentSectorId, setCurrentSectorId] = useState<number | undefined>()
+    
 
 
 
     const handleSell = async (sectorid: number | undefined) => {
 
-        setIsLoading(true)
 
         const token = typeof window !== 'undefined' && localStorage.getItem('token');
 
@@ -89,16 +90,16 @@ const RenderCurrentlyOwned = () => {
             if (response.ok) {
                 toast.success(result.message);
                 setIsOpen(false)
-                setIsLoading(false)
+                setIsSelling(false)
                 fetchData()
 
             } else {
                 toast.error(result.message);
-                setIsLoading(false)
+                setIsSelling(false)
             }
         } catch (error) {
             console.error(error);
-            setIsLoading(false)
+            setIsSelling(false)
 
         }
     }
@@ -132,9 +133,12 @@ const RenderCurrentlyOwned = () => {
             console.log(result.data);
             setTotalPages(result?.pages)
             setCurrentPage(result?.current_page)
+            setisLoading(false)
 
         } catch (error) {
             console.error('Error fetching data:', error);
+            setisLoading(false)
+
         }
     };
     useEffect(() => {
@@ -143,6 +147,8 @@ const RenderCurrentlyOwned = () => {
         fetchData();
     }, []); // Empty dependency array ensures this runs only once after the component mounts
 
+
+    if (isLoading) return <Spinner />
 
 
     return (
@@ -196,7 +202,7 @@ const RenderCurrentlyOwned = () => {
 
                 <div className='w-full flex justify-end gap-4'>
                     <Button variant='ghost' className='w-28 h-12 border border-[#E4E6EA] rounded-[8px] text-[#32363D]' onClick={() => { setIsOpen(false) }}>Cancel</Button>
-                    <Button className='w-28 h-12' onClick={() => { handleSell(CurrentSectorId) }} >{IsLoading? "Loading...":"confirm"}</Button>
+                    <Button className='w-28 h-12' onClick={() => { handleSell(CurrentSectorId) }} >{IsSelling? "Loading...":"confirm"}</Button>
                 </div>
             </Modal>
         </>

@@ -5,6 +5,7 @@ import { IoLogoWhatsapp } from 'react-icons/io'
 import userImg from '@/media/our clients img1.png'
 import Pagination from '../../../_components/pagination/Pagination'
 import toast from 'react-hot-toast'
+import Spinner from '@/app/[locale]/_components/spinner/Spinner'
 
 interface IProject {
     id: number,
@@ -47,11 +48,13 @@ interface IProject {
 
 const RenderPurchaseRequests = () => {
 
-    const [data, setData] = useState<IProject[]>();
+    const [data, setData] = useState<IProject[]>([]);
     const [totalPages, setTotalPages] = useState<number>();
     const [CurrentPage, setCurrentPage] = useState<number>(1);
     const [IsLoadingAccept, setIsLoadingAccept] = useState<boolean>(false)
     const [IsLoadingRefuse, setIsLoadingRefuse] = useState<boolean>(false)
+    const [isLoading, setisLoading] = useState<boolean>(true)
+
 
 
 
@@ -63,18 +66,19 @@ const RenderPurchaseRequests = () => {
             myHeaders.append("accept", "application/json");
             myHeaders.append("Authorization", `Bearer ${token ? JSON.parse(token) : ''}`);
             try {
-                const response = await fetch('https://test.jiovanilibya.org/api/user/sectors/list-for-sale', {
+                const response = await fetch('https://test.jiovanilibya.org/api/user/purchase-buying-requests', {
                     headers: myHeaders,
                 });
                 const result = await response.json();
                 setData(result.data);
                 console.log(result.data);
-
                 setTotalPages(result?.pages)
                 setCurrentPage(result?.current_page)
+                setisLoading(false)
 
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setisLoading(false)
             }
         };
 
@@ -146,6 +150,9 @@ const RenderPurchaseRequests = () => {
 
         }
     }
+
+
+    if (isLoading) return <Spinner />
 
 
     return (
