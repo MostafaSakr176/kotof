@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import Button from '../../_components/button/Button';
 import Breadcrumb from '../../_components/breadcrumb/breadcrumb';
 import toast from 'react-hot-toast';
+import { useConfigrationsContext } from '../../_contexts/MainConfigContext';
 
 // Define the form values interface
 interface FormValues {
@@ -15,6 +16,10 @@ interface FormValues {
 }
 
 const ContactUsPage: React.FC = () => {
+
+    const { Configrations } = useConfigrationsContext();
+        
+
     // Validation schema using Yup
     const validationSchema = Yup.object({
         full_name: Yup.string().required('full name is required'),
@@ -29,6 +34,7 @@ const ContactUsPage: React.FC = () => {
         { setSubmitting, resetForm }: FormikHelpers<FormValues>
     ) => {
         try {
+
             // Create a FormData object
             const formData = new FormData();
             formData.append('full_name', values.full_name);
@@ -70,14 +76,12 @@ const ContactUsPage: React.FC = () => {
             />
             <div className="max-w-[90%] mx-auto sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
                 <div className="py-20 md:py-32 grid grid-col-1 md:grid-cols-2 gap-16">
-
-
                     <div className='flex flex-col gap-12'>
                         <div>
                             <h4 className='text-[42px] md:text-[52px] text-[#000] font-[600] mb-6'>Get In Touch</h4>
                             <p className='text-[16px] text-[#939393] font-[400] leading-[30px]'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took .</p>
                         </div>
-                        <div className=' flex flex-col gap-6'>
+                        <div className='flex flex-col gap-6'>
                             <div className='flex items-center gap-6'>
                                 <span className='w-14 h-14 flex items-center justify-center bg-[#4BAF47] rounded-[50%]'>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -99,7 +103,7 @@ const ContactUsPage: React.FC = () => {
                                 </span>
                                 <div>
                                     <span className='text-[16px] text-[#939393] font-[400] leading-[24px] mb-3'>Phone Number</span>
-                                    <p className='text-[20px] text-[#000] font-[500] leading-[30px]'>+424 576 324</p>
+                                    <p className='text-[20px] text-[#000] font-[500] leading-[30px]'>{Configrations?.phone}</p>
                                 </div>
                             </div>
                             <div className='flex items-center gap-6'>
@@ -113,14 +117,14 @@ const ContactUsPage: React.FC = () => {
                                 </span>
                                 <div>
                                     <span className='text-[16px] text-[#939393] font-[400] leading-[24px] mb-3'>E-mail</span>
-                                    <p className='text-[20px] text-[#000] font-[500] leading-[30px]'>ali65@gmail.com</p>
+                                    <p className='text-[20px] text-[#000] font-[500] leading-[30px]'>{Configrations?.phone}</p>
                                 </div>
                             </div>
                         </div>
                         <div className='flex flex-col gap-6'>
                             <h6 className='text-[24px] text-[#000] font-[600] leading-[30px]'>Follow us</h6>
                             <div className='flex items-center gap-4'>
-                                <a href='https://x.com/' target='_blank' className='w-12 h-12 rounded-[50%] flex items-center justify-center bg-[#F4F8ED] outline-none border-0 focus:ring-0'>
+                                <a href={Configrations?.twitter} target='_blank' className='w-12 h-12 rounded-[50%] flex items-center justify-center bg-[#F4F8ED] outline-none border-0 focus:ring-0'>
                                     <svg width="17" height="13" viewBox="0 0 17 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g clipPath="url(#clip0_17_675)">
                                             <path d="M16.0527 1.53613C15.7734 1.66309 15.4772 1.771 15.1641 1.85986C14.8509 1.94873 14.5293 2.01432 14.1992 2.05664H14.1611C14.4997 1.85352 14.7938 1.59749 15.0435 1.28857C15.2931 0.979655 15.4772 0.638997 15.5957 0.266602L15.6084 0.241211C15.3037 0.418945 14.98 0.575521 14.6372 0.710938C14.2944 0.846354 13.9368 0.952148 13.5645 1.02832L13.5137 1.04102C13.2174 0.719401 12.8641 0.465495 12.4536 0.279297C12.0431 0.0930986 11.6009 0 11.127 0C10.6699 0 10.2425 0.0846357 9.84473 0.253906C9.44694 0.431641 9.09993 0.66862 8.80371 0.964844C8.50749 1.26107 8.27051 1.60807 8.09277 2.00586C7.9235 2.40365 7.83887 2.83105 7.83887 3.28809C7.83887 3.4235 7.84733 3.55469 7.86426 3.68164C7.88119 3.80859 7.90234 3.93132 7.92773 4.0498V4.02441C7.24219 3.99056 6.58203 3.889 5.94727 3.71973C5.30404 3.54199 4.69678 3.30501 4.12549 3.00879C3.5542 2.71257 3.01888 2.36556 2.51953 1.96777C2.02865 1.56152 1.58008 1.11296 1.17383 0.62207L1.16113 0.59668C1.01725 0.833659 0.907227 1.0918 0.831055 1.37109C0.754883 1.65039 0.716797 1.94238 0.716797 2.24707C0.716797 2.81413 0.847982 3.33675 1.11035 3.81494C1.37272 4.29313 1.72396 4.68034 2.16406 4.97656H2.17676C1.89746 4.9681 1.63298 4.9279 1.3833 4.85596C1.13363 4.78402 0.894531 4.68457 0.666016 4.55762L0.691406 4.57031V4.6084C0.691406 5.00619 0.754883 5.38281 0.881836 5.73828C1.01725 6.09375 1.20133 6.41325 1.43408 6.69678C1.66683 6.98031 1.94401 7.2194 2.26562 7.41406C2.57878 7.60872 2.92155 7.74837 3.29395 7.83301H3.31934C3.19238 7.86686 3.05485 7.89437 2.90674 7.91553C2.75863 7.93669 2.6084 7.94727 2.45605 7.94727C2.34603 7.94727 2.23812 7.94092 2.13232 7.92822C2.02653 7.91553 1.92285 7.90072 1.82129 7.88379H1.83398C1.94401 8.21387 2.10059 8.51855 2.30371 8.79785C2.49837 9.06868 2.729 9.30566 2.99561 9.50879C3.26221 9.71191 3.55632 9.86849 3.87793 9.97852C4.19954 10.097 4.54232 10.1605 4.90625 10.1689C4.62695 10.389 4.33073 10.5837 4.01758 10.7529C3.70443 10.9222 3.37646 11.0682 3.03369 11.1909C2.69092 11.3136 2.33757 11.4089 1.97363 11.4766C1.60124 11.5358 1.22461 11.5654 0.84375 11.5654C0.835286 11.5654 0.831055 11.5654 0.831055 11.5654C0.687174 11.5654 0.547526 11.5612 0.412109 11.5527C0.276693 11.5443 0.141276 11.5316 0.00585938 11.5146L0.0439453 11.5273C0.399414 11.7559 0.77181 11.9632 1.16113 12.1494C1.55892 12.3271 1.9694 12.4795 2.39258 12.6064C2.81576 12.7334 3.25163 12.8307 3.7002 12.8984C4.14876 12.9661 4.60579 13 5.07129 13C6.58626 13 7.9235 12.7165 9.08301 12.1494C10.2425 11.5824 11.2179 10.8503 12.0093 9.95312C12.8006 9.05599 13.3994 8.05306 13.8057 6.94434C14.2119 5.83561 14.415 4.73958 14.415 3.65625L14.4023 3.2373C14.7324 3.00033 15.0329 2.74219 15.3037 2.46289C15.5745 2.18359 15.8158 1.88314 16.0273 1.56152L16.0527 1.53613Z" fill="#1F1E17" />
@@ -132,7 +136,7 @@ const ContactUsPage: React.FC = () => {
                                         </defs>
                                     </svg>
                                 </a>
-                                <a href='https://www.facebook.com' target='_blank' className='w-12 h-12 rounded-[50%] flex items-center justify-center bg-[#F4F8ED] outline-none border-0 focus:ring-0'>
+                                <a href={Configrations?.facebook} target='_blank' className='w-12 h-12 rounded-[50%] flex items-center justify-center bg-[#F4F8ED] outline-none border-0 focus:ring-0'>
                                     <svg width="7" height="13" viewBox="0 0 7 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M4.5625 4.46875V2.84375C4.5625 2.6237 4.6429 2.43327 4.80371 2.27246C4.96452 2.11165 5.15495 2.03125 5.375 2.03125H6.1875V0H4.5625C3.88542 0 3.3099 0.236979 2.83594 0.710938C2.36198 1.1849 2.125 1.76042 2.125 2.4375V4.46875H0.5V6.5H2.125V13H4.5625V6.5H6.1875L7 4.46875H4.5625Z" fill="#1F1E17" />
                                     </svg>

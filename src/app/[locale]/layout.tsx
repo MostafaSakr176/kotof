@@ -13,6 +13,7 @@ import { notFound } from "next/navigation";
 // import { headers } from 'next/headers';
 import { Locale, routing } from "../../i18n/routing";
 import LayoutWrapper from "./LayoutWrapper";
+import { ConfigrationsContextProvider } from "./_contexts/MainConfigContext";
 export default async function LocaleLayout({
   children,
   params,
@@ -36,15 +37,16 @@ export default async function LocaleLayout({
       <head />
       <body>
         <NextIntlClientProvider messages={messages}>
-          <DirectionProvider>
-            <UserProvider>
-              <WalletContextProvider>
-                <LayoutWrapper>{children}</LayoutWrapper>
-              </WalletContextProvider>
-
-              <Toaster />
-            </UserProvider>
-          </DirectionProvider>
+          <ConfigrationsContextProvider>
+            <DirectionProvider>
+              <UserProvider>
+                <WalletContextProvider>
+                  <LayoutWrapper>{children}</LayoutWrapper>
+                </WalletContextProvider>
+                <Toaster />
+              </UserProvider>
+            </DirectionProvider>
+          </ConfigrationsContextProvider>
         </NextIntlClientProvider>
       </body>
     </html>

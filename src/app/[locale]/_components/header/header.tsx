@@ -15,6 +15,7 @@ import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { BiUser } from "react-icons/bi";
 import { IoMdExit } from "react-icons/io";
+import { useConfigrationsContext } from "../../_contexts/MainConfigContext";
 const LanguageSwitcher = dynamic(() => import("../LanguageSwitcher/LanguageSwitcher"), {
   ssr: false, // Disable SSR for this component
 });
@@ -24,6 +25,7 @@ const Header = () => {
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
   const { user, updateUser } = useUser();
+  const { Configrations } = useConfigrationsContext();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const t = useTranslations("HomePage");
@@ -74,20 +76,20 @@ const Header = () => {
               <a href="https://maps.app.goo.gl/fpXQd6Z4Krdinj6m7" target="_blank" className="flex items-center gap-0 md:gap-2">
                 <Image src={img1} alt="location icon" priority />
                 <span className="hidden lg:inline">
-                  No.28 Church Cres St, North Labone, Accra, Egypt
+                  {Configrations?.address}
                 </span>
               </a>
             </li>
             <li>
               <a href="mailto:sales@omnifert.com" className="flex items-center gap-0 md:gap-2">
                 <Image src={img2} alt="email icon" priority />
-                <span className="hidden lg:inline">sales@omnifert.com</span>
+                <span className="hidden lg:inline">{Configrations?.email}</span>
               </a>
             </li>
             <li>
               <a href="tel:+201056541236" className="flex items-center gap-0 md:gap-2">
                 <Image src={img3} alt="location icon" priority />
-                <span className="hidden lg:inline">+201056541236</span>
+                <span className="hidden lg:inline">{Configrations?.phone}</span>
               </a>
             </li>
           </ul>
@@ -145,7 +147,7 @@ const Header = () => {
                 href="/our-projects"
                 className="text-white lg:text-[#363636]"
               >
-                Our Project
+                Our Projects
               </Link>
             </li>
             <li>
