@@ -11,6 +11,7 @@ import { Link } from "@/i18n/routing";;
 import { useRouter } from "@/i18n/routing";
 import toast from 'react-hot-toast';
 import { useUser } from '../../_contexts/userContext';
+import { useTranslations } from 'next-intl';
 
 interface ICountry {
   id: number;
@@ -22,6 +23,8 @@ const SignInPage: React.FC = () => {
   const router = useRouter();
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const { updateUser } = useUser();
+
+  const t = useTranslations("auth.Login");
 
   const [countries, setCountries] = useState<ICountry[]>([]);
   
@@ -47,11 +50,15 @@ const SignInPage: React.FC = () => {
       password: '',
     },
     validationSchema: Yup.object({
-          country_code: Yup.number()
-            .required('country is required')
-            .min(1, 'country must be at least 3 characters'),
-      phone: Yup.number().required('phone is required'),
-      password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+      country_code: Yup.number()
+        .required(t("Validation.country_required"))
+        .min(1, t("Validation.country_min")),
+  
+      phone: Yup.number().required(t("Validation.phone_required")),
+  
+      password: Yup.string()
+        .min(6, t("Validation.password_min"))
+        .required(t("Validation.password_required")),
     }),
     onSubmit: async (values, { setSubmitting }) => {
       const formData = new FormData();
@@ -93,76 +100,67 @@ const SignInPage: React.FC = () => {
       <div className="space-y-8 mb-8">
         <Image src={logo} alt="welcome img" />
         <div className="space-y-2">
-          <h2 className="text-[#17181B] text-[24px] font-[600]">Welcome Back</h2>
-          <p className="text-[#656C77] text-[16px] font-[400]">Enter your email and password to login.</p>
+          <h2 className="text-[#17181B] text-[24px] font-[600]">{t("welcome_back")}</h2>
+          <p className="text-[#656C77] text-[16px] font-[400]">{t("enter_credentials")}</p>
         </div>
       </div>
 
       <form onSubmit={formik.handleSubmit}>
-      <div className='space-y-1 mb-4'>
-          <label htmlFor="country_code" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Country</label>
+        <div className="space-y-1 mb-4">
+          <label htmlFor="country_code" className="text-[#656C77] text-[16px] font-[500]">
+            {t("country")}
+          </label>
           <select
             id="country_code"
-            {...formik.getFieldProps('country_code')}
-            className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
+            {...formik.getFieldProps("country_code")}
+            className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
           >
-              {countries.map((ele) => (
-                          <option key={ele.id} value={ele.phone_code} >
-                            {ele.name} {`(+${ele.phone_code})`}
-                          </option>
-                        ))}
-
+            {countries.map((ele) => (
+              <option key={ele.id} value={ele.phone_code}>
+                {ele.name} {`(+${ele.phone_code})`}
+              </option>
+            ))}
           </select>
-          { formik.errors.country_code && (
-            <div className="text-red-500 text-sm">{formik.errors.country_code}</div>
-          )}
+          {formik.errors.country_code && <div className="text-red-500 text-sm">{formik.errors.country_code}</div>}
         </div>
-        
+
         <div className="space-y-1 mb-4">
-          <label htmlFor="phone" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">
-            phone
+          <label htmlFor="phone" className="text-[#656C77] text-[16px] font-[500]">
+            {t("phone")}
           </label>
           <input
             type="text"
             id="phone"
             name="phone"
-            placeholder="Enter your phone"
+            placeholder={t("enter_phone")}
             className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
             value={formik.values.phone}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
-          { formik.errors.phone && (
-            <div className="text-red-500 text-sm">{formik.errors.phone}</div>
-          )}
+          {formik.errors.phone && <div className="text-red-500 text-sm">{formik.errors.phone}</div>}
         </div>
 
         <div className="space-y-1 mb-6">
-          <label htmlFor="password" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">
-            Password
+          <label htmlFor="password" className="text-[#656C77] text-[16px] font-[500]">
+            {t("password")}
           </label>
           <div className="flex items-center gap-2 w-full px-4 py-2 mb-1 border border-[#ECECEE] bg-white rounded-[8px]">
-            
             <input
-              type={passwordVisible ? 'text' : 'password'}
+              type={passwordVisible ? "text" : "password"}
               id="password"
               name="password"
-              placeholder="Enter your password"
+              placeholder={t("enter_password")}
               className="w-full outline-none text-[16px]"
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            <span
-              className="text-[24px] cursor-pointer text-[#17181B]"
-              onClick={() => setPasswordVisible((prev) => !prev)}
-            >
+            <span className="text-[24px] cursor-pointer text-[#17181B]" onClick={() => setPasswordVisible(!passwordVisible)}>
               {passwordVisible ? <FaEye /> : <RiEyeCloseFill />}
             </span>
           </div>
-          { formik.errors.password && (
-            <div className="text-red-500 text-sm">{formik.errors.password}</div>
-          )}
+          {formik.errors.password && <div className="text-red-500 text-sm">{formik.errors.password}</div>}
 
           <div className="flex justify-between items-center gap-4">
             <div className="flex gap-2">
@@ -173,27 +171,24 @@ const SignInPage: React.FC = () => {
                 className="accent-[#009444] w-4"
                 onChange={formik.handleChange}
               />
-              <label
-                htmlFor="rememberMe"
-                className="text-[#A2A1A8] text-[14px] leading-[20px] font-[400]"
-              >
-                Remember Me
+              <label htmlFor="rememberMe" className="text-[#A2A1A8] text-[14px] font-[400]">
+                {t("remember_me")}
               </label>
             </div>
             <Link href="/auth/forget-password" className="text-[#009444]">
-              Forget password?
+              {t("forget_password")}
             </Link>
           </div>
         </div>
 
         <Button type="submit" className="w-full mb-3" disabled={formik.isSubmitting}>
-          {formik.isSubmitting ? 'Logging in...' : 'Login'}
+          {formik.isSubmitting ? t("logging_in") : t("login")}
         </Button>
 
         <p className="text-center text-[#656C77] text-[16px] font-[400]">
-          Don&apos;t have an account?{' '}
+          {t("dont_have_account")}{" "}
           <Link href="/auth/signup" className="text-[#009444]">
-            Sign up
+            {t("sign_up")}
           </Link>
         </p>
       </form>

@@ -26,10 +26,10 @@ const ContactUsPage: React.FC = () => {
 
     // Validation schema using Yup
     const validationSchema = Yup.object({
-        full_name: Yup.string().required('full name is required'),
-        email: Yup.string().email('Invalid email address').required('Email is required'),
-        phone: Yup.string().required('Phone is required'),
-        message: Yup.string().required('Message is required'),
+        full_name: Yup.string().required(t("Validation.fullName")),
+        email: Yup.string().email(t("Validation.email")).required(t("Validation.emailRequired")),
+        phone: Yup.string().required(t("Validation.phone")),
+        message: Yup.string().required(t("Validation.message")),
     });
 
     // Form submit handler
@@ -172,7 +172,7 @@ const ContactUsPage: React.FC = () => {
                                         <Field
                                             type="text"
                                             name="full_name"
-                                            placeholder="Full Name*"
+                                            placeholder={t("fullName")}
                                             className="w-full border-0 bg-white text-[14px] font-[400] rounded-[4px] p-4 outline-none ring-0 text-[#000] placeholder:text-[#6C757D]"
                                         />
                                         <ErrorMessage name="full_name" component="div" className="text-red-500 text-sm mt-1" />
@@ -183,7 +183,7 @@ const ContactUsPage: React.FC = () => {
                                             <Field
                                                 type="email"
                                                 name="email"
-                                                placeholder="Email*"
+                                                placeholder={t("email")}
                                                 className="w-full border-0 bg-white text-[14px] font-[400] rounded-[4px] p-4 outline-none ring-0 text-[#000] placeholder:text-[#6C757D]"
                                             />
                                             <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
@@ -192,7 +192,7 @@ const ContactUsPage: React.FC = () => {
                                             <Field
                                                 type="tel"
                                                 name="phone"
-                                                placeholder="Phone*"
+                                                placeholder={t("phone")}
                                                 className="w-full border-0 bg-white text-[14px] font-[400] rounded-[4px] p-4 outline-none ring-0 text-[#000] placeholder:text-[#6C757D]"
                                             />
                                             <ErrorMessage name="phone" component="div" className="text-red-500 text-sm mt-1" />
@@ -204,7 +204,7 @@ const ContactUsPage: React.FC = () => {
                                             as="textarea"
                                             rows={6}
                                             name="message"
-                                            placeholder="Tell Us About Project *"
+                                            placeholder={t("message")}
                                             className="resize-none w-full border-0 bg-white text-[14px] font-[400] rounded-[4px] p-4 outline-none ring-0 text-[#000] placeholder:text-[#6C757D]"
                                         />
                                         <ErrorMessage name="message" component="div" className="text-red-500 text-sm mt-1" />
@@ -228,7 +228,7 @@ const ContactUsPage: React.FC = () => {
                                             />
                                         </svg>
                                         <span className="text-[16px] font-[700]">
-                                            {isSubmitting ? 'Sendding...' : t("GetInTouch")}
+                                            {isSubmitting ? t("Sendding") : t("GetInTouch")}
                                         </span>
                                     </Button>
                                 </Form>
