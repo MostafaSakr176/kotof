@@ -3,6 +3,7 @@ import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react'
 import Slider from 'react-slick';
 import ourTeamImg from '@/media/our team img1.png'
+import { useTranslations } from 'next-intl';
 
 interface ITeam {
   id?: number,
@@ -28,6 +29,9 @@ const Out_team = () => {
   };
 
   const [data, setData] = useState<ITeam[] | undefined>([]);
+
+      const t = useTranslations("HomePage");
+  
 
   useEffect(() => {
       const fetchData = async () => {
@@ -65,8 +69,8 @@ const Out_team = () => {
     <div className='py-16 mb-20 md:mb-32 bg-[#F7FAF1]'>
       <div className="relative mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
         <div className='text-center mb-12'>
-          <h6 data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px]'>Our Team</h6>
-          <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[26px] md:text-[40px] text-[#252525] font-[500]'>&quot;Explore, Invest, and Unlock <br /> New Opportunities&quot;</h2>
+          <h6 data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px]'>{t("OurTeam")}</h6>
+          <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[26px] md:text-[40px] text-[#252525] font-[500]'>&quot;{t("ExploreInvest")}&quot;</h2>
         </div>
 
         <Slider ref={sliderRef2} {...settings2} className='ourteam-slider'>

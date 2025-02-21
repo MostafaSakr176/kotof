@@ -5,6 +5,7 @@ import { useRouter } from '@/i18n/routing'
 import Image from 'next/image'
 
 import BlogImg from '@/media/our blog img 1.png'
+import { useTranslations } from 'next-intl'
 
 interface BannerResponse {
     title: string,
@@ -17,6 +18,9 @@ const Banner = () => {
     const [data, setData] = useState<BannerResponse | null>(null);
 
     const router = useRouter()
+
+    const t = useTranslations("HomePage");
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -44,7 +48,7 @@ const Banner = () => {
       <div className={' h-full flex flex-col gap-4 justify-center items-start mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'}>
         <h1 data-aos="fade-right" data-aos-duration="500" data-aos-delay="0" className='text-[#fff] text-[50px] md:text-[80px] font-[400] leading-[35px] md:leading-[65px] font-[Mansalva]' >{data?.title}</h1>
         <p data-aos="fade-right" data-aos-duration="500" data-aos-delay="300" className='rtl:text-right text-[22px] font-[400] leading-[25px] text-white mb-6'>{data?.content}</p>
-        <Button onClick={()=>router.push("/market")} className='px-4' data-aos="fade-right" data-aos-duration="500" data-aos-delay="600" data-aos-offset="0">Discover more</Button>
+        <Button onClick={()=>router.push("/market")} className='px-4' data-aos="fade-right" data-aos-duration="500" data-aos-delay="600" data-aos-offset="0">{t("DiscoverMore")}</Button>
       </div>
 
     </div>

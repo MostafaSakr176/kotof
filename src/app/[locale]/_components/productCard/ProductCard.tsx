@@ -7,6 +7,7 @@ import Modal from '../modal/Modal';
 import PriceInput from '../amountInput/AmountInput';
 import { useRouter } from "@/i18n/routing";
 import toast from 'react-hot-toast';
+import { useTranslations } from 'next-intl';
 
 interface AppProps {
     defaultPrice?: number;
@@ -107,6 +108,9 @@ const ProductCard = ({ ProductInfo }: AppProps) => {
 
     const router = useRouter()
 
+    const t = useTranslations("HomePage");
+
+
     const handleOpenModal = () => {
 
         const token = typeof window !== 'undefined' && localStorage.getItem('token');
@@ -129,12 +133,12 @@ const ProductCard = ({ ProductInfo }: AppProps) => {
                 <p className='text-[14px] font-[500] text-black text-center mb-4'>{ProductInfo.created_at.split(" ")[0]}</p>
                 <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>{ProductInfo.sector.title}</h6>
                 <ul className='flex flex-col gap-4 w-full mb-8'>
-                    <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>{ProductInfo.total_price}</span></li>
-                    <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>{ProductInfo.company_evaluation}</span></li>
+                    <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>{t("AskingPrice")}</span><span className='text-[16px] text-[#000] font-[600]'>{ProductInfo.total_price}</span></li>
+                    <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>{t("CompanyEvaluation")}</span><span className='text-[16px] text-[#000] font-[600]'>{ProductInfo.company_evaluation}</span></li>
                 </ul>
                 <div className='grid grid-cols-2 gap-6'>
-                    <Button variant='outline' className='w-full' onClick={() => router.push(`/our-projects/${ProductInfo.id}/sectors/${ProductInfo.sector.id}`)}>Show Details</Button>
-                    <Button className='w-full' onClick={handleOpenModal}>Buy Now</Button>
+                    <Button variant='outline' className='w-full' onClick={() => router.push(`/our-projects/${ProductInfo.id}/sectors/${ProductInfo.sector.id}`)}>{t("ShowDetails")}</Button>
+                    <Button className='w-full' onClick={handleOpenModal}>{t("BuyNow")}</Button>
                 </div>
             </div>
 

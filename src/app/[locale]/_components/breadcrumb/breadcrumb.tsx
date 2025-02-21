@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from "@/i18n/routing";;
 import Image from 'next/image';
 import breadcrumbImg from "@/media/breadcrumb_bg.png"
+import { useTranslations } from 'next-intl';
 
 interface BreadcrumbItem {
     label: string | number | undefined;
@@ -17,6 +18,9 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
     items = []
 }) => {
 
+    const t = useTranslations("HomePage");
+
+
     return (
         <nav className="relative w-full h-[30vh] md:h-[50vh]">
             <Image src={breadcrumbImg} width={100} height={100} alt='breadcrumb img' className='object-cover h-full w-full' />
@@ -26,7 +30,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
                         href="/"
                         className="flex items-center text-[#FFFFFFB2]"
                     >
-                        Home
+                        {t("Home")}
                     </Link>
 
                     {items.map((item, index) => (

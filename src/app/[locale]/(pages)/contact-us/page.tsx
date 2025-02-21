@@ -6,6 +6,7 @@ import Button from '../../_components/button/Button';
 import Breadcrumb from '../../_components/breadcrumb/breadcrumb';
 import toast from 'react-hot-toast';
 import { useConfigrationsContext } from '../../_contexts/MainConfigContext';
+import { useTranslations } from 'next-intl';
 
 // Define the form values interface
 interface FormValues {
@@ -18,7 +19,10 @@ interface FormValues {
 const ContactUsPage: React.FC = () => {
 
     const { Configrations } = useConfigrationsContext();
-        
+
+    const t = useTranslations("HomePage");
+
+
 
     // Validation schema using Yup
     const validationSchema = Yup.object({
@@ -50,7 +54,6 @@ const ContactUsPage: React.FC = () => {
 
             const data = await response.json()
             console.log(data);
-            
 
             if (!response.ok) {
                 throw new Error('Failed to send message');
@@ -67,19 +70,19 @@ const ContactUsPage: React.FC = () => {
         }
     };
 
+
     return (
         <>
             <Breadcrumb
                 items={[
-                    { label: 'Contact Us', href: '/contact-us' },
+                    { label: t("contactUs") , href: '/contact-us' },
                 ]}
             />
             <div className="max-w-[90%] mx-auto sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
                 <div className="py-20 md:py-32 grid grid-col-1 md:grid-cols-2 gap-16">
                     <div className='flex flex-col gap-12'>
                         <div>
-                            <h4 className='text-[42px] md:text-[52px] text-[#000] font-[600] mb-6'>Get In Touch</h4>
-                            <p className='text-[16px] text-[#939393] font-[400] leading-[30px]'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took .</p>
+                            <h4 className='text-[42px] md:text-[52px] text-[#000] font-[600] mb-6'>{t("GetInTouch")}</h4>
                         </div>
                         <div className='flex flex-col gap-6'>
                             <div className='flex items-center gap-6'>
@@ -90,7 +93,7 @@ const ContactUsPage: React.FC = () => {
                                     </svg>
                                 </span>
                                 <div>
-                                    <span className='text-[16px] text-[#939393] font-[400] leading-[24px] mb-3'>Adderss</span>
+                                    <span className='text-[16px] text-[#939393] font-[400] leading-[24px] mb-3'>{t("Adderss")}</span>
                                     <p className='text-[20px] text-[#000] font-[500] leading-[30px]'>Egypt Eye, Cairo,EG</p>
                                 </div>
                             </div>
@@ -102,7 +105,7 @@ const ContactUsPage: React.FC = () => {
 
                                 </span>
                                 <div>
-                                    <span className='text-[16px] text-[#939393] font-[400] leading-[24px] mb-3'>Phone Number</span>
+                                    <span className='text-[16px] text-[#939393] font-[400] leading-[24px] mb-3'>{t("PhoneNumber")}</span>
                                     <p className='text-[20px] text-[#000] font-[500] leading-[30px]'>{Configrations?.phone}</p>
                                 </div>
                             </div>
@@ -116,13 +119,13 @@ const ContactUsPage: React.FC = () => {
                                     </svg>
                                 </span>
                                 <div>
-                                    <span className='text-[16px] text-[#939393] font-[400] leading-[24px] mb-3'>E-mail</span>
-                                    <p className='text-[20px] text-[#000] font-[500] leading-[30px]'>{Configrations?.phone}</p>
+                                    <span className='text-[16px] text-[#939393] font-[400] leading-[24px] mb-3'>{t("Email")}</span>
+                                    <p className='text-[20px] text-[#000] font-[500] leading-[30px]'>{Configrations?.email}</p>
                                 </div>
                             </div>
                         </div>
                         <div className='flex flex-col gap-6'>
-                            <h6 className='text-[24px] text-[#000] font-[600] leading-[30px]'>Follow us</h6>
+                            <h6 className='text-[24px] text-[#000] font-[600] leading-[30px]'>{t("FollowUs")}</h6>
                             <div className='flex items-center gap-4'>
                                 <a href={Configrations?.twitter} target='_blank' className='w-12 h-12 rounded-[50%] flex items-center justify-center bg-[#F4F8ED] outline-none border-0 focus:ring-0'>
                                     <svg width="17" height="13" viewBox="0 0 17 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -151,8 +154,8 @@ const ContactUsPage: React.FC = () => {
                     </div>
 
                     <div className="rounded-[12px] bg-[#F4F8ED] p-8 flex flex-col justify-center">
-                        <p className="text-[#31A13A] text-[16px] font-[500] mb-4">Have a question?</p>
-                        <h2 className="text-[#000] text-[40px] md:text-[50px] font-[600] mb-10">Send us a message</h2>
+                        <p className="text-[#31A13A] text-[16px] font-[500] mb-4">{t("HaveAQuestion")}</p>
+                        <h2 className="text-[#000] text-[40px] md:text-[50px] font-[600] mb-10">{t("SendUsAMessage")}</h2>
                         <Formik
                             initialValues={{
                                 full_name: '',
@@ -225,7 +228,7 @@ const ContactUsPage: React.FC = () => {
                                             />
                                         </svg>
                                         <span className="text-[16px] font-[700]">
-                                            {isSubmitting ? 'Sendding...' : 'Get in Touch'}
+                                            {isSubmitting ? 'Sendding...' : t("GetInTouch")}
                                         </span>
                                     </Button>
                                 </Form>

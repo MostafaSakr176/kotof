@@ -4,6 +4,7 @@ import Image from 'next/image'
 import ourValuesimg1 from '@/media/our values img1.png'
 import ourValuesimg2 from '@/media/our values img2.png'
 import ourValuesimg3 from '@/media/our values img3.png'
+import { useTranslations } from 'next-intl'
 
 
 interface IValue {
@@ -18,6 +19,9 @@ interface IValue {
 const OurValues = () => {
 
     const [data, setData] = useState<IValue[] | undefined>();
+
+    const t = useTranslations("HomePage");
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -40,8 +44,8 @@ const OurValues = () => {
   return (
     <div className="mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mb-20 md:mb-32">
     <div className='text-center mb-12'>
-      <h6 data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px]'>Our Values</h6>
-      <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[26px] md:text-[40px] text-[#252525] font-[500]'>Empowering Trust, Transparency, and Growth<br />in Every Step We Take.</h2>
+      <h6 data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px]'>{t("OurValues")}</h6>
+      <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[26px] md:text-[40px] text-[#252525] font-[500]'>{t("EmpoweringTrust")}</h2>
     </div>
 
     <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>

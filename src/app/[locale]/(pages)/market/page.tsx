@@ -7,6 +7,7 @@ import Pagination from '../../_components/pagination/Pagination'
 import { useRouter } from "@/i18n/routing";
 import Spinner from '../../_components/spinner/Spinner'
 import toast from 'react-hot-toast'
+import { useTranslations } from 'next-intl'
 
 
 interface IProject {
@@ -57,6 +58,7 @@ const RenderAllProducts = () => {
 
 
   const router = useRouter();
+  const t = useTranslations("HomePage");
 
   useEffect(() => {
 
@@ -87,7 +89,7 @@ const RenderAllProducts = () => {
     <>
       <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-8'>
 
-        {data?.length !== 0 ? data?.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />) : <h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
+        {data?.length !== 0 ? data?.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />) : <h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>{t("NoRecords")}</h3>}
 
       </div>
       {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} /> : ''}
@@ -105,6 +107,9 @@ const RenderFromCustomers = () => {
 
 
   const router = useRouter();
+
+  const t = useTranslations("HomePage");
+
 
   useEffect(() => {
 
@@ -136,7 +141,7 @@ const RenderFromCustomers = () => {
     <>
       <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-8'>
 
-        {data?.length !== 0 ? data?.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />) : <h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
+        {data?.length !== 0 ? data?.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />) : <h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>{t("NoRecords")}</h3>}
 
       </div>
       {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} /> : ''}
@@ -154,6 +159,8 @@ const RenderFromCompany = () => {
 
 
   const router = useRouter();
+  const t = useTranslations("HomePage");
+
 
   useEffect(() => {
 
@@ -184,7 +191,7 @@ const RenderFromCompany = () => {
     <>
       <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-8'>
 
-        {data?.length !== 0 ? data?.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />) : <h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
+        {data?.length !== 0 ? data?.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />) : <h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>{t("NoRecords")}</h3>}
 
       </div>
       {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} /> : ''}
@@ -196,29 +203,34 @@ const RenderFromCompany = () => {
 
 const MarketPage = () => {
 
+  const t = useTranslations("HomePage");
+
+
   const tabs = [
     {
       id: 'tab1',
-      label: 'All',
+      label: t("All"),
       content: RenderAllProducts
     },
     {
       id: 'tab3',
-      label: 'from customers',
+      label:  t("fromCustomers"),
       content: RenderFromCustomers
     },
     {
       id: 'tab4',
-      label: 'from company',
+      label:  t("fromCompany"),
       content: RenderFromCompany
     }
   ];
+
+  
 
   return (
     <>
       <Breadcrumb
         items={[
-          { label: 'Market', href: '/market' },
+          { label: t("market"), href: '/market' },
         ]}
       />
 

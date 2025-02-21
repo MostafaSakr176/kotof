@@ -3,6 +3,7 @@ import { Link } from "@/i18n/routing";;
 import Button from '../button/Button';
 import Image from 'next/image';
 import ProjecIimg from '@/media/our values img1.png'
+import { useTranslations } from 'next-intl';
 
 interface IProjectCardProps {
    ProjectInfo : {
@@ -27,6 +28,9 @@ const ProjectCard = ({ProjectInfo}:IProjectCardProps) => {
     link.click(); // Trigger the click event
   };
 
+  const t = useTranslations("SectorDetails");
+
+
   return (
     <>
       <div className="w-full  overflow-hidden">
@@ -46,11 +50,11 @@ const ProjectCard = ({ProjectInfo}:IProjectCardProps) => {
           </ul>
           <div className='flex items-center justify-between'>
             <Link href={`/our-projects/${ProjectInfo.id}/sectors`} className='flex items-start w-fit gap-2 hover:gap-4 transition-all duration-300 leading-[27px] text-[14px] lg:text-[18px] text-[#009444]'>
-              SHOW SECTORS <svg className='rtl:rotate-180' width="13" height="28" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {t("ShowSectors")} <svg className='rtl:rotate-180' width="13" height="28" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5.19531 1.37341L5.82422 0.771851C5.95182 0.644246 6.10677 0.580444 6.28906 0.580444C6.47135 0.580444 6.6263 0.644246 6.75391 0.771851L12.0586 6.07654C12.1862 6.20414 12.25 6.35909 12.25 6.54138C12.25 6.72367 12.1862 6.87862 12.0586 7.00623L6.75391 12.3109C6.6263 12.4385 6.47135 12.5023 6.28906 12.5023C6.10677 12.5023 5.95182 12.4385 5.82422 12.3109L5.19531 11.7094C5.06771 11.5817 5.00391 11.4268 5.00391 11.2445C5.02214 11.0622 5.09505 10.9073 5.22266 10.7797L8.50391 7.63513H0.65625C0.473958 7.63513 0.31901 7.57133 0.191406 7.44373C0.0638021 7.31612 0 7.16117 0 6.97888V6.10388C0 5.92159 0.0638021 5.76664 0.191406 5.63904C0.31901 5.51143 0.473958 5.44763 0.65625 5.44763H8.50391L5.22266 2.3031C5.09505 2.1755 5.02214 2.02055 5.00391 1.83826C5.00391 1.65597 5.06771 1.50102 5.19531 1.37341Z" fill="#009444" />
               </svg>
             </Link>
-            <Button className='flex gap-2' onClick={()=>handleDownload(ProjectInfo.pdf)}>Download
+            <Button className='flex gap-2' onClick={()=>handleDownload(ProjectInfo.pdf)}>{t("Download")}
               <svg width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.26 19.8627H8.73998C3.82998 19.8627 1.72998 18.0469 1.72998 13.8015V13.6891C1.72998 9.85003 3.47998 7.99969 7.39998 7.67977C7.79998 7.65383 8.17998 7.91322 8.21998 8.26773C8.25998 8.62223 7.95998 8.94215 7.53998 8.97674C4.39998 9.22749 3.22998 10.5072 3.22998 13.6977V13.8101C3.22998 17.3292 4.66998 18.5743 8.73998 18.5743H15.26C19.33 18.5743 20.77 17.3292 20.77 13.8101V13.6977C20.77 10.4899 19.58 9.21019 16.38 8.97674C15.97 8.94215 15.66 8.63088 15.7 8.27637C15.74 7.92187 16.09 7.65383 16.51 7.68841C20.49 7.98239 22.27 9.84139 22.27 13.7064V13.8188C22.27 18.0469 20.17 19.8627 15.26 19.8627Z" fill="white" />
                 <path d="M12 14.1387C11.59 14.1387 11.25 13.8447 11.25 13.4902V2.35356C11.25 1.99906 11.59 1.70508 12 1.70508C12.41 1.70508 12.75 1.99906 12.75 2.35356V13.4902C12.75 13.8534 12.41 14.1387 12 14.1387Z" fill="white" />

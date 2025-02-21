@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import contactUs from '@/media/contactUs-img.png'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 
 interface AboutResponse {
     title: string,
@@ -9,8 +10,10 @@ interface AboutResponse {
 
 const About = () => {
 
-
     const [data, setData] = useState<AboutResponse | null>(null);
+
+    const t = useTranslations("HomePage");
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,7 +39,7 @@ const About = () => {
       <Image data-aos="zoom-out" data-aos-duration="500" data-aos-delay="0" src={contactUs} alt='contact us' />
     </div>
     <div className=' flex flex-col gap-8'>
-      <h6 data-aos="fade-left" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px] ltr:pl-4 ltr:border-l-[3px] rtl:pr-4 rtl:border-r-[3px] border-[#E5EDD3]'>About Quttouf</h6>
+      <h6 data-aos="fade-left" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px] ltr:pl-4 ltr:border-l-[3px] rtl:pr-4 rtl:border-r-[3px] border-[#E5EDD3]'>{t("AboutQuttouf")}</h6>
       <h2 data-aos="fade-left" data-aos-duration="500" data-aos-delay="0" className='text-[28px] md:text-[40px] text-[#252525] font-bold ltr:pl-4 rtl:pr-4'>{data?.title}</h2>
       <p data-aos="fade-left" data-aos-duration="500" data-aos-delay="0" className='text-[18px] text-[#656565] leading-[30px] ltr:pl-4 ltr:border-l-[3px] rtl:pr-4 rtl:border-r-[3px] border-[#E5EDD3]'>{data?.content}</p>
     </div>

@@ -7,6 +7,7 @@ import PriceInput from '../amountInput/AmountInput';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 import SectorImg from  "@/media/sector img 1.png" 
+import { useTranslations } from 'next-intl';
 
 
 interface ISectorCardProps {
@@ -105,7 +106,10 @@ const SectorCard = ({ SectorInfo }: ISectorCardProps) => {
   }
 
 
-  const router = useRouter()
+  const router = useRouter();
+
+  const t = useTranslations("SectorDetails");
+
 
 
   const handleAskingPrice = (value: number): void => {
@@ -142,23 +146,23 @@ const SectorCard = ({ SectorInfo }: ISectorCardProps) => {
           <p className="text-[#525252] text-[16px] lg:text-[20px] mb-4 line-clamp-3">{SectorInfo.sector.description}</p>
           <ul className='grid grid-cols-2 mb-8'>
             <li className='flex items-center gap-2'>
-              <span className='text-[#656565] text-[14px] lg:text-[18px]'>land area:</span>
+              <span className='text-[#656565] text-[14px] lg:text-[18px]'>{t("LandArea")}:</span>
               <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>{SectorInfo.sector.land_area} m</span>
             </li>
             <li className='flex items-center gap-2'>
-              <span className='text-[#656565] text-[14px] lg:text-[18px]'>number of total shares:</span>
+              <span className='text-[#656565] text-[14px] lg:text-[18px]'>{t("NumberOfCompanyShares")}:</span>
               <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>{SectorInfo.number_of_shares}</span>
             </li>
             <li className='flex items-center gap-2'>
-              <span className='text-[#656565] text-[14px] lg:text-[18px]'>share price:</span>
+              <span className='text-[#656565] text-[14px] lg:text-[18px]'>{t("SharePrice")}:</span>
               <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>{SectorInfo.share_price}</span>
             </li>
             <li className='flex items-center gap-2'>
-              <span className='text-[#656565] text-[14px] lg:text-[18px]'>number of company shares:</span>
+              <span className='text-[#656565] text-[14px] lg:text-[18px]'>{t("OfferedByTheCompany")}:</span>
               <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>{SectorInfo.sector.available_shares}</span>
             </li>
             <li className='flex items-center gap-2'>
-              <span className='text-[#656565] text-[14px] lg:text-[18px]'>total shares price:</span>
+              <span className='text-[#656565] text-[14px] lg:text-[18px]'>{t("TotalPrice")}:</span>
               <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>{SectorInfo.total_price}</span>
             </li>
           </ul>
@@ -168,7 +172,7 @@ const SectorCard = ({ SectorInfo }: ISectorCardProps) => {
                 <path d="M5.19531 1.37341L5.82422 0.771851C5.95182 0.644246 6.10677 0.580444 6.28906 0.580444C6.47135 0.580444 6.6263 0.644246 6.75391 0.771851L12.0586 6.07654C12.1862 6.20414 12.25 6.35909 12.25 6.54138C12.25 6.72367 12.1862 6.87862 12.0586 7.00623L6.75391 12.3109C6.6263 12.4385 6.47135 12.5023 6.28906 12.5023C6.10677 12.5023 5.95182 12.4385 5.82422 12.3109L5.19531 11.7094C5.06771 11.5817 5.00391 11.4268 5.00391 11.2445C5.02214 11.0622 5.09505 10.9073 5.22266 10.7797L8.50391 7.63513H0.65625C0.473958 7.63513 0.31901 7.57133 0.191406 7.44373C0.0638021 7.31612 0 7.16117 0 6.97888V6.10388C0 5.92159 0.0638021 5.76664 0.191406 5.63904C0.31901 5.51143 0.473958 5.44763 0.65625 5.44763H8.50391L5.22266 2.3031C5.09505 2.1755 5.02214 2.02055 5.00391 1.83826C5.00391 1.65597 5.06771 1.50102 5.19531 1.37341Z" fill="#009444" />
               </svg>
             </Link>
-            <Button className='px-4' onClick={handleOpenModal}>Buy Now</Button>
+            <Button className='px-4' onClick={handleOpenModal}>{t("BuyNow")}</Button>
           </div>
 
         </div>
@@ -211,8 +215,8 @@ const SectorCard = ({ SectorInfo }: ISectorCardProps) => {
         </ul>
 
         <div className='w-full flex justify-end items-center gap-2 lg:gap-4 lg:px-2 pt-6 border-t border-[#F1F1F1]'>
-          <Button variant='secondary' onClick={() => { setIsOpen(false) }}>Cancel</Button>
-          <Button onClick={handleSendOffer} disabled={IsLoading}>{IsLoading ? "Sendding Offer..." : "Send Offer"}</Button>
+          <Button variant='secondary' onClick={() => { setIsOpen(false) }}>{t("Cancel")}</Button>
+          <Button onClick={handleSendOffer} disabled={IsLoading}>{IsLoading ? t("SendOffer") : t("SendingOffer")}</Button>
         </div>
       </Modal>
     </>

@@ -14,6 +14,7 @@ import { useRouter } from '@/i18n/routing';
 import Modal from '@/app/[locale]/_components/modal/Modal';
 import PriceInput from '@/app/[locale]/_components/amountInput/AmountInput';
 import BlogCard from '@/app/[locale]/_components/articleCard/BlogCard';
+import { useTranslations } from 'next-intl';
 
 const images = [
     {
@@ -220,12 +221,14 @@ const SectorDetails = ({ sectorId }: Iprops) => {
         link.click(); // Trigger the click event
     };
 
+    const t = useTranslations("SectorDetails");
+
 
     return (
         <>
             <Breadcrumb
                 items={[
-                    { label: 'Sectors', href: '/sectors' },
+                    { label: t("Sectors"), href: '/sectors' },
                     { label: data?.sector.title, href: `/sectors/${sectorId}` },
                 ]}
             />
@@ -246,7 +249,7 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                                     </svg>
                                 </span>
                                 <div className='flex flex-col'>
-                                    <span className='text-[#656565] text-[14px] font-[400]'>Land area</span>
+                                    <span className='text-[#656565] text-[14px] font-[400]'>{t("LandArea")}</span>
                                     <p className='text-[#000] text-[18px] font-[500]'>{data?.sector.land_area} m</p>
                                 </div>
                             </li>
@@ -257,7 +260,7 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                                     </svg>
                                 </span>
                                 <div className='flex flex-col'>
-                                    <span className='text-[#656565] text-[14px] font-[400]'>Number of company shares</span>
+                                    <span className='text-[#656565] text-[14px] font-[400]'>{t("NumberOfCompanyShares")}</span>
                                     <p className='text-[#000] text-[18px] font-[500]'>{data?.number_of_shares}</p>
                                 </div>
                             </li>
@@ -271,7 +274,7 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                                     </svg>
                                 </span>
                                 <div className='flex flex-col'>
-                                    <span className='text-[#656565] text-[14px] font-[400]'>Offered by the company</span>
+                                    <span className='text-[#656565] text-[14px] font-[400]'>{t("OfferedByTheCompany")}</span>
                                     <p className='text-[#000] text-[18px] font-[500]'>{data?.sector.offered_by_company}</p>
                                 </div>
                             </li>
@@ -285,8 +288,8 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                                     </svg>
                                 </span>
                                 <div className='flex flex-col'>
-                                    <span className='text-[#656565] text-[14px] font-[400]'>Share price</span>
-                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.share_price} EGP</p>
+                                    <span className='text-[#656565] text-[14px] font-[400]'>{t("SharePrice")}</span>
+                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.share_price} {t("currency")}</p>
                                 </div>
                             </li>
                             <li className='flex items-center gap-3'>
@@ -298,8 +301,8 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                                     </svg>
                                 </span>
                                 <div className='flex flex-col'>
-                                    <span className='text-[#656565] text-[14px] font-[400]'>Total price</span>
-                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.total_price} EGP</p>
+                                    <span className='text-[#656565] text-[14px] font-[400]'>{t("TotalPrice")}</span>
+                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.total_price} {t("currency")}</p>
                                 </div>
                             </li>
                         </ul>
@@ -325,7 +328,7 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                                 </svg>
 
                             </button>
-                            <Button className='px-4' onClick={handleOpenModal}>Buy Now</Button>
+                            <Button className='px-4' onClick={handleOpenModal}>{t("BuyNow")}</Button>
 
                         </div>
                     </div>
@@ -380,7 +383,7 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                         initialValue={""}
                         placeholder="Enter amount"
                         label='I present an offer'
-                        currency='EGP'
+                        currency={t("currency")}
                     />
                     <PriceInput
                         maxValue={100000000}
@@ -401,8 +404,8 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                 </ul>
 
                 <div className='w-full flex justify-end items-center gap-2 lg:gap-4 lg:px-2 pt-6 border-t border-[#F1F1F1]'>
-                    <Button variant='secondary' onClick={() => { setIsOpen(false) }}>Cancel</Button>
-                    <Button onClick={handleSendOffer} disabled={IsLoading}>{IsLoading ? "Sendding Offer..." : "Send Offer"}</Button>
+                    <Button variant='secondary' onClick={() => { setIsOpen(false) }}>{t("Cancel")}</Button>
+                    <Button onClick={handleSendOffer} disabled={IsLoading}>{IsLoading ? t("SendingOffer") : t("SendOffer")}</Button>
                 </div>
             </Modal>
 

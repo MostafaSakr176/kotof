@@ -134,12 +134,12 @@ const Header = () => {
             </li>
             <li>
               <Link href="/" className="text-white lg:text-[#363636]">
-                Home
+              {t("Home")}
               </Link>
             </li>
             <li>
               <Link href="/market" className="text-white lg:text-[#363636]">
-                Market
+              {t("market")}
               </Link>
             </li>
             <li>
@@ -147,7 +147,7 @@ const Header = () => {
                 href="/our-projects"
                 className="text-white lg:text-[#363636]"
               >
-                Our Projects
+                {t("ourProjects")}
               </Link>
             </li>
             <li>
@@ -155,26 +155,26 @@ const Header = () => {
                 href="/news-articles"
                 className="text-white lg:text-[#363636]"
               >
-                News & Articles
+                {t("Blogs")}
               </Link>
             </li>
             <li>
               <Link href="/partners" className="text-white lg:text-[#363636]">
-                Partners
+              {t("Partners")}
               </Link>
             </li>
             <li>
               <Link href="/contact-us" className="text-white lg:text-[#363636]">
-                Contact us
+              {t("contactUs")}
               </Link>
             </li>
             {initialUser ? <ul className="w-full lg:hidden border-t border-[#fff] mt-8 pt-4">
               <li className="w-full">
-                <button onClick={() => { router.push("/profile"); setDropdownIsOpen(false); }} className="w-full flex justify-center items-center text-white gap-3 cursor-pointer px-4 py-2 outline-0 border-0 bg-transparent focus:outline-0 focus:border-0 focus:bg-transparent text-sm md:text-base"><BiUser /> Profile</button>
+                <button onClick={() => { router.push("/profile"); setDropdownIsOpen(false); }} className="w-full flex justify-center items-center text-white gap-3 cursor-pointer px-4 py-2 outline-0 border-0 bg-transparent focus:outline-0 focus:border-0 focus:bg-transparent text-sm md:text-base"><BiUser /> {t("Profile")}</button>
               </li>
               <li className="w-full">
                 <button className="w-full flex justify-center items-center gap-3 cursor-pointer px-4 py-2 outline-0 border-0 bg-transparent focus:outline-0 focus:border-0 focus:bg-transparent text-sm md:text-base text-red-600"
-                  onClick={handleLogout}><IoMdExit /> Logout</button>
+                  onClick={handleLogout}><IoMdExit /> {t("logout")}</button>
               </li>
             </ul> : <li className="w-full flex flex-col justify-center gap-4 p-8 lg:hidden">
               <Link
@@ -210,11 +210,11 @@ const Header = () => {
                   <div className="absolute z-[999] right-[50%] translate-x-[50%] mt-2 w-48 bg-white border rounded-lg shadow-lg">
                     <ul className="w-full bg-white rounded-[8px] overflow-hidden">
                       <li className="w-full hover:bg-gray-200">
-                        <button onClick={() => { router.push("/profile"); setDropdownIsOpen(false); }} className="w-full flex justify-center items-center gap-3 cursor-pointer px-4 py-2 outline-0 border-0 bg-transparent focus:outline-0 focus:border-0 focus:bg-transparent text-sm md:text-base"><BiUser /> Profile</button>
+                        <button onClick={() => { router.push("/profile"); setDropdownIsOpen(false); }} className="w-full flex justify-center items-center gap-3 cursor-pointer px-4 py-2 outline-0 border-0 bg-transparent focus:outline-0 focus:border-0 focus:bg-transparent text-sm md:text-base"><BiUser /> {t("Profile")}</button>
                       </li>
                       <li className="w-full hover:bg-gray-200">
                         <button className="w-full flex justify-center items-center gap-3 cursor-pointer px-4 py-2 outline-0 border-0 bg-transparent focus:outline-0 focus:border-0 focus:bg-transparent text-sm md:text-base text-red-600"
-                          onClick={handleLogout}><IoMdExit /> Logout</button>
+                          onClick={handleLogout}><IoMdExit /> {t("logout")}</button>
                       </li>
                     </ul>
                   </div>

@@ -2,6 +2,7 @@
 import React, { useState, useCallback, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { FaPause, FaPlay } from 'react-icons/fa';
+import { useTranslations } from 'next-intl';
 
 // Dynamically import ReactPlayer to avoid SSR issues
 const ReactPlayer = dynamic(() => import('react-player/lazy'), {
@@ -70,6 +71,9 @@ export function VideoPlayer({
 
 
 
+    const t = useTranslations("HomePage");
+  
+
 
 
 
@@ -113,7 +117,7 @@ export function VideoPlayer({
               {playerState.playing ? <FaPause className='text-[24px]' /> :  <FaPlay className='text-[24px]' />}
             </button>
 
-            <h4 className='text-[22px] leading-[30px] lg:text-[54px] lg:leading-[70px] text-[#FFFFFF] font-[600] text-center'>&quot;Discover How Quttouf Transforms <br/> Investments into Opportunities&quot;</h4>
+            <h4 className='text-[22px] leading-[30px] lg:text-[54px] lg:leading-[70px] text-[#FFFFFF] font-[600] text-center'>&quot;{t("Discover")}&quot;</h4>
           </div>
       )}
     </div>

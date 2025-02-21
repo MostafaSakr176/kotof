@@ -1,4 +1,5 @@
 "use client"
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 // import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react'
@@ -51,6 +52,9 @@ const Our_client = () => {
 
   const [data, setData] = useState<IClient[] | undefined>([]);
 
+      const t = useTranslations("HomePage");
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -76,8 +80,8 @@ const Our_client = () => {
 
     <div className="mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mb-20 md:mb-32">
       <div className='text-center mb-12'>
-        <h6 data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px]'>Our clients</h6>
-        <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[26px] md:text-[40px] text-[#252525] font-[500]'>&quot;Explore, Invest, and Unlock <br /> New Opportunities&quot;</h2>
+        <h6 data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px]'>{t("OurClients")}</h6>
+        <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[26px] md:text-[40px] text-[#252525] font-[500]'>&quot;{t("ExploreInvest")}&quot;</h2>
       </div>
 
       <div className=''>
@@ -86,7 +90,7 @@ const Our_client = () => {
             <Image src={data.image ? data.image : "https://test.jiovanilibya.org/dashboard/blank.jpg"} width={100} height={100} alt='our clients' className='w-full h-auto' />
             <div className='absolute z-8 top-0 left-0 w-full h-full bg-gradient-to-t from-[#000000] to-[#D9D9D900] p-8 flex flex-col justify-end items-start'>
               <h5 className='text-[22px] text-[#fff] font-[800]'>{data ? data.title : ""}</h5>
-              <span className='text-[18px] text-[#CFCFCF] font-[600]'>Client</span>
+              <span className='text-[18px] text-[#CFCFCF] font-[600]'>{t("Client")}</span>
             </div>
           </div>)}
         </Slider>
