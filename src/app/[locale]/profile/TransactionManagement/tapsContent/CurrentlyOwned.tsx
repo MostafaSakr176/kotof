@@ -5,6 +5,7 @@ import Modal from '../../../_components/modal/Modal';
 import Pagination from '../../../_components/pagination/Pagination';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
+import { useTranslations } from 'next-intl';
 
 
 interface IProject {
@@ -59,6 +60,7 @@ const RenderCurrentlyOwned = () => {
     const [CurrentSectorId, setCurrentSectorId] = useState<number | undefined>()
     
 
+    const t = useTranslations("profile.transaction_management");
 
 
     const handleSell = async (sectorid: number | undefined) => {
@@ -159,14 +161,14 @@ const RenderCurrentlyOwned = () => {
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>{ele.created_at.split(" ")[0]}</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>{ele.sector.title}</h6>
                     <ul className='flex flex-col gap-4 w-full mb-8'>
-                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>{ele.sector.id}</span></li>
-                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>{ele.total_price}</span></li>
-                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>{ele.company_evaluation}</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>{t("sector")}</span><span className='text-[16px] text-[#000] font-[600]'>{ele.sector.id}</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>{t("asking_price")}</span><span className='text-[16px] text-[#000] font-[600]'>{ele.total_price}</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>{t("company_evaluation")}</span><span className='text-[16px] text-[#000] font-[600]'>{ele.company_evaluation}</span></li>
                     </ul>
                     <div className='w-full flex justify-center'>
-                        <Button className='w-28 h-12' onClick={() => { setIsOpen(true); setCurrentSectorId(ele?.id); }}>Sell</Button>
+                        <Button className='w-28 h-12' onClick={() => { setIsOpen(true); setCurrentSectorId(ele?.id); }}>{t("Sell")}</Button>
                     </div>
-                </div>):<h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
+                </div>):<h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>{t("no_records")}</h3>}
 
 
                 <div className='col-span-3'>
@@ -174,7 +176,7 @@ const RenderCurrentlyOwned = () => {
                 </div>
             </div>
 
-            <Modal isOpen={isOpen} onClose={() => { setIsOpen(false) }} title='Offer Submission Details' className='max-w-lg p-8'>
+            <Modal isOpen={isOpen} onClose={() => { setIsOpen(false) }} title={t("Offer Submission Details")} className='max-w-lg p-8'>
                 <div className='space-y-6 pb-8 mb-8 border-b border-[#F1F1F1]' >
                     <div className='space-y-1'>
                         <PriceInput
@@ -182,8 +184,8 @@ const RenderCurrentlyOwned = () => {
                             minValue={0}
                             onChange={handleNumberOfShares}
                             initialValue={""}
-                            placeholder="Enter amount"
-                            label='Number Shares'
+                            placeholder={t("Enter_amount")}
+                            label={t("Number_Shares")}
                             currency='EGP'
                         />
                     </div>
@@ -193,8 +195,8 @@ const RenderCurrentlyOwned = () => {
                             minValue={0}
                             onChange={handleAskingPrice}
                             initialValue={""}
-                            placeholder="Enter amount"
-                            label='Asking Price'
+                            placeholder={t("Enter_amount")}
+                            label={t("Asking_Price")}
                             currency='EGP'
                         />
                     </div>
@@ -202,7 +204,7 @@ const RenderCurrentlyOwned = () => {
 
                 <div className='w-full flex justify-end gap-4'>
                     <Button variant='ghost' className='w-28 h-12 border border-[#E4E6EA] rounded-[8px] text-[#32363D]' onClick={() => { setIsOpen(false) }}>Cancel</Button>
-                    <Button className='w-28 h-12' onClick={() => { handleSell(CurrentSectorId) }} >{IsSelling? "Loading...":"confirm"}</Button>
+                    <Button className='w-28 h-12' onClick={() => { handleSell(CurrentSectorId) }} >{IsSelling? t("Loading"):t("Confirm")}</Button>
                 </div>
             </Modal>
         </>

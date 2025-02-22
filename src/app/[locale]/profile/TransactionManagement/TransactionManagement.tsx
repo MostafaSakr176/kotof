@@ -4,35 +4,39 @@ import RenderPurchaseRequests from './tapsContent/PurchaseRequests';
 import RenderCurrentlyOwned from './tapsContent/CurrentlyOwned';
 import RenderAwaitingApproval from './tapsContent/AwaitingApproval';
 import RenderSold from './tapsContent/Sold';
+import { useTranslations } from 'next-intl';
 
 const RenderTransactionManagement = () => {
 
     const [activeTab, setActiveTab] = useState("ListedForSale");
 
+    const t = useTranslations("profile.transaction_management");
+
+
     const TransactionManagementTabs = [
         {
             id: 'ListedForSale',
-            label: 'Listed for Sale',
+            label: t("Listed_for_Sale"),
             content: RenderListedForSale
         },
         {
             id: 'PurchaseRequests',
-            label: 'Purchase Requests',
+            label: t("Purchase_Requests"),
             content: RenderPurchaseRequests
         },
         {
             id: 'CurrentlyOwned',
-            label: 'Currently Owned',
+            label: t("Currently_Owned"),
             content: RenderCurrentlyOwned
         },
         {
             id: 'AwaitingApproval',
-            label: 'Awaiting Approval',
+            label: t("Awaiting_Approval"),
             content: RenderAwaitingApproval
         },
         {
             id: 'Sold',
-            label: 'Sold',
+            label: t("Sold"),
             content: RenderSold
         }
     ];

@@ -6,6 +6,7 @@ import userImg from '@/media/our clients img1.png'
 import Pagination from '../../../_components/pagination/Pagination'
 import toast from 'react-hot-toast'
 import Spinner from '@/app/[locale]/_components/spinner/Spinner'
+import { useTranslations } from 'next-intl'
 
 interface IProject {
     id: number,
@@ -55,6 +56,7 @@ const RenderPurchaseRequests = () => {
     const [IsLoadingRefuse, setIsLoadingRefuse] = useState<boolean>(false)
     const [isLoading, setisLoading] = useState<boolean>(true)
 
+    const t = useTranslations("profile.transaction_management");
 
 
 
@@ -173,15 +175,15 @@ const RenderPurchaseRequests = () => {
                     </div>
 
                     <ul className='flex flex-col gap-4 w-full mb-6'>
-                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>{ele.sector.id}</span></li>
-                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>{ele.total_price}</span></li>
-                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>{ele.company_evaluation}</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>{t("sector")}</span><span className='text-[16px] text-[#000] font-[600]'>{ele.sector.id}</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>{t("asking_price")}</span><span className='text-[16px] text-[#000] font-[600]'>{ele.total_price}</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>{t("company_evaluation")}</span><span className='text-[16px] text-[#000] font-[600]'>{ele.company_evaluation}</span></li>
                     </ul>
                     <div className='grid grid-cols-2 gap-6'>
-                        <Button variant='destructive' className='w-full h-12' onClick={() => handleRefuseOffer(ele.id)} disabled={IsLoadingRefuse}>{IsLoadingRefuse ? "Refusing..." : "Refuse"}</Button>
-                        <Button className='w-full h-12' onClick={() => handleAcceptOffer(ele.id)} disabled={IsLoadingAccept}>{IsLoadingAccept ? "Accepting..." : "Accept"}</Button>
+                        <Button variant='destructive' className='w-full h-12' onClick={() => handleRefuseOffer(ele.id)} disabled={IsLoadingRefuse}>{IsLoadingRefuse ? t("Refusing") :  t("Refuse")}</Button>
+                        <Button className='w-full h-12' onClick={() => handleAcceptOffer(ele.id)} disabled={IsLoadingAccept}>{IsLoadingAccept ? t("Accepting") :  t("Accept")}</Button>
                     </div>
-                </div>):<h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
+                </div>):<h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'> {t("no_records")}</h3>}
 
                 <div className='col-span-3'>
                 {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />:''}

@@ -8,6 +8,7 @@ import RenderWalletAndInvestments from './WalletAndInvestments/WalletAndInvestme
 import RenderTransactionManagement from './TransactionManagement/TransactionManagement'
 import { useUser } from '../_contexts/userContext'
 import { useRouter } from "@/i18n/routing";
+import { useTranslations } from 'next-intl'
 
 // ================= Profile page ===================
 
@@ -16,20 +17,23 @@ const ProfilePage = () => {
     const [activeTab, setActiveTab] = useState("PrfileInfo");
     const { user } = useUser();
 
+        const t = useTranslations("profile");
+    
+
     const MainTabs = [
         {
             id: 'PrfileInfo',
-            label: 'Profile Information',
+            label: t("Profile_Information"),
             content: RenderProfileInfo
         },
         {
             id: 'WalletAndInvestments',
-            label: 'Wallet and investments',
+            label: t("Wallet_investments"),
             content: RenderWalletAndInvestments
         },
         {
             id: 'TransactionManagement',
-            label: 'Transaction Management',
+            label: t("Transaction_Management"),
             content: RenderTransactionManagement
         }
     ];
@@ -60,7 +64,7 @@ const ProfilePage = () => {
                 <div className="absolute z-10 bottom-0 left-[50%] translate-x-[-50%] translate-y-[60%] w-full flex items-end  gap-6 lg:gap-12 mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
                     <Image src={currentUser? currentUser.image : UserImg} alt='profile cover' width={100} height={100} className='h-[120px] w-[120px] lg:h-[280px] lg:w-[280px] object-cover rounded-[50%] border-[4px] border-white' />
                     <div className='flex flex-col justify-center gap-0 lg:gap-2 h-[70px] lg:h-[140px]'>
-                        <span className='text-[#656565] text-[14px] lg:text-[20px] font-[400]'>Welcome,</span>
+                        <span className='text-[#656565] text-[14px] lg:text-[20px] font-[400]'>{t("Welcome")},</span>
                         <h4 className='text-[#17181B] text-[20px] lg:text-[32px] font-[600]'>{user?.username}</h4>
                     </div>
                 </div>

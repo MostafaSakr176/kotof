@@ -37,6 +37,10 @@ body{
   overflow-x: hidden;
 }
 
+input{
+  outline: 0;
+}
+
 .slick-track{
   display: flex !important;
   gap: 2rem;

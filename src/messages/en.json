@@ -86,25 +86,25 @@
     "SendingOffer": "Sending Offer...",
     "Cancel": "Cancel"
   },
-  "auth":{
+  "auth": {
     "ForgetPassword": {
       "welcome_back": "Welcome Back",
-    "otp_message": "We have shared a code with your registered email address",
-    "enter_otp": "Enter OTP",
-    "resend_code": "Didn't get a code?",
-    "click_resend": "Click to resend",
-    "back_to_login": "Back to login",
-    "send_otp": "Send OTP",
-    "country": "Country",
-    "select_country": "Select a country",
-    "phone_number": "Phone Number",
-    "sending": "Sending...",
-    "otp_sent_success": "OTP sent successfully",
-    "country_code_required": "Country code is required",
-    "phone_required": "Phone number is required",
-    "phone_numeric": "Phone number must be numeric"
+      "otp_message": "We have shared a code with your registered email address",
+      "enter_otp": "Enter OTP",
+      "resend_code": "Didn't get a code?",
+      "click_resend": "Click to resend",
+      "back_to_login": "Back to login",
+      "send_otp": "Send OTP",
+      "country": "Country",
+      "select_country": "Select a country",
+      "phone_number": "Phone Number",
+      "sending": "Sending...",
+      "otp_sent_success": "OTP sent successfully",
+      "country_code_required": "Country code is required",
+      "phone_required": "Phone number is required",
+      "phone_numeric": "Phone number must be numeric"
     },
-    "resetPassword":{
+    "resetPassword": {
       "Validation": {
         "password_required": "Password is required",
         "password_min": "Password must be at least 8 characters",
@@ -135,12 +135,103 @@
       "dont_have_account": "Don't have an account?",
       "sign_up": "Sign up",
       "Validation": {
-    "country_required": "Country is required",
-    "country_min": "Country must be at least 1 character",
-    "phone_required": "Phone is required",
-    "password_required": "Password is required",
-    "password_min": "Password must be at least 6 characters"
-  }
+        "country_required": "Country is required",
+        "country_min": "Country must be at least 1 character",
+        "phone_required": "Phone is required",
+        "password_required": "Password is required",
+        "password_min": "Password must be at least 6 characters"
+      }
+    },
+    "signup": {
+      "Validation": {
+        "username_required": "Username is required",
+        "username_min": "Username must be at least 3 characters",
+        "country_required": "Country is required",
+        "country_min": "Country must be at least 1 character",
+        "phone_required": "Phone number is required",
+        "phone_min": "Phone number must be at least 5 characters",
+        "password_required": "Password is required",
+        "password_min": "Password must be at least 8 characters",
+        "password_confirmation_required": "Please confirm your password",
+        "password_match": "Passwords must match"
+      },
+      "messages": {
+        "welcome_title": "Welcome Back",
+        "welcome_subtitle": "Enter your email and password to login.",
+        "username_label": "User name",
+        "country_label": "Country",
+        "phone_label": "Phone Number",
+        "password_label": "Password",
+        "password_confirmation_label": "Confirm Password",
+        "signup_button": "Sign Up",
+        "signin_redirect": "Don't have an account?",
+        "signin_link": "Log In"
+      }
     }
-  }  
+  },
+  "profile": {
+    "Welcome":"Welcome",
+    "Profile_Information":"Profile Information",
+    "Wallet_investments":"Wallet and investments",
+    "Transaction_Management":"Transaction Management",
+    "profileInfo": {
+      "email_invalid": "Invalid email address",
+      "email_required": "Email address is required",
+      "current_password_required": "Current password is required",
+      "current_password_min": "Password must be at least 8 characters",
+      "profile_updated": "Profile updated successfully",
+      "email_label": "Email address",
+      "current_password_label": "Current password",
+      "username_label": "User Name",
+      "fullname_label": "Full Name",
+      "Country_for_phone_label": "Country for phone",
+      "Country_for_phone2_label": "Country for phone 2",
+      "Country_for_whatsapp_label": "Country for whatsapp number",
+      "Select_country": "Select a country",
+      "Phone_label": "Phone",
+      "Phone2_label": "Phone 2",
+      "whatsapp_number_label": "whatsapp number",
+      "emergency_number_label": "emergency number",
+      "bank_name_label": "bank name",
+      "bank_account_number_label": "bank account number",
+      "isntapay_account_label": "isntapay account",
+      "Nationality_label": "Nationality",
+      "Select_nationality": "Select a nationality",
+      "national_ID_label": "national ID",
+      "national_ID_image_label": "national ID image",
+      "Drag_Drop": "Drag & Drop or",
+      "choose_file": "choose file",
+      "to_upload": "to upload",
+      "Supported": "Supported at : Jpeg, pdf",
+      "Loading": "Loading...",
+      "Confirm": "Confirm"
+    },
+    "transaction_management": {
+      "Listed_for_Sale": "Listed for Sale",
+      "Purchase_Requests": "Purchase Requests",
+      "Currently_Owned": "Currently Owned",
+      "Awaiting_Approval": "Awaiting Approval",
+      "Sold": "Sold",
+      "created_at": "created at",
+      "sale_transaction": "Sale Transaction",
+      "pending": "Pending",
+      "sector": "Sector",
+      "asking_price": "Asking Price",
+      "company_evaluation": "Company Evaluation",
+      "no_records": "No records have been added yet.",
+      "Sell":"Sell",
+      "Enter_amount":"Enter amount",
+      "Number_Shares":"Number Shares",
+      "Asking_Price":"Asking Price",
+      "currency":"EGP",
+      "Cancel":"Cancel",
+      "Loading": "Loading...",
+      "Confirm": "Confirm",
+      "Offer_Submission_Details": "Offer Submission Details",
+      "Refusing": "Refusing...",
+      "Refuse": "Refuse",
+      "Accepting": "Accepting...",
+      "Accept": "Confirm"
+    }
+  }
 }

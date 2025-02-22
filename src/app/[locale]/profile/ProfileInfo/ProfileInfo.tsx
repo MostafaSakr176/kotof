@@ -6,6 +6,7 @@ import Button from '../../_components/button/Button';
 import { useUser } from '../../_contexts/userContext';
 import ImageUpload from '../imageUploud';
 import toast from 'react-hot-toast';
+import { useTranslations } from 'next-intl';
 
 
 interface ICountry {
@@ -46,10 +47,10 @@ const RenderProfileInfo = () => {
     const [countries, setCountries] = useState<ICountry[]>([]);
     const [nationalities, setNationalities] = useState<INationality[]>([]);
 
-    // const currentUser = typeof window !== 'undefined' && localStorage.getItem('userInfo');
-
-
     const { updateUser } = useUser();
+
+      const t = useTranslations("profile.profileInfo");
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -71,8 +72,8 @@ const RenderProfileInfo = () => {
 
     const validationSchema = Yup.object({
         image: Yup.mixed(),
-        email: Yup.string().email('Invalid email address'),
-        current_password: Yup.string().min(8).required('Current password is required'),
+        email: Yup.string().required(t("email_required")).email(t("email_invalid")),
+        current_password: Yup.string().min(8,t("current_password_min")).required(t("current_password_required")),
         username: Yup.string(),
         full_name: Yup.string(),
         country_code: Yup.string(),
@@ -124,9 +125,8 @@ const RenderProfileInfo = () => {
                 if (response.ok) {
                     localStorage.setItem('userInfo', JSON.stringify(result));
                     updateUser(result);
-                    toast.success('Profile updated successfully');
+                    toast.success(t("profile_updated"));
                 } else {
-                    console.error('Failed to update profile');
                     toast.error(result.message);
                 }
             } catch (error) {
@@ -198,7 +198,7 @@ const RenderProfileInfo = () => {
             </div>
 
             <div className="space-y-1">
-                <label htmlFor="email" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">Email address</label>
+                <label htmlFor="email" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">{t("email_label")}</label>
                 <input
                     type="email"
                     id="email"
@@ -211,7 +211,7 @@ const RenderProfileInfo = () => {
             </div>
 
             <div className="space-y-1 mb-4">
-                <label htmlFor="current_password" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">Current password</label>
+                <label htmlFor="current_password" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">{t("current_password_label")}</label>
                 <input
                     type="password"
                     id="current_password"
@@ -224,7 +224,7 @@ const RenderProfileInfo = () => {
             </div>
 
             <div className="space-y-1 mb-4">
-                <label htmlFor="username" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">User Name</label>
+                <label htmlFor="username" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">{t("username_label")}</label>
                 <input
                     type="text"
                     id="username"
@@ -237,7 +237,7 @@ const RenderProfileInfo = () => {
             </div>
 
             <div className="space-y-1 mb-4">
-                <label htmlFor="full_name" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">Full Name</label>
+                <label htmlFor="full_name" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">{t("fullname_label")}</label>
                 <input
                     type="text"
                     id="full_name"
@@ -254,14 +254,14 @@ const RenderProfileInfo = () => {
                     htmlFor="country_code"
                     className="text-[#656C77] text-[16px] leading-[24px] font-[500]"
                 >
-                    Country for phone
+                    {t("Country_for_phone_label")}
                 </label>
                 <select
                     id="country_code"
                     {...formik.getFieldProps('country_code')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
                 >
-                    <option value="">Select a country</option>
+                    <option value="">{t("Select_country")}</option>
                     {countries.map((country) => (
                         <option key={country.id} value={country.phone_code} >
                             {country.name}  {`(+${country.phone_code})`}
@@ -274,7 +274,7 @@ const RenderProfileInfo = () => {
             </div>
 
             <div className="space-y-1 mb-4">
-                <label htmlFor="phone" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">Phone</label>
+                <label htmlFor="phone" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">{t("Phone_label")}</label>
                 <input
                     type="text"
                     id="phone"
@@ -292,14 +292,14 @@ const RenderProfileInfo = () => {
                     htmlFor="country_code_2"
                     className="text-[#656C77] text-[16px] leading-[24px] font-[500]"
                 >
-                    Country for phone 2
+                    {t("Country_for_phone2_label")}
                 </label>
                 <select
                     id="country_code_2"
                     {...formik.getFieldProps('country_code_2')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
                 >
-                    <option value="">Select a country</option>
+                    <option value="">{t("Select_country")}</option>
                     {countries.map((country) => (
                         <option key={country.id} value={country.phone_code}>
                             {country.name}  {`(+${country.phone_code})`}
@@ -312,7 +312,7 @@ const RenderProfileInfo = () => {
             </div>
 
             <div className="space-y-1 mb-4">
-                <label htmlFor="phone_2" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">Phone 2</label>
+                <label htmlFor="phone_2" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">{t("Phone2_label")}</label>
                 <input
                     type="text"
                     id="phone_2"
@@ -330,14 +330,14 @@ const RenderProfileInfo = () => {
                     htmlFor="country_code_whatsapp"
                     className="text-[#656C77] text-[16px] leading-[24px] font-[500]"
                 >
-                    Country for whatsapp number
+                    {t("Country_for_whatsapp_label")}
                 </label>
                 <select
                     id="country_code_whatsapp"
                     {...formik.getFieldProps('country_code_whatsapp')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
                 >
-                    <option value="">Select a country</option>
+                    <option value="">{t("Select_country")}</option>
                     {countries.map((country) => (
                         <option key={country.id} value={country.phone_code}>
                             {country.name}  {`(+${country.phone_code})`}
@@ -350,7 +350,7 @@ const RenderProfileInfo = () => {
             </div>
 
             <div className="space-y-1 mb-4">
-                <label htmlFor="whatsapp_number" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">whatsapp number</label>
+                <label htmlFor="whatsapp_number" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">{t("whatsapp_number_label")}</label>
                 <input
                     type="text"
                     id="whatsapp_number"
@@ -364,7 +364,7 @@ const RenderProfileInfo = () => {
 
 
             <div className="space-y-1 mb-4">
-                <label htmlFor="emergency_number" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">emergency number</label>
+                <label htmlFor="emergency_number" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">{t("emergency_number_label")}</label>
                 <input
                     type="text"
                     id="emergency_number"
@@ -377,7 +377,7 @@ const RenderProfileInfo = () => {
             </div>
 
             <div className="space-y-1 mb-4">
-                <label htmlFor="bank_name" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">bank name</label>
+                <label htmlFor="bank_name" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">{t("bank_name_label")}</label>
                 <input
                     type="text"
                     id="bank_name"
@@ -390,7 +390,7 @@ const RenderProfileInfo = () => {
             </div>
 
             <div className="space-y-1 mb-4">
-                <label htmlFor="bank_account_number" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">bank account number</label>
+                <label htmlFor="bank_account_number" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">{t("bank_account_number_label")}</label>
                 <input
                     type="text"
                     id="bank_account_number"
@@ -403,7 +403,7 @@ const RenderProfileInfo = () => {
             </div>
 
             <div className="space-y-1 mb-4">
-                <label htmlFor="isntapay_account" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">isntapay account</label>
+                <label htmlFor="isntapay_account" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">{t("isntapay_account_label")}</label>
                 <input
                     type="text"
                     id="isntapay_account"
@@ -421,14 +421,14 @@ const RenderProfileInfo = () => {
                     htmlFor="nationality_id"
                     className="text-[#656C77] text-[16px] leading-[24px] font-[500]"
                 >
-                    Nationality
+                    {t("Nationality_label")}
                 </label>
                 <select
                     id="nationality_id"
                     {...formik.getFieldProps('nationality_id')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
                 >
-                    <option value="">Select a nationality</option>
+                    <option value="">{t("Select_nationality")}</option>
                     {nationalities.map((nationality) => (
                         <option key={nationality.id} value={nationality.id}>
                             {nationality.name}
@@ -441,7 +441,7 @@ const RenderProfileInfo = () => {
             </div>
 
             <div className="space-y-1 mb-4">
-                <label htmlFor="national_id" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">national ID</label>
+                <label htmlFor="national_id" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">{t("national_ID_label")}</label>
                 <input
                     type="text"
                     id="national_id"
@@ -454,7 +454,7 @@ const RenderProfileInfo = () => {
             </div>
 
             <div className='space-y-1 col-span-2'>
-                <label htmlFor="national_id_image" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>national ID image</label>
+                <label htmlFor="national_id_image" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>{t("national_ID_image_label")}</label>
                 <div>
                     <div
                         className="border-[1px] border-dashed border-[#009444] rounded-lg p-6 text-center cursor-pointer hover:bg-gray-100"
@@ -467,8 +467,8 @@ const RenderProfileInfo = () => {
                                 <path fillRule="evenodd" clipRule="evenodd" d="M3.72476 3.5579C3.48069 3.80198 3.48069 4.19771 3.72477 4.44178C3.96885 4.68586 4.36457 4.68586 4.60865 4.44178L6.87501 2.1754V12.3332C6.87501 12.6784 7.15483 12.9582 7.50001 12.9582C7.84519 12.9582 8.12501 12.6784 8.12501 12.3332V2.17538L10.3914 4.44178C10.6355 4.68586 11.0312 4.68586 11.2753 4.44178C11.5194 4.1977 11.5194 3.80197 11.2753 3.5579L7.94195 0.22456C7.82474 0.10735 7.66577 0.0415031 7.50001 0.0415039C7.33425 0.0415047 7.17528 0.107354 7.05807 0.224564L3.72476 3.5579ZM2.78322 6.89078C2.99911 6.62146 2.9558 6.22811 2.68648 6.01221C2.41715 5.79631 2.0238 5.83962 1.80791 6.10894C0.807302 7.35716 0.208374 8.94275 0.208374 10.6665C0.208374 14.6936 3.47296 17.9582 7.50004 17.9582C11.5271 17.9582 14.7917 14.6936 14.7917 10.6665C14.7917 8.94275 14.1928 7.35716 13.1922 6.10894C12.9763 5.83962 12.5829 5.79631 12.3136 6.01221C12.0443 6.22811 12.001 6.62146 12.2169 6.89078C13.0461 7.92523 13.5417 9.23714 13.5417 10.6665C13.5417 14.0032 10.8368 16.7082 7.50004 16.7082C4.16332 16.7082 1.45837 14.0032 1.45837 10.6665C1.45837 9.23714 1.95397 7.92523 2.78322 6.89078Z" fill="white" />
                             </svg>
                         </div>
-                        <p className="text-[#40444C] text-[14px]">Drag & Drop or <span className='text-[#009444]'>choose file</span> to upload</p>
-                        <p className="text-[#949494] text-[10px]">Supported ats : Jpeg, pdf</p>
+                        <p className="text-[#40444C] text-[14px]">{t("Drag_Drop")} <span className='text-[#009444]'>{t("choose_file")}</span> {t("to_upload")}</p>
+                        <p className="text-[#949494] text-[10px]">{t("Supported")}</p>
                         <input
                             type="file"
                             id='national_id_image'
@@ -490,7 +490,7 @@ const RenderProfileInfo = () => {
                 </div>
             </div>
 
-            <Button type="submit" className="col-span-2 w-36 ml-auto">{formik.isSubmitting ? 'Loading...' : 'Confirm'}</Button>
+            <Button type="submit" className="col-span-2 w-36 ml-auto">{formik.isSubmitting ? t("Loading") : t("Confirm")}</Button>
         </form>
     );
 };

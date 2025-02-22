@@ -2,6 +2,7 @@
 import Spinner from '@/app/[locale]/_components/spinner/Spinner'
 import Pagination from '../../../_components/pagination/Pagination'
 import React, { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 
 interface IProject {
@@ -50,6 +51,7 @@ const RenderListedForSale = () => {
   const [CurrentPage, setCurrentPage] = useState<number>(1)
   const [isLoading, setisLoading] = useState<boolean>(true)
 
+    const t = useTranslations("profile.transaction_management");
 
 
   useEffect(() => {
@@ -90,11 +92,11 @@ const RenderListedForSale = () => {
           <p className='text-[14px] font-[500] text-black text-center mb-4'>{ele.created_at.split(" ")[0]}</p>
           <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>{ele.sector.title}</h6>
           <ul className='flex flex-col gap-4 w-full'>
-            <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>{ele.sector.id}</span></li>
-            <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>{ele.total_price}</span></li>
-            <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>{ele.company_evaluation}</span></li>
+            <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>{t("sector")}</span><span className='text-[16px] text-[#000] font-[600]'>{ele.sector.id}</span></li>
+            <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>{t("asking_price")}</span><span className='text-[16px] text-[#000] font-[600]'>{ele.total_price}</span></li>
+            <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>{t("company_evaluation")}</span><span className='text-[16px] text-[#000] font-[600]'>{ele.company_evaluation}</span></li>
           </ul>
-        </div>):<h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>No records has been added yet.</h3>}
+        </div>):<h3 className='col-span-3 text-[20px] text-center text-[#009444] font-[700]'>{t("no_records")}</h3>}
 
 
         <div className='col-span-3'>
