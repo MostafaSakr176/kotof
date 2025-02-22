@@ -67,10 +67,12 @@ const RenderCurrentlyOwned = () => {
 
 
         const token = typeof window !== 'undefined' && localStorage.getItem('token');
+        const direction = typeof window !== "undefined" && localStorage.getItem("direction");
 
         const myHeaders = new Headers();
         myHeaders.append("accept", "application/json");
         myHeaders.append("Authorization", `Bearer ${token ? JSON.parse(token) : ''}`);
+        myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
 
         const formData = new FormData();
         if (sectorid) formData.append("market_of_sector_id", sectorid.toString());

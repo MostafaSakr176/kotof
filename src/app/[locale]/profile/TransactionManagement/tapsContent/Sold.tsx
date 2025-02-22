@@ -56,10 +56,14 @@ const RenderSold = () => {
   useEffect(() => {
     const fetchData = async () => {
       const token = typeof window !== 'undefined' && localStorage.getItem('token');
+      const direction = typeof window !== "undefined" && localStorage.getItem("direction");
 
       const myHeaders = new Headers();
       myHeaders.append("accept", "application/json");
       myHeaders.append("Authorization", `Bearer ${token ? JSON.parse(token) : ''}`);
+      myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
+
+      
       try {
         const response = await fetch('https://test.jiovanilibya.org/api/user/sector-orders?filter[status_id]=3&filter[type_id]=3', {
           headers: myHeaders,

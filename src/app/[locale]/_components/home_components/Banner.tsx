@@ -24,8 +24,14 @@ const Banner = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+          const direction = typeof window !== "undefined" && localStorage.getItem("direction");
+
+          const myHeaders = new Headers();
+          myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
           try {
-            const response = await fetch('https://test.jiovanilibya.org/api/user/main-banners');
+            const response = await fetch('https://test.jiovanilibya.org/api/user/main-banners',{
+              headers:myHeaders
+            });
             const result = await response.json();
             console.log(result.data[0]);
             setData(result.data[0]);

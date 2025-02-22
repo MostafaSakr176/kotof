@@ -31,8 +31,14 @@ export const ConfigrationsContextProvider = ({ children }: { children: ReactNode
   useEffect(() => {
     
     const fetchData = async () => {
+
+      const direction = typeof window !== "undefined" && localStorage.getItem("direction");
+      const myHeaders = new Headers();
+      myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
         try {
-          const response = await fetch('https://test.jiovanilibya.org/api/user/main-config');
+          const response = await fetch('https://test.jiovanilibya.org/api/user/main-config',{
+            headers:myHeaders
+          });
           const result = await response.json();
           setConfigrations(result.data);
   

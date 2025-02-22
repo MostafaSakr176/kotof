@@ -54,8 +54,13 @@ const ShowSectors = ({ projectId }: { projectId: number }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const direction = typeof window !== "undefined" && localStorage.getItem("direction");
+          const myHeaders = new Headers();
+          myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
       try {
-        const response = await fetch(`https://test.jiovanilibya.org/api/user/market?filter[project_id]=${projectId}`);
+        const response = await fetch(`https://test.jiovanilibya.org/api/user/market?filter[project_id]=${projectId}`,{
+          headers:myHeaders
+        });
         const result = await response.json();
         setData(result.data);
         setTotalPages(result?.pages)

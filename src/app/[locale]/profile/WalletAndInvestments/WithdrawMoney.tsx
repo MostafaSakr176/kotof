@@ -6,6 +6,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import toast from 'react-hot-toast'
 import { useWalletContext } from '../../_contexts/walletContext'
+import { useTranslations } from 'next-intl'
 
 
 interface IWallet {
@@ -22,11 +23,18 @@ const RenderwithdrawMoney = () => {
 
     const { setTransactionsFromContext } = useWalletContext();
 
+        const t = useTranslations("profile.wallet");
+    
+
     const fetchData = async () => {
         const token = typeof window !== 'undefined' && localStorage.getItem('token');
+        const direction = typeof window !== "undefined" && localStorage.getItem("direction");
+
         const myHeaders = new Headers();
         myHeaders.append("accept", "application/json");
         myHeaders.append("Authorization", `Bearer ${token ? JSON.parse(token) : ''}`);
+        myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
+
         try {
             const response = await fetch('https://test.jiovanilibya.org/api/user/wallet', {
                 headers: myHeaders,
@@ -54,9 +62,9 @@ const RenderwithdrawMoney = () => {
             amount: '',
         },
         validationSchema: Yup.object({
-            address: Yup.string().email('Invalid email address').required('Address is required'),
-            phone_number: Yup.number().required('InstaPay number is required'),
-            amount: Yup.number().required('Amount is required').positive('Amount must be positive'),
+            address: Yup.string().email(t('address_invalid')).required(t('address_required')),
+                        phone_number: Yup.number().required(t('phone_number_required')),
+                        amount: Yup.number().required(t('amount_required')).positive(t('amount_positive'))
         }),
         onSubmit: async (values) => {
             const token = typeof window !== 'undefined' && localStorage.getItem('token');
@@ -94,10 +102,10 @@ const RenderwithdrawMoney = () => {
 
     return (
         <form onSubmit={formik.handleSubmit}>
-            <p className='text-[#656565] text-[18px] font-[400] mb-2'>Total Balance</p>
-            <h4 className='pb-6 mb-6 border-b border-[#F1F1F1] text-[#17181B] text-[28px] font-[600]'>{data?.wallet_balance} <span className=' text-[16px]'>EGP</span></h4>
+            <p className='text-[#656565] text-[18px] font-[400] mb-2'>{t('total_balance')}</p>
+            <h4 className='pb-6 mb-6 border-b border-[#F1F1F1] text-[#17181B] text-[28px] font-[600]'>{data?.wallet_balance} <span className=' text-[16px]'>{t('currency')}</span></h4>
             <div className='space-y-1 mb-4'>
-                <label htmlFor="address" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>address</label>
+                <label htmlFor="address" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>{t('address_label')}</label>
                 <input
                     type="text"
                     name="address"
@@ -105,7 +113,7 @@ const RenderwithdrawMoney = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.address}
-                    placeholder='Enter address'
+                    placeholder={t('address_placeholder')}
                     className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
                 />
                 { formik.errors.address ? (
@@ -114,7 +122,7 @@ const RenderwithdrawMoney = () => {
             </div>
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 pb-6 mb-6 border-b border-[#F1F1F1]'>
                 <div className='space-y-1'>
-                    <label htmlFor="phone_number" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>InstaPay Number</label>
+                    <label htmlFor="phone_number" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>{t('instapay_number_label')}</label>
                     <input
                         type="text"
                         name="phone_number"
@@ -122,7 +130,7 @@ const RenderwithdrawMoney = () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.phone_number}
-                        placeholder='Enter InstaPay number'
+                        placeholder={t('instapay_number_placeholder')}
                         className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
                     />
                     { formik.errors.phone_number ? (
@@ -130,7 +138,7 @@ const RenderwithdrawMoney = () => {
                     ) : null}
                 </div>
                 <div className='space-y-1'>
-                    <label htmlFor="amount" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Amount</label>
+                    <label htmlFor="amount" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>{t('amount_label')}</label>
                     <input
                         type="text"
                         name="amount"
@@ -138,7 +146,7 @@ const RenderwithdrawMoney = () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.amount}
-                        placeholder='Enter amount'
+                        placeholder={t('amount_placeholder')}
                         className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
                     />
                     { formik.errors.amount ? (
@@ -146,7 +154,7 @@ const RenderwithdrawMoney = () => {
                     ) : null}
                 </div>
             </div>
-            <Button type="submit" className='w-full h-12' disabled={formik.isSubmitting}>{formik.isSubmitting ? 'Loading...' : 'Confirm'}</Button>
+            <Button type="submit" className='w-full h-12' disabled={formik.isSubmitting}>{formik.isSubmitting ? t('loading') : t('confirm')}</Button>
         </form>
     )
 }

@@ -87,6 +87,8 @@
     "Cancel": "Cancel"
   },
   "auth": {
+    "Welcome_to_Quttouf":"Welcome to Quttouf",
+    "breef":"The easiest way to grow your investments and achieve your financial goals. Join us to explore smart solutions tailored for your success",
     "ForgetPassword": {
       "welcome_back": "Welcome Back",
       "otp_message": "We have shared a code with your registered email address",
@@ -170,10 +172,10 @@
     }
   },
   "profile": {
-    "Welcome":"Welcome",
-    "Profile_Information":"Profile Information",
-    "Wallet_investments":"Wallet and investments",
-    "Transaction_Management":"Transaction Management",
+    "Welcome": "Welcome",
+    "Profile_Information": "Profile Information",
+    "Wallet_investments": "Wallet and investments",
+    "Transaction_Management": "Transaction Management",
     "profileInfo": {
       "email_invalid": "Invalid email address",
       "email_required": "Email address is required",
@@ -219,12 +221,12 @@
       "asking_price": "Asking Price",
       "company_evaluation": "Company Evaluation",
       "no_records": "No records have been added yet.",
-      "Sell":"Sell",
-      "Enter_amount":"Enter amount",
-      "Number_Shares":"Number Shares",
-      "Asking_Price":"Asking Price",
-      "currency":"EGP",
-      "Cancel":"Cancel",
+      "Sell": "Sell",
+      "Enter_amount": "Enter amount",
+      "Number_Shares": "Number Shares",
+      "Asking_Price": "Asking Price",
+      "currency": "EGP",
+      "Cancel": "Cancel",
       "Loading": "Loading...",
       "Confirm": "Confirm",
       "Offer_Submission_Details": "Offer Submission Details",
@@ -232,6 +234,30 @@
       "Refuse": "Refuse",
       "Accepting": "Accepting...",
       "Accept": "Confirm"
+    },
+    "wallet": {
+      "address_invalid": "Invalid email address",
+      "address_required": "Address is required",
+      "phone_number_required": "InstaPay number is required",
+      "amount_required": "Amount is required",
+      "amount_positive": "Amount must be positive",
+      "receipt_image_required": "Receipt image is required",
+      "total_balance": "Total Balance",
+      "currency": "EGP",
+      "address_label": "Address",
+      "address_placeholder": "Enter address",
+      "instapay_number_label": "InstaPay Number",
+      "instapay_number_placeholder": "Enter InstaPay number",
+      "amount_label": "Amount",
+      "amount_placeholder": "Enter amount",
+      "receipt_image_label": "Receipt Image",
+      "loading": "Loading...",
+      "confirm": "Confirm",
+      "Wallet_Details": "Wallet Details",
+      "Transitions": "Transitions",
+      "no_records": "No records have been added yet.",
+      "Deposit_Money":"Deposit Money",
+      "withdraw_Money":"withdraw Money"
     }
   }
 }

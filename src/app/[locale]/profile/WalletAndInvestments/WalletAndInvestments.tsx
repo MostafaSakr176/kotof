@@ -5,6 +5,7 @@ import Button from '../../_components/button/Button';
 import RenderDepositMoney from './DepositMoney';
 import RenderwithdrawMoney from './WithdrawMoney';
 import { useWalletContext } from '../../_contexts/walletContext';
+import { useTranslations } from 'next-intl';
 
 
 
@@ -14,17 +15,18 @@ const RenderWalletAndInvestments = () => {
 
     const { TransactionsFromContext, setTransactionsFromContext } = useWalletContext();
 
+        const t = useTranslations("profile.wallet");
 
 
     const WalletTabs = [
         {
             id: 'DepositMoney',
-            label: 'Deposit Money',
+            label: t("Deposit_Money"),
             content: RenderDepositMoney
         },
         {
             id: 'withdrawMoney',
-            label: 'withdraw Money',
+            label: t("withdraw_Money"),
             content: RenderwithdrawMoney
         }
     ];
@@ -33,10 +35,12 @@ const RenderWalletAndInvestments = () => {
     const fetchData = async () => {
 
         const token = typeof window !== 'undefined' && localStorage.getItem('token');
+        const direction = typeof window !== "undefined" && localStorage.getItem("direction");
 
         const myHeaders = new Headers();
         myHeaders.append("accept", "application/json");
         myHeaders.append("Authorization", `Bearer ${token ? JSON.parse(token) : ''}`);
+        myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
 
         try {
             const response = await fetch('https://test.jiovanilibya.org/api/user/wallet', {
@@ -70,7 +74,7 @@ const RenderWalletAndInvestments = () => {
                             <path d="M2.5 13.16C2.09 13.16 1.75 12.82 1.75 12.41V7.84006C1.75 6.35006 2.69 5.00001 4.08 4.47001L12.02 1.47001C12.84 1.16001 13.75 1.27005 14.46 1.77005C15.18 2.27005 15.6 3.08005 15.6 3.95005V7.75003C15.6 8.16003 15.26 8.50003 14.85 8.50003C14.44 8.50003 14.1 8.16003 14.1 7.75003V3.95005C14.1 3.57005 13.92 3.22003 13.6 3.00003C13.28 2.78003 12.9 2.73003 12.54 2.87003L4.6 5.87003C3.79 6.18003 3.24 6.97006 3.24 7.84006V12.41C3.25 12.83 2.91 13.16 2.5 13.16Z" fill="#252525" />
                             <path d="M19.6 17.7999C18.09 17.7999 16.81 16.6799 16.69 15.2399C16.61 14.4099 16.91 13.5999 17.51 13.0099C18.02 12.4899 18.72 12.2 19.47 12.2H21.55C22.54 12.23 23.3 13.0099 23.3 13.9699V16.03C23.3 16.99 22.54 17.7699 21.58 17.7999H19.6ZM21.53 13.7H19.48C19.13 13.7 18.81 13.8299 18.58 14.0699C18.29 14.3499 18.15 14.7299 18.19 15.1099C18.25 15.7699 18.88 16.2999 19.6 16.2999H21.56C21.69 16.2999 21.81 16.18 21.81 16.03V13.9699C21.81 13.8199 21.69 13.71 21.53 13.7Z" fill="#252525" />
                             <path d="M14 12.75H7C6.59 12.75 6.25 12.41 6.25 12C6.25 11.59 6.59 11.25 7 11.25H14C14.41 11.25 14.75 11.59 14.75 12C14.75 12.41 14.41 12.75 14 12.75Z" fill="#252525" />
-                        </svg>  Wallet Details</p>
+                        </svg>  {t('Wallet_Details')}</p>
                         <div className='flex items-center gap-2 lg:gap-4 w-full lg:w-auto'>
                             {WalletTabs.map((tab) => (
                                 <Button
@@ -122,7 +126,7 @@ const RenderWalletAndInvestments = () => {
                                 <path d="M15.0002 22.75C14.7302 22.75 14.4802 22.6 14.3502 22.37C14.2202 22.13 14.2202 21.85 14.3602 21.61L15.4102 19.86C15.6202 19.51 16.0802 19.39 16.4402 19.6C16.8002 19.81 16.9102 20.27 16.7002 20.63L16.4302 21.08C19.1902 20.43 21.2602 17.95 21.2602 14.99C21.2602 14.58 21.6002 14.24 22.0102 14.24C22.4202 14.24 22.7602 14.58 22.7602 14.99C22.7502 19.27 19.2702 22.75 15.0002 22.75Z" fill="#252525" />
                                 <path d="M2 9.75C1.59 9.75 1.25 9.41 1.25 9C1.25 4.73 4.73 1.25 9 1.25C9.27 1.25 9.51999 1.4 9.64999 1.63C9.77999 1.87 9.78001 2.15 9.64001 2.39L8.59 4.14C8.38 4.49 7.92 4.61 7.56 4.4C7.2 4.19 7.08999 3.73 7.29999 3.37L7.57001 2.92C4.81001 3.57 2.73999 6.05 2.73999 9.01C2.74999 9.41 2.41 9.75 2 9.75Z" fill="#252525" />
                             </svg>
-                            Transitions</p>
+                            {t('Transitions')}</p>
                     </div>
                     <div className='max-h-[75vh] overflow-y-auto'>
                         {TransactionsFromContext.length !== 0 ? TransactionsFromContext.map(ele => <div key={ele.id} className='flex items-center gap-2 pb-3 mb-3 border-b border-[#F1F1F1]'>
@@ -144,14 +148,14 @@ const RenderWalletAndInvestments = () => {
                             <div className='grow '>
                                 <div className='flex items-center justify-between gap-2'>
                                     <p className='text-[#252525] text-[14px] font-[400]'>{ele.status}</p>
-                                    {ele.status == "waiting_for_deposit" || ele.status == "Deposit" ? <p className='text-[#007BFF] text-[14px] font-[500]'>{ele.amount + "EGP +"}</p> : <p className='text-[#007BFF] text-[14px] font-[500]'>{ele.amount + "EGP -"}</p>}
+                                    {ele.status == "waiting_for_deposit" || ele.status == "Deposit" ? <p className='text-[#007BFF] text-[14px] font-[500]'>{ele.amount + t('currency') + " +"}</p> : <p className='text-[#007BFF] text-[14px] font-[500]'>{ele.amount + t('currency') + " -"}</p>}
                                 </div>
                                 <div className='flex items-center justify-between gap-2'>
                                     <span className='text-[#949494] text-[12px]'>#{ele.id}</span>
                                     <span className='text-[#949494] text-[12px]'>{ele.created_at.split(" ")[0]}</span>
                                 </div>
                             </div>
-                        </div>): <h3 className='text-[20px] text-[#009444]'>No records has been added yet.</h3>}
+                        </div>): <h3 className='text-[20px] text-[#009444]'>{t('no_records')}</h3>}
                     </div>
                 </div>
             </div>

@@ -87,6 +87,8 @@
     "Cancel": "إلغاء"
   },
   "auth": {
+    "Welcome_to_Quttouf": "مرحبًا بك في قطوف",
+    "breef": "أسهل طريقة لتنمية استثماراتك وتحقيق أهدافك المالية. انضم إلينا لاستكشاف حلول ذكية مصممة لنجاحك",
     "ForgetPassword": {
       "welcome_back": "مرحبًا بعودتك",
       "otp_message": "لقد أرسلنا رمزًا إلى بريدك الإلكتروني المسجل",
@@ -233,6 +235,30 @@
       "Refuse": "رفض",
       "Accepting": "جارٍ القبول...",
       "Accept": "تأكيد"
+    },
+    "wallet": {
+      "address_invalid": "عنوان البريد الإلكتروني غير صالح",
+      "address_required": "العنوان مطلوب",
+      "phone_number_required": "رقم InstaPay مطلوب",
+      "amount_required": "المبلغ مطلوب",
+      "amount_positive": "يجب أن يكون المبلغ موجبًا",
+      "receipt_image_required": "صورة الإيصال مطلوبة",
+      "total_balance": "الرصيد الإجمالي",
+      "currency": "ج.م",
+      "address_label": "العنوان",
+      "address_placeholder": "أدخل العنوان",
+      "instapay_number_label": "رقم InstaPay",
+      "instapay_number_placeholder": "أدخل رقم InstaPay",
+      "amount_label": "المبلغ",
+      "amount_placeholder": "أدخل المبلغ",
+      "receipt_image_label": "صورة الإيصال",
+      "loading": "جارٍ التحميل...",
+      "confirm": "تأكيد",
+      "Wallet_Details": "تفاصيل المحفظة",
+    "Transitions": "المعاملات",
+    "no_records": "لم يتم إضافة أي سجلات بعد.",
+    "Deposit_Money": "إيداع الأموال",
+    "withdraw_Money": "سحب الأموال"
     }
   }
 }

@@ -30,8 +30,14 @@ const Blogs = () => {
     const fetchData = async () => {
       setisLoading(true);
 
+      const direction = typeof window !== "undefined" && localStorage.getItem("direction");
+
+          const myHeaders = new Headers();
+          myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
       try {
-        const response = await fetch('https://test.jiovanilibya.org/api/user/blogs');
+        const response = await fetch('https://test.jiovanilibya.org/api/user/blogs',{
+          headers:myHeaders
+        });
         const result = await response.json();
         setData(result.data);
         setTotalPages(result?.pages)

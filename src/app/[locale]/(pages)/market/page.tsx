@@ -64,8 +64,14 @@ const RenderAllProducts = () => {
 
 
     const fetchData = async () => {
+      const direction = typeof window !== "undefined" && localStorage.getItem("direction");
+
+          const myHeaders = new Headers();
+          myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
       try {
-        const response = await fetch('https://test.jiovanilibya.org/api/user/market');
+        const response = await fetch('https://test.jiovanilibya.org/api/user/market',{
+          headers:myHeaders
+        });
         const result = await response.json();
         setData(result.data);
         setTotalPages(result?.pages)
@@ -115,8 +121,15 @@ const RenderFromCustomers = () => {
 
 
     const fetchData = async () => {
+
+      const direction = typeof window !== "undefined" && localStorage.getItem("direction");
+
+          const myHeaders = new Headers();
+          myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
       try {
-        const response = await fetch('https://test.jiovanilibya.org/api/user/market?filter[type_id]=2');
+        const response = await fetch('https://test.jiovanilibya.org/api/user/market?filter[type_id]=2',{
+          headers:myHeaders
+        });
         const result = await response.json();
         setData(result.data);
         setTotalPages(result?.pages)
@@ -166,8 +179,14 @@ const RenderFromCompany = () => {
 
 
     const fetchData = async () => {
+      const direction = typeof window !== "undefined" && localStorage.getItem("direction");
+
+          const myHeaders = new Headers();
+          myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
       try {
-        const response = await fetch('https://test.jiovanilibya.org/api/user/market?filter[type_id]=1');
+        const response = await fetch('https://test.jiovanilibya.org/api/user/market?filter[type_id]=1',{
+          headers:myHeaders
+        });
         const result = await response.json();
         setData(result.data);
         setTotalPages(result?.pages)

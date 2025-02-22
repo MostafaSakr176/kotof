@@ -55,8 +55,15 @@ const OurMarket = () => {
     
     
         const fetchData = async () => {
+
+          const direction = typeof window !== "undefined" && localStorage.getItem("direction");
+
+          const myHeaders = new Headers();
+          myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
           try {
-            const response = await fetch('https://test.jiovanilibya.org/api/user/market');
+            const response = await fetch('https://test.jiovanilibya.org/api/user/market',{
+              headers:myHeaders
+            });
             const result = await response.json();
             setData(result.data);
     

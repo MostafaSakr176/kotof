@@ -35,8 +35,15 @@ const BlogDetails = ({blogId}:IProps) => {
     
     
         const fetchData = async () => {
+
+          const direction = typeof window !== "undefined" && localStorage.getItem("direction");
+
+          const myHeaders = new Headers();
+          myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
           try {
-            const response = await fetch(`https://test.jiovanilibya.org/api/user/blogs/${blogId}`);
+            const response = await fetch(`https://test.jiovanilibya.org/api/user/blogs/${blogId}`,{
+              headers:myHeaders
+            });
             const result = await response.json();
             setData(result.data);
     
@@ -46,8 +53,14 @@ const BlogDetails = ({blogId}:IProps) => {
         };
 
         const fetchBlogs = async () => {
+          const direction = typeof window !== "undefined" && localStorage.getItem("direction");
+
+          const myHeaders = new Headers();
+          myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
           try {
-            const response = await fetch('https://test.jiovanilibya.org/api/user/blogs');
+            const response = await fetch('https://test.jiovanilibya.org/api/user/blogs',{
+              headers:myHeaders
+            });
             const result = await response.json();
             setBlogs(result.data);
     

@@ -17,7 +17,6 @@ const PartnersPage = () => {
         ]}
       />
 
-
       <Out_team />
       <Our_client />
 

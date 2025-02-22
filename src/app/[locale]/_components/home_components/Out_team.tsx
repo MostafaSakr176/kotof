@@ -35,8 +35,15 @@ const Out_team = () => {
 
   useEffect(() => {
       const fetchData = async () => {
+
+        const direction = typeof window !== "undefined" && localStorage.getItem("direction");
+
+          const myHeaders = new Headers();
+          myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
           try {
-              const response = await fetch('https://test.jiovanilibya.org/api/user/teams');
+              const response = await fetch('https://test.jiovanilibya.org/api/user/teams',{
+                headers:myHeaders
+              });
               const result = await response.json();
               setData(result.data);
               console.log(result.data[0]);
