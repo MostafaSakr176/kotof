@@ -58,6 +58,7 @@ const RenderAwaitingApproval = () => {
     const fetchData = async () => {
       const token = typeof window !== 'undefined' && localStorage.getItem('token');
       const direction = typeof window !== "undefined" && localStorage.getItem("direction");
+      const PerPage = 6;
 
       const myHeaders = new Headers();
       myHeaders.append("accept", "application/json");
@@ -65,7 +66,7 @@ const RenderAwaitingApproval = () => {
       myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
 
       try {
-        const response = await fetch('https://test.jiovanilibya.org/api/user/awaiting-approval', {
+        const response = await fetch(`https://test.jiovanilibya.org/api/user/awaiting-approval?per_page=${PerPage}&page=${CurrentPage}`, {
           headers: myHeaders,
         });
         const result = await response.json();
@@ -82,7 +83,7 @@ const RenderAwaitingApproval = () => {
     };
 
     fetchData();
-  }, []); // Empty dependency array ensures this runs only once after the component mounts
+  }, [CurrentPage]); // Empty dependency array ensures this runs only once after the component mounts
 
   if (isLoading) return <Spinner />
 
@@ -122,7 +123,7 @@ const RenderAwaitingApproval = () => {
       )}
 
       <div className='col-span-3'>
-        {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages || 1} onPageChange={setCurrentPage} /> : ""}
+        {data?.length !== 0 ? <Pagination currentPage={CurrentPage} totalPages={totalPages || 1} onPageChange={(t) => setCurrentPage(t)} /> : ""}
       </div>
     </div>
     </>

@@ -58,6 +58,7 @@ const RenderListedForSale = () => {
     const fetchData = async () => {
       const token = typeof window !== 'undefined' && localStorage.getItem('token');
       const direction = typeof window !== "undefined" && localStorage.getItem("direction");
+      const PerPage = 6;
 
       const myHeaders = new Headers();
       myHeaders.append("accept", "application/json");
@@ -65,7 +66,7 @@ const RenderListedForSale = () => {
       myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
 
       try {
-        const response = await fetch('https://test.jiovanilibya.org/api/user/sectors/list-for-sale',{
+        const response = await fetch(`https://test.jiovanilibya.org/api/user/sectors/list-for-sale?per_page=${PerPage}&page=${CurrentPage}`,{
           headers: myHeaders,
       });
         const result = await response.json();
@@ -83,7 +84,7 @@ const RenderListedForSale = () => {
 
     fetchData();
     
-  },[]); // Empty dependency array ensures this runs only once after the component mounts
+  },[CurrentPage]); // Empty dependency array ensures this runs only once after the component mounts
 
   if (isLoading) return <Spinner />
 

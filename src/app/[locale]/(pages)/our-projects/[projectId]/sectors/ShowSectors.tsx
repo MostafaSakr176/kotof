@@ -55,10 +55,11 @@ const ShowSectors = ({ projectId }: { projectId: number }) => {
   useEffect(() => {
     const fetchData = async () => {
       const direction = typeof window !== "undefined" && localStorage.getItem("direction");
+      const PerPage = 6;
           const myHeaders = new Headers();
           myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
       try {
-        const response = await fetch(`https://test.jiovanilibya.org/api/user/market?filter[project_id]=${projectId}`,{
+        const response = await fetch(`https://test.jiovanilibya.org/api/user/market?filter[project_id]=${projectId}&per_page=${PerPage}&page=${CurrentPage}`,{
           headers:myHeaders
         });
         const result = await response.json();
@@ -72,7 +73,7 @@ const ShowSectors = ({ projectId }: { projectId: number }) => {
     };
 
     fetchData();
-  }, [projectId]); // Empty dependency array ensures this runs only once after the component mounts
+  }, [CurrentPage, projectId]); // Empty dependency array ensures this runs only once after the component mounts
 
   const t = useTranslations("SectorDetails");
 

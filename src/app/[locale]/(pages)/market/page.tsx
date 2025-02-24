@@ -66,11 +66,13 @@ const RenderAllProducts = () => {
     const fetchData = async () => {
       const direction = typeof window !== "undefined" && localStorage.getItem("direction");
 
-          const myHeaders = new Headers();
-          myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
+      const PerPage = 6;
+
+      const myHeaders = new Headers();
+      myHeaders.append("Accept-Language", direction == 'ltr' ? "en" : "ar");
       try {
-        const response = await fetch('https://test.jiovanilibya.org/api/user/market',{
-          headers:myHeaders
+        const response = await fetch(`https://test.jiovanilibya.org/api/user/market?per_page=${PerPage}&page=${CurrentPage}`, {
+          headers: myHeaders
         });
         const result = await response.json();
         setData(result.data);
@@ -87,7 +89,7 @@ const RenderAllProducts = () => {
     };
 
     fetchData();
-  }, [router]); // Empty dependency array ensures this runs only once after the component mounts
+  }, [CurrentPage, router]); // Empty dependency array ensures this runs only once after the component mounts
 
   if (isLoading) return <Spinner />
 
@@ -122,13 +124,15 @@ const RenderFromCustomers = () => {
 
     const fetchData = async () => {
 
+      const PerPage = 6;
+
       const direction = typeof window !== "undefined" && localStorage.getItem("direction");
 
-          const myHeaders = new Headers();
-          myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
+      const myHeaders = new Headers();
+      myHeaders.append("Accept-Language", direction == 'ltr' ? "en" : "ar");
       try {
-        const response = await fetch('https://test.jiovanilibya.org/api/user/market?filter[type_id]=2',{
-          headers:myHeaders
+        const response = await fetch(`https://test.jiovanilibya.org/api/user/market?filter[type_id]=2&per_page=${PerPage}&page=${CurrentPage}`, {
+          headers: myHeaders
         });
         const result = await response.json();
         setData(result.data);
@@ -146,7 +150,7 @@ const RenderFromCustomers = () => {
     };
 
     fetchData();
-  }, [router]); // Empty dependency array ensures this runs only once after the component mounts
+  }, [CurrentPage, router]); // Empty dependency array ensures this runs only once after the component mounts
 
   if (isLoading) return <Spinner />
 
@@ -180,12 +184,12 @@ const RenderFromCompany = () => {
 
     const fetchData = async () => {
       const direction = typeof window !== "undefined" && localStorage.getItem("direction");
-
-          const myHeaders = new Headers();
-          myHeaders.append("Accept-Language", direction=='ltr'? "en" : "ar");
+      const PerPage = 6;
+      const myHeaders = new Headers();
+      myHeaders.append("Accept-Language", direction == 'ltr' ? "en" : "ar");
       try {
-        const response = await fetch('https://test.jiovanilibya.org/api/user/market?filter[type_id]=1',{
-          headers:myHeaders
+        const response = await fetch(`https://test.jiovanilibya.org/api/user/market?filter[type_id]=1&per_page=${PerPage}&page=${CurrentPage}`, {
+          headers: myHeaders
         });
         const result = await response.json();
         setData(result.data);
@@ -202,7 +206,7 @@ const RenderFromCompany = () => {
     };
 
     fetchData();
-  }, [router]); // Empty dependency array ensures this runs only once after the component mounts
+  }, [CurrentPage, router]); // Empty dependency array ensures this runs only once after the component mounts
 
   if (isLoading) return <Spinner />
 
@@ -233,17 +237,17 @@ const MarketPage = () => {
     },
     {
       id: 'tab3',
-      label:  t("fromCustomers"),
+      label: t("fromCustomers"),
       content: RenderFromCustomers
     },
     {
       id: 'tab4',
-      label:  t("fromCompany"),
+      label: t("fromCompany"),
       content: RenderFromCompany
     }
   ];
 
-  
+
 
   return (
     <>

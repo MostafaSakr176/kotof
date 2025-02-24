@@ -123,13 +123,13 @@ const RenderCurrentlyOwned = () => {
 
     const fetchData = async () => {
         const token = typeof window !== 'undefined' && localStorage.getItem('token');
-
+        const PerPage = 6;
         const myHeaders = new Headers();
         myHeaders.append("accept", "application/json");
         myHeaders.append("Authorization", `Bearer ${token ? JSON.parse(token) : ''}`);
 
         try {
-            const response = await fetch('https://test.jiovanilibya.org/api/user/sectors/currently-owned', {
+            const response = await fetch(`https://test.jiovanilibya.org/api/user/sectors/currently-owned?per_page=${PerPage}&page=${CurrentPage}`, {
                 headers: myHeaders,
             });
             const result = await response.json();
@@ -149,7 +149,8 @@ const RenderCurrentlyOwned = () => {
 
 
         fetchData();
-    }, []); // Empty dependency array ensures this runs only once after the component mounts
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [CurrentPage]); // Empty dependency array ensures this runs only once after the component mounts
 
 
     if (isLoading) return <Spinner />
